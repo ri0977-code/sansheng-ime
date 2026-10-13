@@ -1,0 +1,15 @@
+﻿# 个人数据（不含入版本库）
+user.txt
+user.yaml
+_我的自造词_可选/
+rime/我的自造词_可选/
+build/
+sync/
+*.userdb
+*.bak
+*.bak-*
+*.sw-*
+*-hamster.dict.yaml
+*.test-bak
+*.ctl-bak
+*.exp-bak
