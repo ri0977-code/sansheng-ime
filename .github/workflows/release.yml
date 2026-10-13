@@ -58,8 +58,11 @@ jobs:
           # 自造词原始备份不进包（个人数据），只保留硬依赖的主目录表
           rm -rf "$STAGE/rime/我的自造词_可选"
           (cd "$STAGE" && zip -r "../$ZIP_NAME" . -x '*.DS_Store')
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           echo "ZIP_NAME=$ZIP_NAME" >> "$GITHUB_ENV"
           ls -lh "$ZIP_NAME"
+          # 确认 zip 真的生成了，否则 action-gh-release 会静默跳过上传
+          test -f "$ZIP_NAME" || { echo "::error::zip 未生成"; exit 1; }
 
       - name: 提取标签注释作为发布说明
         run: |
@@ -72,7 +75,8 @@ jobs:
       - name: 创建 GitHub Release
         uses: softprops/action-gh-release@v3
         with:
-          name: v${{ env.GITHUB_REF_NAME }}
+          # 注意：github.ref_name 是内置上下文，env.GITHUB_REF_NAME 取不到（会变空）
+          name: v${{ github.ref_name }}
           body: ${{ env.NOTES }}
           generate_release_notes: true
           append_body: true
