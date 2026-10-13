@@ -75,8 +75,8 @@ jobs:
       - name: 创建 GitHub Release
         uses: softprops/action-gh-release@v3
         with:
-          # 注意：github.ref_name 是内置上下文，env.GITHUB_REF_NAME 取不到（会变空）
-          name: v${{ github.ref_name }}
+          # 不要设 name: —— action 会把 tag 名作为标题、name 作为副标题，
+          # 写 name: v${{ github.ref_name }} 就会显示成 "vv1.0.3"
           body: ${{ env.NOTES }}
           generate_release_notes: true
           append_body: true
