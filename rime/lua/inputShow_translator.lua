@@ -139,8 +139,11 @@ cands['ts']='Ts'
 cands['og']='Og'
 
 function translator(input, seg)
-	--抛出一个选项，用于告诉下游输入的内容是什么，为了避免和正式输入内容混淆，加入一个 Str的前缀
-	yield(Candidate("inputShow", seg.start, seg._end, 'Str'..input, "inputShowStr"))
+	-- DSH 2026-10-13 修复：这个 'Str'..input 候选是历史遗留的内部标记，
+	-- 但下游 inputShow_Filter 根本不消费它（滤镜自带 candsWillBeShown 表生成候选），
+	-- 于是它作为普通候选留在池子里被排序、被上屏 —— 打「1.」这类输入时
+	-- 会把 "Str1." 一起选中，直接污染输入内容。
+	-- 正确做法：这里不再抛出内部标记候选，交给 Filter 用自己的表生成。
 	if nil~=cands[input] then
 		if ''==cands[input] then
 			yield(Candidate("inputShow", seg.start, seg._end, input, "inputShow"))

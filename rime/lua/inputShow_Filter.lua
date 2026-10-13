@@ -178,7 +178,14 @@ local function _inputShow(input, env)
 	candsIdx = 0
 	candsCnt = 0
 	for cand in input:iter() do
-		if 1 == inputStrLen then
+		-- DSH 2026-10-13: translator 会产出 'Str'..input 这种内部标记候选
+		-- （见 inputShow.lua:143），本该只在滤镜内部传递、绝不该上屏。
+		-- 但它没被识别成候选就混进了 charCands/wordCands/cands，
+		-- 导致打「1.」这类输入时会把 "Str1." 直接选中上屏。
+		-- 这里统一拦掉：type 为 inputShow 且 text 以 Str 开头的一律丢弃。
+		if 'inputShow' == cand.type and string.sub(cand.text, 1, 3) == 'Str' then
+			-- 跳过，不计入任何候选池
+		elseif 1 == inputStrLen then
 			if '~' ~= string.sub(cand.comment,1,1) then
 				-- 如果输入的字符数量为1，则只出一简字
 				table.insert(charCands, cand)
@@ -205,9 +212,10 @@ local function _inputShow(input, env)
 				table.insert(charCands, cand)
 				candsCnt = candsCnt + 1
 			end
+			-- 只有通过筛选的候选才进 cands（Str 前缀项必须完全排除）
+			table.insert(cands, cand)
 		end
-		
-		table.insert(cands, cand)
+
 		if 1 == candsCnt then
 			if candsWillBeShownStr then
 				table.insert(charCands, Candidate("inputShow", 0, inputStrLen, candsWillBeShownStr, ''))

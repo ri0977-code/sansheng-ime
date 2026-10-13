@@ -139,8 +139,9 @@ cands['ts']='Ts'
 cands['og']='Og'
 
 function translator(input, seg)
-	--抛出一个选项，用于告诉下游输入的内容是什么，为了避免和正式输入内容混淆，加入一个 Str的前缀
-	yield(Candidate("inputShow", seg.start, seg._end, 'Str'..input, "inputShowStr"))
+	-- DSH 2026-10-13 修复：见 inputShow_translator.lua 的同名修复。
+	-- 原来的 'Str'..input 是无人消费的内部标记，会混进候选池被上屏
+	-- （打「1.」时输出 "Str1."），已移除。
 	if nil~=cands[input] then
 		if ''==cands[input] then
 			yield(Candidate("inputShow", seg.start, seg._end, input, "inputShow"))
