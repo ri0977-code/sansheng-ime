@@ -1,6 +1,6 @@
 -- codeLookup_Filter.lua
 -- 三生输入法（原五笔词通）：编码反查 + 多音字注释（独立滤镜，不改动 inputShow_Filter.lua）
--- 版本：v1.1  (2026-10-15)
+-- 版本：v1.2  (2026-10-16)
 --
 -- 设计原则（吸取 dsh/doubao 教训 + 本轮反馈）：
 --   1. 独立文件，绝不整文件替换 inputShow_Filter，避免「修一个坏一个」。
@@ -18,6 +18,10 @@
 --      2) 五笔反查码前置：[五笔码] 在前，其余在后，保证始终可见不被末尾截断（如 good→好 的 vbrq）。
 --      3) 碰撞隐藏逻辑保留：现算码被另一多字词占用则隐藏（家乡的茶 pxra 与 它找 撞车 → 不显示）。
 --      4) 不手动塞词原则不变：遵循自动组词，海洋生物→iitt 由标准规则计算显示，不动词典。
+--   · v1.2（真机反馈·恢复“真反查”语义）：
+--      打五笔只回显拼音、打拼音/英文只回显五笔（各显示“对方”那套码，不再两套都显示）。
+--      通过读取 env.engine.context.input 判断输入类型：拼音/英文输入→剥离上游 ✔拼音并回显五笔码；
+--      五笔输入→保留上游 ✔拼音、不再追加五笔码；单字多音字（如 长→zhang/chang）在五笔输入时升级为全部读音。
 --
 -- 插入位置：wubi_pinyin.custom.yaml 的 engine/filters 中，pinyinAdding_Filter 之后插入
 --   - lua_filter@codeLookup_Filter
@@ -264,16 +268,31 @@ local function has_cjk(text)
   return false
 end
 
--- 判断上游（pinyinAdding_Filter）是否已把拼音写进 comment：
--- pinyinAdding 用 '✔' 作为拼音分隔符；或 comment 已含目标拼音串，则视为已显示，避免重复。
-local function pinyin_already_shown(base, py)
-  if not base or base == '' then return false end
-  if base:find('✔', 1, true) then return true end
-  if py and py ~= '' and base:find(py, 1, true) then return true end
-  return false
+-- 剥离上游 pinyinAdding_Filter 写入的 ✔拼音（其追加在 comment 末尾）
+local function strip_upstream_pinyin(base)
+  return (base:gsub('✔.*$', ''))
 end
 
--- 滤镜主体：仅追加「五笔反查码」（前置，保证可见）+ 单字多音字补全读音；拼音交由上游 pinyinAdding。
+-- 反查分类：根据「输入串」与候选自身的「五笔码 / 拼音」比对，判断回显哪一套：
+--   · 输入 == 候选五笔码     → 用户打的是五笔  → 回显拼音（多音字含全部读音）
+--   · 输入 == 候选拼音(任一) → 用户打的是拼音  → 回显五笔
+--   · 其它(英文 / 部分码)    → 回显五笔（与 good→好 的旧行为一致）
+-- 该方案精确还原“真反查”语义，且不误伤「五笔码含元音键」的常见字（不=i、有=e、和=a 等）。
+local function classify_input(raw, wubi, pinyinStr)
+  raw = (raw or ''):lower()
+  if raw == '' then return 'pinyin' end
+  if wubi and raw == wubi:lower() then return 'pinyin' end
+  if pinyinStr then
+    for py in pinyinStr:gmatch('[^/]+') do
+      if raw == py:lower() then return 'wubi' end
+    end
+  end
+  return 'wubi'
+end
+
+-- 滤镜主体：实现“真反查”——按输入类型只回显对方那套码。
+--   五笔输入 → 回显拼音（上游已注 ✔），不追五笔码；单字多音字升级为全部读音。
+--   拼音/英文输入 → 剥离上游 ✔拼音，只回显五笔码。
 -- 全程 pcall，出错也不影响 yield。
 local function codeLookup(input, env)
   local on = true
@@ -284,6 +303,8 @@ local function codeLookup(input, env)
     end
     return
   end
+  local rawInput = ''
+  pcall(function() rawInput = tostring(env.engine.context.input or '') end)
   for cand in input:iter() do
     pcall(function()
       local txt = cand.text or ''
@@ -292,23 +313,24 @@ local function codeLookup(input, env)
         local p = get_pinyin(txt)
         local L = utf8Len(txt)
         local base = cand.comment or ''
-        local parts = {}
-        if w then parts[#parts + 1] = '[' .. w .. ']' end
-        -- 拼音：单字仅当「多音字(含/)」才补全部读音，避免与上游单读重复；多字词上游已注✔则不重复
-        local addPy = false
-        if p then
-          if L == 1 then
-            addPy = (not pinyin_already_shown(base, p)) or (p:find('/', 1, true) ~= nil)
-          else
-            addPy = not pinyin_already_shown(base, p)
+        local mode = classify_input(rawInput, w, p)   -- 'pinyin' 或 'wubi'
+        if mode == 'wubi' then
+          -- 拼音/英文输入：回显五笔码，剥离上游拼音，避免重复
+          if w then
+            local head = strip_upstream_pinyin(base):gsub('%s+$', '')
+            local cm = (head ~= '' and head .. ' ' or '') .. '[' .. w .. ']'
+            cand:get_genuine().comment = cm
           end
-        end
-        if addPy then parts[#parts + 1] = p end
-        local extra = #parts > 0 and table.concat(parts, ' ') or nil
-        if extra then
-          -- 五笔码前置：extra 放最前，原 comment 接在后面，确保反查码始终可见不被截断
-          local sep = (base ~= '' and base:sub(1, 1) ~= ' ') and ' ' or ''
-          cand:get_genuine().comment = extra .. sep .. base
+          -- w 为 nil（算不出五笔码）时保留原拼音注释，不强行清空
+        else
+          -- 五笔输入：回显拼音（上游已注 ✔），不追加五笔码
+          if L == 1 and p and p:find('/', 1, true) then
+            -- 单字多音字：把上游单读升级为全部读音（如 长 → zhang/chang）
+            local head = strip_upstream_pinyin(base):gsub('%s+$', '')
+            local cm = (head ~= '' and head .. ' ' or '') .. p
+            cand:get_genuine().comment = cm
+          end
+          -- 其余（单字单读 / 多字词）：base 已是上游 ✔拼音，保持原样
         end
       end
     end)
