@@ -1,6 +1,6 @@
 -- codeLookup_Filter.lua
 -- 三生输入法（原五笔词通）：编码反查 + 多音字注释（独立滤镜，不改动 inputShow_Filter.lua）
--- 版本：v1.4  (2026-10-16)
+-- 版本：v1.5  (2026-10-16)
 --
 -- 设计原则（吸取 dsh/doubao 教训 + 本轮反馈）：
 --   1. 独立文件，绝不整文件替换 inputShow_Filter，避免「修一个坏一个」。
@@ -31,6 +31,14 @@
 --      1) 根因：v1.3 把「英文/其它」输入归类为「回显五笔码」并剥掉上游拼音 → good→好 只见 [vb] 不见 hao、small→小 只见 [ih] 不见 xiao。
 --      2) 修复：英文/其它输入改为回显「拼音 + 五笔码」（最全），如 good→好 显示「hao [vb]」、small→小 显示「xiao [ih]」。
 --      3) 五笔输入仍只回显拼音、拼音输入仍只回显五笔（真反查两条主轴不变）；英文查词作为“查义”场景给最全信息。
+--   · v1.5（真机反馈·恢复上游详细注释，不再覆盖）：
+--      1) 根因：v1.2~v1.4 用 `cand.comment = 反查串` 整条覆盖，把 phraseComment 的💡词性/释义、pinyinAdding 的✔拼音全抹掉。
+--      2) 修复：改为【保留原 comment，仅前置追加反查码（去重）】—— `新注释 = 反查码 + 原comment`。
+--          · 打五笔→想看拼音：base 通常已含 ✔拼音则不补；仅缺失才补（防双份）。
+--          · 打拼音→想看五笔：前置 [wubi]，base 不含则补（防重复）。
+--          · 打英文→最全：base 已有拼音只补 [wubi]，缺失再补齐拼音（均防重复）。
+--          · 单字多音字打五笔：把 base 里单读 ✔zhang 升级为全读 ✔zhang/chang（去重替换）。
+--      3) 反查语义、碰撞隐藏、不手动塞词等全部能力不变；词性/释义/拼音注释全部回来。
 --
 -- 插入位置：wubi_pinyin.custom.yaml 的 engine/filters 中，pinyinAdding_Filter 之后插入
 --   - lua_filter@codeLookup_Filter
@@ -299,11 +307,11 @@ local function classify_input(raw, wubi, pinyinStr)
   return 'both'
 end
 
--- 滤镜主体：实现“真反查”——按输入类型回显对方那套码，英文/其它给最全信息，且【置最前】保证不被截断。
---   五笔输入       → 回显拼音（用本滤镜拼音表，可靠；不依赖上游 ✔，上游覆盖不全），如 vb→好 显示 hao
---   拼音输入       → 剥离上游 ✔拼音，回显五笔码置最前，如 hao→好 显示 [vb]
---   英文/其它输入  → 回显「拼音 + 五笔码」，如 good→好 显示 hao [vb]、small→小 显示 xiao [ih]
---   单字多音字     → 打五笔时列全部读音（长 → zhang/chang）
+-- 滤镜主体：实现“真反查”——按输入类型【只前置追加对方那套码】，且【完整保留上游注释】（phraseComment 的💡词性/释义 + pinyinAdding 的✔拼音），绝不整体覆盖。
+--   五笔输入       → 想看拼音：base 通常已含 ✔拼音则不补（缺才补），如 vb→好 仍显示 ✔hao + 词性/释义
+--   拼音输入       → 想看五笔：前置 [wubi]，如 hao→好 显示 [vb] + 原词性/释义/✔hao
+--   英文/其它输入  → 最全：base 已有拼音只补 [wubi]，如 good→好 显示 [vb] + 原词性/释义/✔hao
+--   单字多音字     → 打五笔时把 base 单读 ✔zhang 升级为全读 ✔zhang/chang（去重替换）
 -- 全程 pcall，出错也不影响 yield。
 local function codeLookup(input, env)
   local on = true
@@ -323,32 +331,40 @@ local function codeLookup(input, env)
         local w = get_wubi(txt)
         local p = get_pinyin(txt)
         local L = utf8Len(txt)
-        local base = cand.comment or ''
-        local mode = classify_input(rawInput, w, p)   -- 'pinyin' / 'wubi' / 'both'
+        local base = cand.comment or ''   -- ★ 上游已含：phraseComment 的💡词性/释义 + pinyinAdding 的✔拼音，必须原样保留
+        local mode = classify_input(rawInput, w, p)   -- 'pinyin'(打五笔→显拼音) / 'wubi'(打拼音→显五笔) / 'both'(打英文→最全)
+        local add = nil
         if mode == 'wubi' then
-          -- 拼音输入：回显五笔码，【置最前】，并剥掉上游 ✔拼音
-          if w then
-            local rest = strip_upstream_pinyin(base):gsub('^%s+', ''):gsub('%s+$', '')
-            cand:get_genuine().comment = '[' .. w .. ']' .. (rest ~= '' and (' ' .. rest) or '')
+          -- 打拼音 → 想看五笔码；base 通常不含五笔码 → 前置追加 [wubi]（去重）
+          if w and not base:find('%[' .. w .. '%]', 1, true) then
+            add = '[' .. w .. ']'
           end
-          -- w 为 nil（撞车隐藏/算不出）时保留原注释，不强行清空
-        elseif mode == 'both' then
-          -- 英文/其它输入：回显「拼音 + 五笔码」（最全），满足英文查词既要音又要码
-          local py = p or base:match('✔([%w/]+)')
-          if py and w then
-            cand:get_genuine().comment = py .. ' [' .. w .. ']'
-          elseif py then
-            cand:get_genuine().comment = py
-          elseif w then
-            cand:get_genuine().comment = '[' .. w .. ']'
+        elseif mode == 'pinyin' then
+          -- 打五笔 → 想看拼音；base 通常已含 ✔拼音；仅当确实缺失才补（去重，避免双份拼音）
+          if L == 1 and p and p:find('/', 1, true) then
+            -- 单字多音字：base 若只列单读，升级为全部读音（去重替换，不重复）
+            if base:find('✔', 1, true) then
+              local upgraded = base:gsub('✔[%w/]+', '✔' .. p)
+              if upgraded ~= base then cand:get_genuine().comment = upgraded end
+            elseif not base:find(p, 1, true) then
+              add = p
+            end
+          elseif p and not base:find('✔', 1, true) and not base:find(p, 1, true) then
+            add = p
           end
-        else
-          -- 五笔输入：回显拼音，【置最前】；用本滤镜拼音表（可靠），兜底抽上游 ✔
-          local py = p or base:match('✔([%w/]+)')
-          if py then
-            cand:get_genuine().comment = py   -- 真反查：仅显示对方那套码（拼音）
+        else  -- 'both' 英文/其它
+          -- 想看 拼音+五笔码（最全）；base 已有拼音则只补五笔码，缺失则补齐（均去重）
+          if w and not base:find('%[' .. w .. '%]', 1, true) then
+            add = (add and add .. ' ' or '') .. '[' .. w .. ']'
           end
-          -- py 为 nil 时保留原注释
+          if p and not base:find('✔', 1, true) and not base:find(p, 1, true) then
+            add = (add and add .. ' ' or '') .. p
+          end
+        end
+        if add then
+          -- ★ 前置（保证反查码不被末尾截断），base 原样保留在后（词性/释义/✔拼音一律不丢）
+          local sep = (base ~= '' and base:sub(1, 1) ~= ' ' and add:sub(-1) ~= ' ') and ' ' or ''
+          cand:get_genuine().comment = add .. sep .. base
         end
       end
     end)
