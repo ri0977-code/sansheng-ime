@@ -1,6 +1,6 @@
 -- codeLookup_Filter.lua
 -- 三生输入法（原五笔词通）：编码反查 + 多音字注释（独立滤镜，不改动 inputShow_Filter.lua）
--- 版本：v1.3  (2026-10-16)
+-- 版本：v1.4  (2026-10-16)
 --
 -- 设计原则（吸取 dsh/doubao 教训 + 本轮反馈）：
 --   1. 独立文件，绝不整文件替换 inputShow_Filter，避免「修一个坏一个」。
@@ -27,6 +27,10 @@
 --         修复上游 pinyinAdding 拼音表覆盖不全（有 大→da/dai 却漏 好→hao、少→shao）导致 vb→好 / it→少 不显拼音。
 --      2) 拼音/英文输入分支把五笔码【置最前】，不再甩在末尾（修复 good→好 的 vbrq 因居末被截断看不到）。
 --      3) 真反查语义不变：仅显示“对方”那套码；单一码即够，不再重复显示。
+--   · v1.4（真机反馈·英文反查补回拼音）：
+--      1) 根因：v1.3 把「英文/其它」输入归类为「回显五笔码」并剥掉上游拼音 → good→好 只见 [vb] 不见 hao、small→小 只见 [ih] 不见 xiao。
+--      2) 修复：英文/其它输入改为回显「拼音 + 五笔码」（最全），如 good→好 显示「hao [vb]」、small→小 显示「xiao [ih]」。
+--      3) 五笔输入仍只回显拼音、拼音输入仍只回显五笔（真反查两条主轴不变）；英文查词作为“查义”场景给最全信息。
 --
 -- 插入位置：wubi_pinyin.custom.yaml 的 engine/filters 中，pinyinAdding_Filter 之后插入
 --   - lua_filter@codeLookup_Filter
@@ -281,7 +285,7 @@ end
 -- 反查分类：根据「输入串」与候选自身的「五笔码 / 拼音」比对，判断回显哪一套：
 --   · 输入 == 候选五笔码     → 用户打的是五笔  → 回显拼音（多音字含全部读音）
 --   · 输入 == 候选拼音(任一) → 用户打的是拼音  → 回显五笔
---   · 其它(英文 / 部分码)    → 回显五笔（与 good→好 的旧行为一致）
+--   · 其它(英文 / 部分码)    → 回显「拼音 + 五笔码」（最全，满足英文查词既要音又要码，如 good→好 显示 hao [vb]）
 -- 该方案精确还原“真反查”语义，且不误伤「五笔码含元音键」的常见字（不=i、有=e、和=a 等）。
 local function classify_input(raw, wubi, pinyinStr)
   raw = (raw or ''):lower()
@@ -292,12 +296,13 @@ local function classify_input(raw, wubi, pinyinStr)
       if raw == py:lower() then return 'wubi' end
     end
   end
-  return 'wubi'
+  return 'both'
 end
 
--- 滤镜主体：实现“真反查”——按输入类型只回显对方那套码，且【置最前】保证不被截断。
+-- 滤镜主体：实现“真反查”——按输入类型回显对方那套码，英文/其它给最全信息，且【置最前】保证不被截断。
 --   五笔输入       → 回显拼音（用本滤镜拼音表，可靠；不依赖上游 ✔，上游覆盖不全），如 vb→好 显示 hao
---   拼音/英文输入  → 剥离上游 ✔拼音，回显五笔码置最前，如 hao/good→好 显示 [vb]
+--   拼音输入       → 剥离上游 ✔拼音，回显五笔码置最前，如 hao→好 显示 [vb]
+--   英文/其它输入  → 回显「拼音 + 五笔码」，如 good→好 显示 hao [vb]、small→小 显示 xiao [ih]
 --   单字多音字     → 打五笔时列全部读音（长 → zhang/chang）
 -- 全程 pcall，出错也不影响 yield。
 local function codeLookup(input, env)
@@ -319,14 +324,24 @@ local function codeLookup(input, env)
         local p = get_pinyin(txt)
         local L = utf8Len(txt)
         local base = cand.comment or ''
-        local mode = classify_input(rawInput, w, p)   -- 'pinyin' 或 'wubi'
+        local mode = classify_input(rawInput, w, p)   -- 'pinyin' / 'wubi' / 'both'
         if mode == 'wubi' then
-          -- 拼音/英文输入：回显五笔码，【置最前】，并剥掉上游 ✔拼音
+          -- 拼音输入：回显五笔码，【置最前】，并剥掉上游 ✔拼音
           if w then
             local rest = strip_upstream_pinyin(base):gsub('^%s+', ''):gsub('%s+$', '')
             cand:get_genuine().comment = '[' .. w .. ']' .. (rest ~= '' and (' ' .. rest) or '')
           end
           -- w 为 nil（撞车隐藏/算不出）时保留原注释，不强行清空
+        elseif mode == 'both' then
+          -- 英文/其它输入：回显「拼音 + 五笔码」（最全），满足英文查词既要音又要码
+          local py = p or base:match('✔([%w/]+)')
+          if py and w then
+            cand:get_genuine().comment = py .. ' [' .. w .. ']'
+          elseif py then
+            cand:get_genuine().comment = py
+          elseif w then
+            cand:get_genuine().comment = '[' .. w .. ']'
+          end
         else
           -- 五笔输入：回显拼音，【置最前】；用本滤镜拼音表（可靠），兜底抽上游 ✔
           local py = p or base:match('✔([%w/]+)')
