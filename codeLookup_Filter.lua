@@ -1,6 +1,6 @@
 -- codeLookup_Filter.lua
 -- 三生输入法（原五笔词通）：编码反查 + 多音字注释（独立滤镜，不改动 inputShow_Filter.lua）
--- 版本：v3.0  (2026-10-15)
+-- 版本：v1.1  (2026-10-15)
 --
 -- 设计原则（吸取 dsh/doubao 教训 + 本轮反馈）：
 --   1. 独立文件，绝不整文件替换 inputShow_Filter，避免「修一个坏一个」。
@@ -10,17 +10,14 @@
 --   4. 只改 comment，不改候选顺序与身份 → 调频/自造词不受影响。
 --   5. 复用 phraseComment 开关（默认开）：关闭 commentOn 时本滤镜不输出注释。
 --
--- v3.0 修复（本轮反馈）：
---   A. 【拼音反查恢复】多字词若无词级拼音，按「逐字首选读音」拼接（如 海洋生物 → haiyangshengwu），
---      不再隐藏拼音。注释格式改为「拼音在前、五笔码在后」：haiyangshengwu [iitt]。
---   B. 【杜绝误导性假码】五笔码只显示两种来源：
---        (1) 词库实码（wubi86 / wnwb 自造词 / user.txt 真实词条）；
---        (2) 按【标准五笔组词规则】现算的码，但【若该码已被另一个多字词占用则隐藏】
---            —— 例：家乡的茶 现算 pxra，但 pxra 已被真实词「它找」占用，故隐藏，只显示拼音，避免误导。
---      单字占用（如 海洋生物→iitt 与单字 沙→iitt 共存）属正常，仍显示。
---   C. 【不再手动塞词】彻底移除 v2.1 的 wubi_citong 补充词典（主人要求：遵循自动组词原则，
---      不在词典里随意加词）。海洋生物→iitt 改由「标准组词规则计算 + 无多字撞车」显示，不动词典。
---      真正要可单码打出，靠 Rime 自动组词（连续上屏后即写入 user.txt，本滤镜读取显示）。
+-- 版本沿革：五笔词通 v1→v3（在 dsh 残局上重建）＝ 更名前；三生输入法自 v1.0 起重新计版。
+--   · v1.0 ＝ 原「五笔词通 v3.0」更名基线：拼音反查恢复(逐字首选读音) + 碰撞检测 + 移除手动词典 + user.txt(tabledb) 正确加载。
+--   · v1.1（本轮真机反馈修复）：
+--      1) 拼音注释改由上游 pinyinAdding_Filter 负责（其以 ✔ 标注拼音），本滤镜不再追加拼音，
+--         仅对「单字多音字」补充全部读音，消除「打拼音时注释里多出一份拼音」的重复。
+--      2) 五笔反查码前置：[五笔码] 在前，其余在后，保证始终可见不被末尾截断（如 good→好 的 vbrq）。
+--      3) 碰撞隐藏逻辑保留：现算码被另一多字词占用则隐藏（家乡的茶 pxra 与 它找 撞车 → 不显示）。
+--      4) 不手动塞词原则不变：遵循自动组词，海洋生物→iitt 由标准规则计算显示，不动词典。
 --
 -- 插入位置：wubi_pinyin.custom.yaml 的 engine/filters 中，pinyinAdding_Filter 之后插入
 --   - lua_filter@codeLookup_Filter
@@ -244,13 +241,13 @@ local function get_pinyin(text)
   return res ~= '' and res or nil
 end
 
--- 反查结果：拼音在前、五笔码在后（主人要求格式：haiyangshengwu [iitt]）
+-- 反查结果（自测用）：五笔码在前、拼音在后 [wubi] pinyin；正式链路由 codeLookup 处理（含前置与去重）
 function M.lookup(text)
   local p = get_pinyin(text)
   local w = get_wubi(text)
   local parts = {}
-  if p then parts[#parts + 1] = p end
   if w then parts[#parts + 1] = '[' .. w .. ']' end
+  if p then parts[#parts + 1] = p end
   return #parts > 0 and table.concat(parts, ' ') or nil
 end
 
@@ -267,7 +264,17 @@ local function has_cjk(text)
   return false
 end
 
--- 滤镜主体：对每个中文候选追加「拼音 [五笔码]」；全程 pcall，出错也不影响 yield。
+-- 判断上游（pinyinAdding_Filter）是否已把拼音写进 comment：
+-- pinyinAdding 用 '✔' 作为拼音分隔符；或 comment 已含目标拼音串，则视为已显示，避免重复。
+local function pinyin_already_shown(base, py)
+  if not base or base == '' then return false end
+  if base:find('✔', 1, true) then return true end
+  if py and py ~= '' and base:find(py, 1, true) then return true end
+  return false
+end
+
+-- 滤镜主体：仅追加「五笔反查码」（前置，保证可见）+ 单字多音字补全读音；拼音交由上游 pinyinAdding。
+-- 全程 pcall，出错也不影响 yield。
 local function codeLookup(input, env)
   local on = true
   pcall(function() on = env.engine.context:get_option("phraseComment") end)
@@ -281,11 +288,27 @@ local function codeLookup(input, env)
     pcall(function()
       local txt = cand.text or ''
       if has_cjk(txt) then
-        local extra = M.lookup(txt)
+        local w = get_wubi(txt)
+        local p = get_pinyin(txt)
+        local L = utf8Len(txt)
+        local base = cand.comment or ''
+        local parts = {}
+        if w then parts[#parts + 1] = '[' .. w .. ']' end
+        -- 拼音：单字仅当「多音字(含/)」才补全部读音，避免与上游单读重复；多字词上游已注✔则不重复
+        local addPy = false
+        if p then
+          if L == 1 then
+            addPy = (not pinyin_already_shown(base, p)) or (p:find('/', 1, true) ~= nil)
+          else
+            addPy = not pinyin_already_shown(base, p)
+          end
+        end
+        if addPy then parts[#parts + 1] = p end
+        local extra = #parts > 0 and table.concat(parts, ' ') or nil
         if extra then
-          local base = cand.comment or ''
-          local sep = (base ~= '' and base:sub(-1) ~= ' ' and base:sub(-1) ~= '\r') and ' ' or ''
-          cand:get_genuine().comment = base .. sep .. extra
+          -- 五笔码前置：extra 放最前，原 comment 接在后面，确保反查码始终可见不被截断
+          local sep = (base ~= '' and base:sub(1, 1) ~= ' ') and ' ' or ''
+          cand:get_genuine().comment = extra .. sep .. base
         end
       end
     end)
