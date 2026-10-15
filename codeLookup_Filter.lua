@@ -1,6 +1,6 @@
 -- codeLookup_Filter.lua
 -- 三生输入法（原五笔词通）：编码反查 + 多音字注释（独立滤镜，不改动 inputShow_Filter.lua）
--- 版本：v1.2  (2026-10-16)
+-- 版本：v1.3  (2026-10-16)
 --
 -- 设计原则（吸取 dsh/doubao 教训 + 本轮反馈）：
 --   1. 独立文件，绝不整文件替换 inputShow_Filter，避免「修一个坏一个」。
@@ -22,6 +22,11 @@
 --      打五笔只回显拼音、打拼音/英文只回显五笔（各显示“对方”那套码，不再两套都显示）。
 --      通过读取 env.engine.context.input 判断输入类型：拼音/英文输入→剥离上游 ✔拼音并回显五笔码；
 --      五笔输入→保留上游 ✔拼音、不再追加五笔码；单字多音字（如 长→zhang/chang）在五笔输入时升级为全部读音。
+--   · v1.3（真机反馈·修复反查不对称 + 截断）：
+--      1) 五笔输入分支不再“保持上游原样”，改为【主动用本滤镜拼音表把拼音置最前】——
+--         修复上游 pinyinAdding 拼音表覆盖不全（有 大→da/dai 却漏 好→hao、少→shao）导致 vb→好 / it→少 不显拼音。
+--      2) 拼音/英文输入分支把五笔码【置最前】，不再甩在末尾（修复 good→好 的 vbrq 因居末被截断看不到）。
+--      3) 真反查语义不变：仅显示“对方”那套码；单一码即够，不再重复显示。
 --
 -- 插入位置：wubi_pinyin.custom.yaml 的 engine/filters 中，pinyinAdding_Filter 之后插入
 --   - lua_filter@codeLookup_Filter
@@ -290,9 +295,10 @@ local function classify_input(raw, wubi, pinyinStr)
   return 'wubi'
 end
 
--- 滤镜主体：实现“真反查”——按输入类型只回显对方那套码。
---   五笔输入 → 回显拼音（上游已注 ✔），不追五笔码；单字多音字升级为全部读音。
---   拼音/英文输入 → 剥离上游 ✔拼音，只回显五笔码。
+-- 滤镜主体：实现“真反查”——按输入类型只回显对方那套码，且【置最前】保证不被截断。
+--   五笔输入       → 回显拼音（用本滤镜拼音表，可靠；不依赖上游 ✔，上游覆盖不全），如 vb→好 显示 hao
+--   拼音/英文输入  → 剥离上游 ✔拼音，回显五笔码置最前，如 hao/good→好 显示 [vb]
+--   单字多音字     → 打五笔时列全部读音（长 → zhang/chang）
 -- 全程 pcall，出错也不影响 yield。
 local function codeLookup(input, env)
   local on = true
@@ -315,22 +321,19 @@ local function codeLookup(input, env)
         local base = cand.comment or ''
         local mode = classify_input(rawInput, w, p)   -- 'pinyin' 或 'wubi'
         if mode == 'wubi' then
-          -- 拼音/英文输入：回显五笔码，剥离上游拼音，避免重复
+          -- 拼音/英文输入：回显五笔码，【置最前】，并剥掉上游 ✔拼音
           if w then
-            local head = strip_upstream_pinyin(base):gsub('%s+$', '')
-            local cm = (head ~= '' and head .. ' ' or '') .. '[' .. w .. ']'
-            cand:get_genuine().comment = cm
+            local rest = strip_upstream_pinyin(base):gsub('^%s+', ''):gsub('%s+$', '')
+            cand:get_genuine().comment = '[' .. w .. ']' .. (rest ~= '' and (' ' .. rest) or '')
           end
-          -- w 为 nil（算不出五笔码）时保留原拼音注释，不强行清空
+          -- w 为 nil（撞车隐藏/算不出）时保留原注释，不强行清空
         else
-          -- 五笔输入：回显拼音（上游已注 ✔），不追加五笔码
-          if L == 1 and p and p:find('/', 1, true) then
-            -- 单字多音字：把上游单读升级为全部读音（如 长 → zhang/chang）
-            local head = strip_upstream_pinyin(base):gsub('%s+$', '')
-            local cm = (head ~= '' and head .. ' ' or '') .. p
-            cand:get_genuine().comment = cm
+          -- 五笔输入：回显拼音，【置最前】；用本滤镜拼音表（可靠），兜底抽上游 ✔
+          local py = p or base:match('✔([%w/]+)')
+          if py then
+            cand:get_genuine().comment = py   -- 真反查：仅显示对方那套码（拼音）
           end
-          -- 其余（单字单读 / 多字词）：base 已是上游 ✔拼音，保持原样
+          -- py 为 nil 时保留原注释
         end
       end
     end)
