@@ -1,36 +1,29 @@
 -- codeLookup_Filter.lua
--- 五笔词通 · 编码反查 + 多音字注释（独立滤镜）
--- VERSION 2.0  (2026-10-15)
+-- 五笔词通：编码反查 + 多音字注释（独立滤镜，不改动 inputShow_Filter.lua）
+-- 版本：v2.1  (2026-10-15)
 --
--- ===== 相对 v1 的关键修复（dsh 遗留坏问题）=====
--- v1 对「不在词库里的多字词」采用「逐字最短码裸拼」，得到的不是五笔组词码，
--- 打不出来。例：海洋生物 → itxiutgtr，实际打出来是「少修生物/不系生物」。
--- v2 改为：
---   1) 整词优先查词库（词库本来就有正确词组码，如 春夏秋冬→ddtt、你好→wqvb）；
---   2) 查不到时，按【五笔标准组词取码规则】现算，绝不再裸拼：
---        二字词：各取前两码       例 你好 = 你(wq)+好(vb) = wqvb
---        三字词：前两字各取首码 + 第三字前两码
---        四字词：各取首码         例 春夏秋冬 = d+d+t+t = ddtt；海洋生物 = i+i+t+t = iitt
---        ≥五字词：前三字首码 + 末字首码
---   这样反查出来的是「真能打出的五笔词组码」，不是假拼接。
---
--- ===== 设计原则（吸取 dsh/doubao 教训，保持不变）=====
+-- 设计原则（吸取 dsh/doubao 教训）：
 --   1. 独立文件，绝不整文件替换 inputShow_Filter，避免「修一个坏一个」。
 --   2. 全程 pcall 保护，任何候选处理出错都不阻断 yield，绝不导致候选中断。
 --   3. comment 一律用 cand:get_genuine().comment 赋值，且先 `or ''` 防 nil 崩溃
 --      （dsh 旧版 cand.comment = cand.comment .. extra 在 nil 时崩 coroutine，导致调频/自造词全废）。
 --   4. 只改 comment，不改候选顺序与身份 → 调频/自造词不受影响。
 --   5. 复用 phraseComment 开关（默认开）：关闭 commentOn 时本滤镜不输出注释。
---   6. 索引一次性构建（M.load 仅执行一次，M._built 守卫），不随每次按键重建。
 --
--- ===== 挂接方式 =====
---   wubi_pinyin.custom.yaml 的 engine/filters 中，pinyinAdding_Filter 之后插入：
---     - lua_filter@codeLookup_Filter
---   rime.lua 末尾增加：
---     codeLookup_Filter = require("codeLookup_Filter")
+-- v2.1 修复（解决 dsh 遗留 + 本轮反馈）：
+--   A. 非词典词的反查编码，改用【标准五笔组词规则】按每字首码现算
+--      （2字=每字前2码；3字=前2+第1+后2；4字=每字第1码；>4=前三字第1码+末字前2），
+--      不再把每个字的「全码」裸拼（旧版 itx+iu+tg+tr=itxiutgtr 打不出原词）。
+--      词库已收录的词（含 wubi_citong 补充词典）优先用词典实码，保证与「真能打出」一致。
+--   B. 新增 wubi_citong.dict.yaml 补充词典（从拼音词库挑出 wubi86 未收录的多字词，
+--      按组词规则登记正确编码），使常见多字词（如 海洋生物→iitt）可单码打出。
+--
+-- 插入位置：wubi_pinyin.custom.yaml 的 engine/filters 中，pinyinAdding_Filter 之后插入
+--   - lua_filter@codeLookup_Filter
+-- 并在 rime.lua 末尾增加：
+--   codeLookup_Filter = require("codeLookup_Filter")
 
 local M = {}
-M.VERSION = "2.0"
 
 local logEnable, log = pcall(require, "runLog")
 local sysInfoEnable, sysInfo = pcall(require, 'sysInfo')
@@ -143,68 +136,65 @@ local function load_dict_file(path, kind)
   return n
 end
 
--- 载入全部反查数据源。五笔码优先主词库，自造词/用户词典只在缺位时补；
--- 拼音全量载入（多音字收集全部读音）。M._built 守卫确保只构建一次。
+-- 载入全部反查数据源。五笔码优先主词库，自造词/用户词典/补充词典只在缺位时补；
+-- 拼音全量载入（多音字收集全部读音）。
 function M.load(dir)
-  if M._built then return M end
   dir = dir or M.data_dir
   M.data_dir = dir
   wubiMap = {}
   pinyinMap = {}
-  load_dict_file(dir .. '/wubi86.dict.yaml', 'wubi')          -- 主五笔词库（13.7万条，含正确词组码）
+  load_dict_file(dir .. '/wubi86.dict.yaml', 'wubi')          -- 主五笔词库（13.7万条）
+  load_dict_file(dir .. '/wubi_citong.dict.yaml', 'wubi')      -- v2.1 补充词典：拼音多字词正确组词码
   load_dict_file(dir .. '/wnwb_wubi_custom_wp.dict.yaml', 'wubi') -- 万能五笔自造词
   load_dict_file(dir .. '/wnwb_wubi_user_wp.dict.yaml', 'wubi')   -- 用户五笔自造词
   load_dict_file(dir .. '/user.txt', 'wubi')                       -- 运行时自造词/用户词（兜底反查）
   load_dict_file(dir .. '/cn_pinyin_wp.dict.yaml', 'pinyin')       -- 全量汉字拼音（含多音字多行）
-  M._built = true
   return M
 end
 
--- 五笔标准组词取码规则（用于「整词不在词库」时现算正确词组码，绝不再裸拼）。
--- 依赖单字最短码（最短码是完整码的逐字前缀，取其前 1~2 码即该字对应位的标准码）。
-local function phrase_code(word)
-  local codes = {}
-  local n = 0
-  for ch in string.gmatch(word, utf8.charpattern) do
-    local c = wubiMap[ch]
-    if not c or c == '' then return nil end -- 含未收录字 → 无法构成词组码，交给拼音兜底
-    n = n + 1
-    codes[n] = c
-  end
-  if n == 0 then return nil end
-  if n == 1 then
-    return codes[1]
-  elseif n == 2 then
-    return codes[1]:sub(1, 2) .. codes[2]:sub(1, 2)
-  elseif n == 3 then
-    return codes[1]:sub(1, 1) .. codes[2]:sub(1, 1) .. codes[3]:sub(1, 2)
-  else
-    -- 四字及以上：前三字首码 + 末字首码
-    return codes[1]:sub(1, 1) .. codes[2]:sub(1, 1) .. codes[3]:sub(1, 1) .. codes[n]:sub(1, 1)
-  end
-end
-
--- 取五笔码：优先整词码（词库里的正确词组码）；未命中则按五笔组词规则现算。
+-- 取五笔码：优先整词实码（含补充词典，保证与「真能打出」一致）；
+-- 未命中整词时，按【标准五笔组词规则】用每字首码现算（不再裸拼全码）。
 local function get_wubi(text)
   local w = wubiMap[text]
   if w then return w end
-  return phrase_code(text)
+  local L = utf8Len(text)
+  if not L or L < 2 then return nil end
+  -- 收集每个字的五笔码；任一字无码则无法组词，返回 nil
+  local codes = {}
+  for ch in string.gmatch(text, utf8.charpattern) do
+    local c = wubiMap[ch]
+    if not c then return nil end
+    codes[#codes + 1] = c
+  end
+  local gc
+  if L == 2 then
+    -- 2字词：每字前 2 码
+    gc = string.sub(codes[1], 1, 2) .. string.sub(codes[2], 1, 2)
+  elseif L == 3 then
+    -- 3字词：第1字前2 + 第2字第1 + 第3字前2
+    gc = string.sub(codes[1], 1, 2) .. string.sub(codes[2], 1, 1) .. string.sub(codes[3], 1, 2)
+  elseif L == 4 then
+    -- 4字词：每字第 1 码
+    gc = string.sub(codes[1], 1, 1) .. string.sub(codes[2], 1, 1)
+       .. string.sub(codes[3], 1, 1) .. string.sub(codes[4], 1, 1)
+  else
+    -- >4字：前三字第1码 + 末字前2码
+    gc = string.sub(codes[1], 1, 1) .. string.sub(codes[2], 1, 1)
+       .. string.sub(codes[3], 1, 1) .. string.sub(codes[L], 1, 2)
+  end
+  if gc and #gc >= 2 then return gc end
+  return nil
 end
 
--- 取拼音：优先整词读音；否则逐字（多音字该字标 a/b，如 长 -> zhang/chang）
+-- 取拼音：只取「字/词级」拼音（单字多音字在此标全读音，如 长 -> zhang/chang；
+-- 多字短语若在拼音库则显示整词拼音，如 你好 -> nihao）。
+-- 不再对多字无词级拼音的词逐字裸拼（避免出现 haiyangshengwu 这类拼接噪声）。
 local function get_pinyin(text)
   local list = pinyinMap[text]
   if list and #list > 0 then
     return table.concat(list, '/')
   end
-  local res = ''
-  for ch in string.gmatch(text, utf8.charpattern) do
-    local l = pinyinMap[ch]
-    if l and #l > 0 then
-      res = res .. table.concat(l, '/')
-    end
-  end
-  return res ~= '' and res or nil
+  return nil
 end
 
 function M.lookup(text)
@@ -259,20 +249,19 @@ M.codeLookup = codeLookup
 M.has_cjk = has_cjk
 M.get_wubi = get_wubi
 M.get_pinyin = get_pinyin
-M.phrase_code = phrase_code
 
--- 运行时加载（Rime require 本模块时执行一次，建立索引；M._built 守卫防重复）
+-- 运行时加载（Rime require 本模块时执行一次，建立索引）
 M.load()
 
 -- 独立运行自测（仅在非 Rime 环境下：lua54 直接执行本文件时）
 if not (sysInfoEnable and sysInfo and sysInfo.currentDir) then
   local testDir = M.data_dir ~= '' and M.data_dir or 'D:/Program Files/Rime'
   M.load(testDir)
-  print('codeLookup v' .. M.VERSION .. ' self-test, data_dir=' .. testDir)
+  print('codeLookup self-test, data_dir=' .. testDir)
   print('wubi entries=' .. (function() local n=0 for _ in pairs(wubiMap) do n=n+1 end return n end)())
   print('pinyin entries=' .. (function() local n=0 for _ in pairs(pinyinMap) do n=n+1 end return n end)())
   for _, t in ipairs({ '电', '长', '你', '好', '你好', '苹果', '划', '中国', '人民', '银行',
-                       '海洋生物', '春夏秋冬', '打印机', '中华人民共和国', '我们' }) do
+                       '海洋生物', '春夏秋冬', '打印机', '中华人民共和国', '中国人' }) do
     print(t .. ' -> ' .. tostring(M.lookup(t)))
   end
 end
