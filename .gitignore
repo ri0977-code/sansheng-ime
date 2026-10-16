@@ -1,0 +1,4 @@
+# local build artifacts / backups, never publish
+rime-backup*/
+*.zip
+*.bak
