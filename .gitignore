@@ -19,3 +19,14 @@ user.yaml
 installation.yaml
 Custom_phrase.txt
 *.log
+
+# ---- 继承自原「五笔词通」仓库（v1.0 历史）的忽略项 ----
+*-hamster.dict.yaml
+*.bak-*
+*.ctl-bak
+*.exp-bak
+*.sw-*
+*.test-bak
+_我的自造词_可选/
+build/
+rime/我的自造词_可选/
