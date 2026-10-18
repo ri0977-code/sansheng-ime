@@ -1,9 +1,9 @@
-﻿customization:
+customization:
   distribution_code_name: Weasel
   distribution_version: 0.17.4
   generator: "Weasel::UIStyleSettings"
   modified_time: "Tue Oct 13 10:07:13 2026"
   rime_version: 1.13.1
 patch:
-  "show_notifications": false   # 关掉中英/简繁切换时光标处的提示气泡（旧图标残留）· 2026-10-18
+  "show_notifications": true    # 打开气泡做实测：它到底跟不跟 TIP IconFile（现指向金环三）· 2026-10-18 深夜
   "style/color_scheme": aqua

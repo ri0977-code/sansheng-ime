@@ -1,5 +1,11 @@
 ﻿# encoding:utf-8
 patch:
+  # 运行态气泡图标：小狼毫 WeaselServer 读 schema/zhung_icon(中) / schema/icon /
+  # schema/ascii_icon(英) / full_icon / half_icon（今晚从 WeaselServer.exe 的字符串表实测）。
+  # 只影响气泡图标，不动候选、不动码表。文件名相对「用户资料夹」根目录。
+  "schema/icon": "icon-sansheng-bubble.ico"
+  "schema/zhung_icon": "icon-sansheng-bubble.ico"
+  "schema/ascii_icon": "icon-sansheng-bubble-en.ico"
   switches/+: #增加以下开关
     - name: encnDic					# 中英字典开关
       reset: 1

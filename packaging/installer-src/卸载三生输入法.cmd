@@ -1,12 +1,12 @@
 @echo off
-chcp 65001 >nul
-REM åŒå‡»å³å¯è¿è¡Œ Â· ä¸‰ç”Ÿè¾“å…¥æ³•å¸è½½ï¼ˆé»˜è®¤é¢„æ¼”ï¼Œçœ‹æ¸…å•åŽå†é€‰â€œæ‰§è¡Œå¸è½½â€ï¼‰
+REM Ë«»÷¼´¿ÉÔËÐÐ ¡¤ ÈýÉúÊäÈë·¨Ð¶ÔØ£¨Ä¬ÈÏÔ¤ÑÝ£¬¿´Çåµ¥ºóÔÙÑ¡¡°Ö´ÐÐÐ¶ÔØ¡±£©
+REM ×¢Òâ£º±¾ÎÄ¼þ±ØÐë´æ³É ANSI/GBK + CRLF£¬·ñÔò cmd ½âÎöÖÐÎÄÐÐ»á´®Î»£¨Ïê¼û¹¤×÷¼ÇÂ¼ ¡ì¶þÊ®Ò»£©
 cd /d "%~dp0"
-set /p GO=ç›´æŽ¥å›žè½¦ = åªçœ‹é¢„æ¼”æ¸…å•ï¼›è¾“å…¥ Y å†å›žè½¦ = çœŸçš„å¸è½½ï¼ˆä¼šå¼¹ä¸€æ¬¡ç®¡ç†å‘˜æŽˆæƒï¼‰ï¼š
+set /p GO=Ö±½Ó»Ø³µ = Ö»¿´Ô¤ÑÝÇåµ¥£»ÊäÈë Y ÔÙ»Ø³µ = ÕæµÄÐ¶ÔØ£¨»áµ¯Ò»´Î¹ÜÀíÔ±ÊÚÈ¨£©£º
 if /I "%GO%"=="Y" (
-  powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0å¸è½½ä¸‰ç”Ÿè¾“å…¥æ³•.ps1" -Apply
+  powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0Ð¶ÔØÈýÉúÊäÈë·¨.ps1" -Apply
 ) else (
-  powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0å¸è½½ä¸‰ç”Ÿè¾“å…¥æ³•.ps1"
+  powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0Ð¶ÔØÈýÉúÊäÈë·¨.ps1"
 )
 echo.
 pause

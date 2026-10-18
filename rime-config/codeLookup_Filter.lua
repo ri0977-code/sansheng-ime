@@ -63,10 +63,18 @@ local function utf8Len(s)
 end
 
 -- 计算 Rime 数据目录（dict 文件所在）。优先运行时 API 返回的目录，
--- 其次硬编码已知目录 D:/Program Files/Rime，再次 fallback 到 lua 目录的上一级。
+-- 其次硬编码已知目录 D:/Program Files/Rime，再次 %APPDATA%\Rime，
+-- 再次 fallback 到 lua 目录的上一级。
 -- 以「该目录下存在 wubi86.dict.yaml」为准。
 local function dir_has_dicts(dir)
   local f = io.open(dir .. '/wubi86.dict.yaml', 'r')
+  if f then f:close(); return true end
+  return false
+end
+
+-- 目录本身在不在（用 installation.yaml 认，小狼毫的用户目录里必然有它）
+local function dir_exists(dir)
+  local f = io.open(dir .. '/installation.yaml', 'r')
   if f then f:close(); return true end
   return false
 end
@@ -79,19 +87,50 @@ local function resolve_data_dir()
     if ok2 and dd and dd ~= '' then candidates[#candidates + 1] = dd:gsub('\\', '/') end
   end
   candidates[#candidates + 1] = 'D:/Program Files/Rime'
+  -- v1.6 第 2 条兜底（最可靠的一路）：本滤镜文件是被引擎从哪儿加载的，
+  -- 那个 lua 目录的上一级就是真正的数据目录，不需要任何 API 或环境变量。
+  -- 实测笔记本与这台桌面机上 rime.get_api().get_user_data_dir 和 sysInfo.currentDir
+  -- 都没进候选表（runLog 里「候选=」只有两条），所以只靠 API 是不行的。
+  local ok_dbg, info = pcall(function() return debug.getinfo(1, 'S') end)
+  if ok_dbg and info and info.source and tostring(info.source):sub(1, 1) == '@' then
+    local p = tostring(info.source):sub(2):gsub('\\', '/'):match('^(.-)/lua/[^/]+$')
+    if p and p ~= '' then candidates[#candidates + 1] = p end
+  end
+  -- v1.6（2026-10-18 笔记本实测根因）：安装目录选到 D 盘、配置目录还在 %APPDATA%\Rime 时，
+  -- 上面那条硬编码路径里一张字典都没有，而取用户目录的 API 又没返回成功；
+  -- 旧兜底「盲取 candidates[1]」于是把数据目录钉死在空的安装目录上 →
+  -- 五张反查表全部「跳过字典(不存在)」，反查整体消失（打字正常，只有注释没了）。
+  -- 把小狼毫默认的用户目录补进候选，这台桌面机上它排在 D:/Program Files/Rime 之后，次序不变。
+  local ok_env, appdata = pcall(os.getenv, 'APPDATA')
+  if ok_env and appdata and appdata ~= '' then
+    candidates[#candidates + 1] = (appdata .. '/Rime'):gsub('\\', '/')
+  end
   if sysInfoEnable and sysInfo.currentDir then
     local ok, cd = pcall(sysInfo.currentDir)
     if ok and cd and cd ~= '' then
       candidates[#candidates + 1] = cd:gsub('/lua$', ''):gsub('\\lua$', '')
     end
   end
+  local chosen
   for _, d in ipairs(candidates) do
-    if dir_has_dicts(d) then return d end
+    if dir_has_dicts(d) then chosen = d; break end
   end
-  return candidates[1] or ''
+  if not chosen then
+    -- 一张表都没找着时不再瞎猜 candidates[1]，取第一个确实存在的目录，
+    -- 好让 runLog 里那行 data_dir 能看出引擎到底在看哪儿。
+    for _, d in ipairs(candidates) do
+      if dir_exists(d) then chosen = d; break end
+    end
+  end
+  chosen = chosen or candidates[1] or ''
+  return chosen, candidates
 end
 
-M.data_dir = resolve_data_dir()
+local _dd, _cands = resolve_data_dir()
+M.data_dir = _dd
+if logEnable then
+  log.writeLog('codeLookup: data_dir=' .. tostring(_dd) .. '  候选= ' .. table.concat(_cands or {}, ' | '))
+end
 
 -- 五笔码表：text -> 最短五笔码（多条目取最短）
 local wubiMap = {}

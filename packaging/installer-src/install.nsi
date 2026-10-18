@@ -2,7 +2,7 @@
 !include "x64.nsh"
 
 Name "三生输入法"
-OutFile "三生输入法-v1.9.2-setup.exe"
+OutFile "三生输入法-v1.9.8-setup.exe"
 InstallDir "$PROGRAMFILES64\Rime"
 RequestExecutionLevel admin
 
@@ -28,6 +28,18 @@ RequestExecutionLevel admin
 ; 用户 Rime 目录用 $R9（$0-$9 会被 ExecWait 返回值复用）
 
 Section "MainSection"
+  ; ===== 0. 先把小狼毫结束掉（v1.9.5：直接覆盖安装，不用手动结束进程）=====
+  ; 坑：老脚本在第 5 步才 taskkill，而第 1 步的 File /r 早就跑完了。
+  ; WeaselServer.exe / WeaselDeployer.exe 正在运行时文件是被占用的，
+  ; File /r 覆盖不了它们（NSIS 只会静默跳过），于是「装了新版、引擎还是旧版」。
+  ; 所以任何 File / CopyFiles 之前必须先杀进程。第 5 步再杀一次是保险：
+  ; 中间只要切出去打过字，WeaselServer 就会被输入法重新拉起来。
+  DetailPrint "结束小狼毫进程（覆盖安装，无需手动退出）..."
+  ExecWait 'taskkill /f /im WeaselServer.exe' $0
+  ExecWait 'taskkill /f /im WeaselDeployer.exe' $0
+  ExecWait 'taskkill /f /im WeaselSetup.exe' $0
+  Sleep 800
+
   ; ===== 1. 安装 weasel 引擎 =====
   SetOutPath "$INSTDIR\weasel-0.17.4"
   File /r "weasel-0.17.4\*"
@@ -215,7 +227,11 @@ reg_ok:
   ; ===== 8. 部署词典（编译配置） =====
   DetailPrint "部署配置和词典..."
   SetOutPath "$INSTDIR\weasel-0.17.4"
-  ExecWait 'WeaselDeployer.exe /deploy' $0
+  ; 必须写全路径：以前只给个裸文件名，靠「当前输出目录」去解析，
+  ; 一旦 NSIS 的工作目录判定跟想的不一样，这句就白跑（返回码照样是 0，看不出来）。
+  ; 这次气泡图标是靠 custom.yaml 里的 schema/*_icon 经部署编译进 build/ 才生效的，
+  ; 部署静默失败 = 笔记本上气泡还是老图标，所以把路径钉死。
+  ExecWait '"$INSTDIR\weasel-0.17.4\WeaselDeployer.exe" /deploy' $0
   DetailPrint "部署返回码: $0"
 
   ; ===== 9. 开机自启 + 启动 WeaselServer =====
@@ -232,6 +248,10 @@ reg_ok:
   File "remove-tip.ps1"
   File "卸载三生输入法.ps1"
   File "卸载三生输入法.cmd"
+  File "检查更新.ps1"
+  File "检查更新.cmd"
+  File "反查诊断.ps1"
+  File "反查诊断.cmd"
 
   ; ===== 11. 把三生加入当前用户的键盘列表（免手动去设置里添加）=====
   DetailPrint "注册到输入法列表..."
@@ -240,14 +260,20 @@ reg_ok:
 
   ; ===== 12. 开始菜单 + 控制面板卸载入口 =====
   CreateDirectory "$SMPrograms\三生输入法"
-  CreateShortcut "$SMPrograms\三生输入法\三生输入法.lnk" "$INSTDIR\weasel-0.17.4\WeaselServer.exe" "" "$INSTDIR\icon-sansheng-cn.ico"
+  ; 图标必须用 icon-sansheng-tray.ico（金圈三，md5 6939d30208ec）。
+  ; 原先这里挂的是 icon-sansheng-cn.ico —— 一张 10-16 之后就没再更新的老图，
+  ; 配置与引擎里都没有任何引用（只有安装器在复制/删除它），所以开始菜单那个
+  ; 「三生输入法」一直显示旧图标，跟托盘/气泡对不上。仅改图标项，目标与参数不动。
+  CreateShortcut "$SMPrograms\三生输入法\三生输入法.lnk" "$INSTDIR\weasel-0.17.4\WeaselServer.exe" "" "$INSTDIR\icon-sansheng-tray.ico"
   CreateShortcut "$SMPrograms\三生输入法\卸载三生输入法.lnk" "$INSTDIR\uninstall-sansheng.exe"
+  CreateShortcut "$SMPrograms\三生输入法\检查更新.lnk" "$INSTDIR\tools\检查更新.cmd" "" "$INSTDIR\icon-sansheng-tray.ico"
+  CreateShortcut "$SMPrograms\三生输入法\反查诊断.lnk" "$INSTDIR\tools\反查诊断.cmd" "" "$INSTDIR\icon-sansheng-tray.ico"
 
   WriteUninstaller "$INSTDIR\uninstall-sansheng.exe"
   SetRegView 64
   WriteRegStr HKLM "${UN_KEY}" "DisplayIcon" "$INSTDIR\icon-sansheng-tray.ico"
   WriteRegStr HKLM "${UN_KEY}" "DisplayName" "三生输入法"
-  WriteRegStr HKLM "${UN_KEY}" "DisplayVersion" "1.9.2"
+  WriteRegStr HKLM "${UN_KEY}" "DisplayVersion" "1.9.8"
   WriteRegStr HKLM "${UN_KEY}" "Publisher" "WorkBuddy"
   WriteRegStr HKLM "${UN_KEY}" "InstallLocation" "$INSTDIR"
   WriteRegStr HKLM "${UN_KEY}" "UninstallString" '"$INSTDIR\uninstall-sansheng.exe"'
@@ -296,14 +322,30 @@ Section "Uninstall"
   DeleteRegKey HKLM "${UN_KEY}"
   DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "WeaselServer"
 
-  ; 4) 系统 DLL（被占用时由系统安排在重启后删除）
-  ;    卸载程序同样是 32 位进程，不关重定向的话两条删除都会删到 SysWOW64，
-  ;    把 64 位那份留在 System32 里。这里和安装一样先关掉重定向。
+  ; 4) 系统 DLL：先当场删，删不掉才交给系统排队
+  ;    v1.9.5 改动的原因：以前一上来就 /REBOOTOK，只要某个 32 位程序还开着
+  ;    weasel.dll 就直接排到重启后，卸载完还留着一堆文件，看着他像「没卸干净」，
+  ;    于是每次卸载都得重启一次。现在先试普通 Delete：此刻 TIP 已经注销、
+  ;    WeaselServer 已停，多数机器当场就能删干净，根本不用重启。
+  ;    卸载程序同样是 32 位进程，不关重定向两条删除都会删到 SysWOW64，
+  ;    把 64 位那份留在 System32 里，所以和安装一样先关掉重定向。
   ${DisableX64FSRedirection}
-  Delete /REBOOTOK "$WINDIR\System32\weasel.dll"
+  Delete "$WINDIR\System32\weasel.dll"
+  ${If} ${FileExists} "$WINDIR\System32\weasel.dll"
+    DetailPrint "System32\weasel.dll 正被程序占用，改由下次开机时删除。"
+    Delete /REBOOTOK "$WINDIR\System32\weasel.dll"
+    ; /REBOOTOK 一旦真的排上队，NSIS 会把「需要重启」标志置起来，卸载完就必然弹重启提示。
+    ; 文件照样在下次开机由系统顺手删掉，但这个标志要清掉——它不该拿重启去烦用户。
+    SetRebootFlag false
+  ${EndIf}
   ${EnableX64FSRedirection}
   ${If} ${RunningX64}
-    Delete /REBOOTOK "$WINDIR\SysWOW64\weasel.dll"
+    Delete "$WINDIR\SysWOW64\weasel.dll"
+    ${If} ${FileExists} "$WINDIR\SysWOW64\weasel.dll"
+      DetailPrint "SysWOW64\weasel.dll 正被 32 位程序占用，改由下次开机时删除。"
+      Delete /REBOOTOK "$WINDIR\SysWOW64\weasel.dll"
+      SetRebootFlag false
+    ${EndIf}
   ${EndIf}
 
   ; 5) 引擎子目录与三生自己的图标（都是精确文件名，不用通配）
@@ -316,6 +358,8 @@ Section "Uninstall"
   ; 6) 开始菜单
   Delete "$SMPrograms\三生输入法\三生输入法.lnk"
   Delete "$SMPrograms\三生输入法\卸载三生输入法.lnk"
+  Delete "$SMPrograms\三生输入法\检查更新.lnk"
+  Delete "$SMPrograms\三生输入法\反查诊断.lnk"
   RMDir "$SMPrograms\三生输入法"
 
   ; 7) 安装目录：仅当它不是用户词库目录、且已经空了才移除
@@ -325,6 +369,6 @@ Section "Uninstall"
     DetailPrint "安装目录与 Rime 用户目录相同，目录本身保留。"
   ${EndIf}
 
-  MessageBox MB_ICONINFORMATION "三生输入法已卸载。$\n$\n你的 Rime 用户目录（词库与个人配置）未做任何删除。$\n建议重启一次，让系统输入法表彻底刷新。"
+  MessageBox MB_ICONINFORMATION "三生输入法已卸载。$\n$\n你的 Rime 用户目录（词库与个人配置）未做任何删除。$\n不用重启电脑：输入法列表已经刷新，Win+空格 里立刻只剩系统自带输入法。$\n（只有个别 DLL 被正在运行的程序占用时，系统才会在下次开机顺手清掉，不影响你现在用机。）"
   Delete "$INSTDIR\uninstall-sansheng.exe"
 SectionEnd
