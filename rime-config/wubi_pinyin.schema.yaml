@@ -67,6 +67,7 @@ engine:
     - lua_filter@phraseComment_Filter
     - lua_filter@pinyinAdding_Filter
     - lua_filter@laneChangeAndSpace_Filter
+    - lua_filter@Upper_Filter
 
 speller:
   delimiter: " ;'"
@@ -97,7 +98,7 @@ zh2en_wubi:
   enable_sentence: false
   enable_user_dict: false
   enable_encoder: false
-  initial_quality: 0.01
+  initial_quality: -5      # 三生输入法：五笔码输入时中文优先，英文翻译候选置后
   comment_format:
     - xform/.+//
 
@@ -108,7 +109,7 @@ en2zh_v2:
   enable_sentence: false
   enable_user_dict: false
   enable_encoder: false
-  initial_quality: 0.01
+  initial_quality: -5      # 三生输入法：英文输入时中文释义仍可出现，但不压过中文候选
   comment_format:
     - xform/.+//
 
@@ -119,7 +120,7 @@ zh2en_pinyin:
   enable_sentence: false
   enable_user_dict: false
   enable_encoder: false
-  initial_quality: 0.01
+  initial_quality: -5      # 三生输入法：拼音输入时中文优先，英文候选置后
   comment_format:
     - xform/.+//
 

@@ -2,3 +2,20 @@
 rime-backup*/
 *.zip
 *.bak
+
+# 本地备份 / 打包产物：含个人打字记录与 28MB exe，绝不进公开仓库
+_sansheng_backup/
+rime-backup-*/
+packaging/release/
+packaging/dist/
+packaging/stage/
+_probe/
+tools/
+*.exe
+*.userdb
+sync/
+user.txt
+user.yaml
+installation.yaml
+Custom_phrase.txt
+*.log

@@ -1,4 +1,4 @@
-# encoding:utf-8
+﻿# encoding:utf-8
 patch:
   switches/+: #增加以下开关
     - name: encnDic					# 中英字典开关
@@ -36,7 +36,8 @@ patch:
     - lua_filter@phraseComment_Filter				# 短语释义
     - lua_filter@pinyinAdding_Filter				# pinyin滤镜，用于对候选项中的字添加拼音
     - lua_filter@codeLookup_Filter     # 编码反查+多音字注释（三生独立滤镜，不改动 inputShow_Filter）
-    - lua_filter@laneChangeAndSpace_Filter			# laneChangeAndSpace 滤镜将候选词或者注释中的<br>处理成\r，&nbsp处理成一个空格
+    - lua_filter@laneChangeAndSpace_Filter
+    # - lua_filter@Upper_Filter          # 三生输入法：英文首字母大写已回退，主人认为不大写也无所谓
   custom_phrase:  # 设置用户字/词典
     dictionary: ""
     user_dict: Custom_phrase  # 指向 Custom_phrase.txt 文档
