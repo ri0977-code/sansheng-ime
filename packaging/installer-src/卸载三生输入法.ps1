@@ -28,7 +28,7 @@ $UnKey     = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Sansheng
 $CtfPaths  = @("HKLM:\SOFTWARE\Microsoft\CTF\TIP\$TipClsid",
                "HKLM:\SOFTWARE\WOW6432Node\Microsoft\CTF\TIP\$TipClsid")
 $ClsidPaths = @("HKLM:\SOFTWARE\Classes\CLSID\$TipClsid",
-                "HKLM:\SOFTWARE\Classes\WOW6432Node\CLSID\$TipClsid")
+                "HKLM:\SOFTWARE\WOW6432Node\Classes\CLSID\$TipClsid")
 
 $script:Actions = @()
 function Add-Act($kind, $what) { $script:Actions += [pscustomobject]@{ 动作 = $kind; 对象 = $what } }
@@ -37,6 +37,24 @@ function Do-It($kind, $what, [scriptblock]$block) {
   if (-not $Apply) { return }
   try { & $block | Out-Null; Write-Host ("  [删] {0}  {1}" -f $kind, $what) -Fore Green }
   catch { Write-Host ("  [失败] {0}  {1} :: {2}" -f $kind, $what, $_.Exception.Message) -Fore Yellow }
+}
+
+# ---------- 0a. 位数保证：必须用 64 位 PowerShell ----------
+# 32 位进程里 System32 会被 WOW64 悄悄重定向到 SysWOW64，
+# HKLM\SOFTWARE\Classes\CLSID 也会被重定向到 WOW6432Node 视图。
+# 那样这个脚本只会看到 32 位那一份，64 位的 dll 和注册会整片漏删。
+# 64 位系统上如果发现自己是 32 位进程，就经 Sysnative 别名自举成 64 位再跑。
+if ([Environment]::Is64BitOperatingSystem -and -not [Environment]::Is64BitProcess) {
+  $p64 = Join-Path $env:WINDIR 'Sysnative\WindowsPowerShell\v1.0\powershell.exe'
+  if (Test-Path $p64) {
+    Write-Host '当前是 32 位 PowerShell，改用 64 位重新运行（否则会漏删 System32 那份）。' -Fore Yellow
+    $ua = @('-NoProfile','-ExecutionPolicy','Bypass','-File', $PSCommandPath)
+    if ($Apply)           { $ua += '-Apply' }
+    if ($IncludeUserData) { $ua += '-IncludeUserData' }
+    if ($SkipSystemDll)   { $ua += '-SkipSystemDll' }
+    & $p64 @ua
+    exit $LASTEXITCODE
+  }
 }
 
 # ---------- 0. 权限 ----------
