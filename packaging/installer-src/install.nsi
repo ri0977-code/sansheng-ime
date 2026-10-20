@@ -3,7 +3,7 @@
 !include "FileFunc.nsh"
 
 Name "三生输入法"
-OutFile "三生输入法-v1.9.10-setup.exe"
+OutFile "三生输入法-v1.10-setup.exe"
 InstallDir "$PROGRAMFILES64\Rime"
 RequestExecutionLevel admin
 
@@ -284,6 +284,10 @@ custom_phrase_ready:
 
   ; ===== 3. 把图标文件复制到安装根目录（注册表 IconFile 指向这里） =====
   SetOutPath "$INSTDIR"
+  ; ===== 许可证与第三方说明（CC BY-SA 4.0 要求随分发物一起给）=====
+  File "..\..\LICENSE"
+  File "..\..\THIRD_PARTY_NOTICES.md"
+  File /r "..\..\LICENSES\*"
   ExecWait 'cmd /c copy /y "$R9\icon-sansheng-tray.ico" "$INSTDIR\icon-sansheng-tray.ico"'
   ; v1.9.9：不再复制 icon-sansheng-cn/-en.ico（10-16 之后停更的老图，配置里已无引用）；
   ;          卸载段仍保留对这两个文件的 Delete，用来清掉老版本安装留下的残留文件。
@@ -488,7 +492,7 @@ tip_warn_done:
   SetRegView 64
   WriteRegStr HKLM "${UN_KEY}" "DisplayIcon" "$INSTDIR\icon-sansheng-tray.ico"
   WriteRegStr HKLM "${UN_KEY}" "DisplayName" "三生输入法"
-  WriteRegStr HKLM "${UN_KEY}" "DisplayVersion" "1.9.10"
+  WriteRegStr HKLM "${UN_KEY}" "DisplayVersion" "1.10"
   WriteRegStr HKLM "${UN_KEY}" "Publisher" "WorkBuddy"
   WriteRegStr HKLM "${UN_KEY}" "InstallLocation" "$INSTDIR"
   WriteRegStr HKLM "${UN_KEY}" "UninstallString" '"$INSTDIR\uninstall-sansheng.exe"'
@@ -622,6 +626,9 @@ Section "Uninstall"
   Delete "$INSTDIR\icon-sansheng-tray.ico"
   Delete "$INSTDIR\icon-sansheng-cn.ico"
   Delete "$INSTDIR\icon-sansheng-en.ico"
+  Delete "$INSTDIR\LICENSE"
+  Delete "$INSTDIR\THIRD_PARTY_NOTICES.md"
+  RMDir /r "$INSTDIR\LICENSES"
 
   ; 6) 开始菜单
   Delete "$SMPrograms\三生输入法\三生输入法.lnk"

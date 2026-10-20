@@ -69,13 +69,19 @@
 4. 退出小狼毫 → 重开 → 托盘右键 **重新部署**
 5. `F4` 选「五笔·拼音」
 
-### 关于万能五笔自造词（必装，非可选）
+### 关于万能五笔自造词（2026-10-20 已下架）
 
-`wubi86.dict.yaml` 的 `import_tables` 引用了 4 个 `wnwb_*` 词表，**它们是编译的硬依赖**——缺失会导致 `wubi_pinyin` 方案编译失败、方案不出现在 F4 列表里。因此安装脚本已把它们作为普通词表一并安装。
+以前 `wubi86.dict.yaml` 的 `import_tables` 里挂着 4 个 `wnwb_*` 词表（从万能五笔导出的自造词与学习词），
+**现已全部移除**：那批词里 87 行其实是万能五笔出厂自带的符号模板和颜文字，不该由我们转发；
+剩下的个人学习词质量参差、还夹着切词碎片，公开出去对你没有好处。
 
-`rime\我的自造词_可选\` 目录只是原始备份，供你回查或改造用，不需要额外操作。
+因此现在的安装包不再包含任何 `wnwb_*` 文件，`import_tables` 只剩 `cn_pinyin_wp` / `zh2en_pinyin_wp` /
+`zh2en_wubi_wp` / `en2zh_v2_wp` 四张公共词表。**如果你手上还有旧版安装目录里留下的 `wnwb_*.dict.yaml`，
+直接删掉即可**——新版词表已经不再引用它们，留着不影响使用，只是占地方。
+符号、表情输入不受影响：它们走的是 `wubi_pinyin.custom.yaml` 里 `import_preset: symbols` 引入的
+小狼毫自带 `symbols` 预设（`weasel-0.17.4/data/symbols.yaml`），`/fh` 符号、`/jt` 简单字、`/bq` 表情
+都来自那里，跟 `wnwb_*` 没有关系；`lua/help_translator.lua` 的帮助行也是同一套前缀。
 
-若你**不想**继承这些自造词，编辑安装后的 `wubi86.dict.yaml`，删掉 `import_tables` 里 4 行 `wnwb_*` 即可。
 ---
 
 ## 三、验证是否装好
@@ -93,16 +99,25 @@
 
 ---
 
-## 四、词库来源与许可
+## 四、词库来源与许可（2026-10-20 实测修正）
 
-| 词库 | 来源 | 许可 |
-|---|---|---|
-| 中文拼音码 `cn_pinyin_wp` | 极点/小狼毫拼音词库 | 随 Rime 生态 |
-| 中→英 `zh2en_pinyin_wp` / `zh2en_wubi_wp` | ECDICT | MIT / 免费商用，**需标注** |
-| 英→中 `en2zh_v2_wp` | ECDICT | 同上 |
-| 自造词（可选） | 用户个人数据 | 用户自有 |
+之前这一节把 `zh2en_*` 写成「ECDICT / MIT」，不准确。下面是把仓库里 75 个配置 / 词库文件
+逐个与上游原包做字节比对后的结果。完整版（含引擎二进制与安卓随包 76 个文件）见
+[`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md)，许可证全文在 [`LICENSES/`](../LICENSES/)。
 
-**发布/分发时请标注词库来源为 ECDICT。**
+| 词库 / 文件 | 来源 | 许可 | 分发时要做什么 |
+|---|---|---|---|
+| `wubi86.dict.yaml`（主力五笔码表） | [rime/rime-wubi](https://github.com/rime/rime-wubi) | **LGPL-3.0** | 保留文件头部上游 changelog 署名（Gong Chen / acevery / Chen Xing / Wozy），2026-10-20 已贴回 |
+| `wubi86_jidian*`、`pinyin_simp.*`、`cn_pinyin_*` | [KyleBing/rime-wubi86-jidian](https://github.com/KyleBing/rime-wubi86-jidian)、[rime/rime-pinyin-simp](https://github.com/rime/rime-pinyin-simp) | Apache-2.0 | 附上游 LICENSE；极点码表源头 `wubi-jidan-dict` 本身无许可证声明，风险记在 THIRD_PARTY_NOTICES |
+| `zh2en_pinyin_wp` / `zh2en_wubi_wp`（汉→英） | [CC-CEDICT](https://cc-cedict.org/wiki/) | **CC-BY-SA-4.0（具传染性）** | 必须署名 + 说明改编；这两张表要以 CC-BY-SA-4.0 提供，**不能并进 MIT**。署名 2026-10-20 已写进各文件表头，卡片全文见仓库 `README.md`「CC-CEDICT 署名」 |
+| `en2zh_v2_*`（英→汉） | [skywind3000/ECDICT](https://github.com/skywind3000/ECDICT) | MIT | 保留 ECDICT 的 MIT 版权声明 |
+| `lua/` 下 39 个功能脚本（中英互译、编码反查、日期农历、节日、LaTeX、敏感词） | [happyDom/dyyRime](https://github.com/happyDom/dyyRime) | **上游没有 LICENSE = 保留所有权利** | 授权请求中 → [dyyRime Issue #9](https://github.com/happyDom/dyyRime/issues/9)（2026-10-20 发出，尚无回复）。这一层是三生的核心功能；若原作者明确要求下架，我们会在下个版本移除并提前公告 |
+| ~~`wnwb_*`（万能五笔导出层）~~ | 万能五笔出厂模板 + 个人学习词 | 已下架 | 2026-10-20 全部移除，不再随包发布，理由见第二节末 |
+| `opencc/*` 繁简转换数据 | [BYVoid/OpenCC](https://github.com/BYVoid/OpenCC) | Apache-2.0 | 附上游 LICENSE |
+| 引擎 weasel 0.17.4 | [rime/weasel](https://github.com/rime/weasel) | GPL-3.0 | 安装器已附 `LICENSE.txt` 与官方源码地址 |
+| 三生自研（`codeLookup_Filter.lua`、`inputShow_translator.lua`、`help_translator.lua`、图标与主题、构建脚本） | 我们自己写的 | MIT | 顶层 `LICENSE` 现在只覆盖这部分 |
+
+一句话：**发布 / 分发时不能只写一句「MIT」**，各组件按上表分别署名。
 
 ---
 
@@ -123,10 +138,13 @@ wubi-citong-v1.0.0/
 │  ├─ en2zh_v2_wp.dict.yaml          英→中 106004 条
 │  ├─ wubi86.dict.yaml 等基础字典
 │  ├─ *_py.dict.yaml（别名）
-│  ├─ lua/                          滤镜（含关键修复）
-│  └─ 我的自造词_可选/                ← 可选，默认不启用
+│  └─ lua/                          滤镜（含关键修复）
 └─ 使用说明/                本文档
 ```
+
+> v1.9.11 / v1.10 起，包里不再有 `我的自造词_可选\`（万能五笔导出的 `wnwb_*` 层已下架，
+> 详见仓库 `THIRD_PARTY_NOTICES.md` 第三节末）。老安装目录里若还留有 `wnwb_*.dict.yaml`，
+> 新配置不再引用，删不删都不影响使用。
 
 ---
 

@@ -207,6 +207,30 @@ sha256 `a4c50025c081a9a4a46d734a63cf74a22f32e6078f83dbef10e9a5ed75301828`（2026
 
 免费代码签名由 [SignPath.io](https://signpath.io/) 提供，证书由 [SignPath Foundation](https://signpath.org/) 签发。
 
+## 许可与第三方组件
+
+- 本项目**不是**单一 MIT 项目。顶层 `LICENSE` 里的 MIT 只覆盖我们自己写的文件
+  （构建脚本、`docs/`、`使用说明/`、自研 Lua、图标与主题、README）。
+- 其余内容的版权归各自上游：`rime/rime-wubi`（LGPL-3.0）、`KyleBing/rime-wubi86-jidian` 与
+  `rime/rime-pinyin-simp` 与 OpenCC（Apache-2.0）、`skywind3000/ECDICT`（MIT）、
+  CC-CEDICT（**CC-BY-SA-4.0**）、`happyDom/dyyRime`（**上游未附许可证**，授权沟通中）、
+  引擎侧 weasel（GPL-3.0）、librime（BSD-3-Clause）、安卓侧 fcitx5-android（LGPL-2.1）。
+- 逐文件归属、我们的改动范围与各方义务，全部实测记录在 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)，
+  许可证原文在 [LICENSES/](LICENSES/)。
+- 安卓版本是对 [fcitx5-android](https://github.com/fcitx5-android/fcitx5-android) 的重打包（改包名 / 图标 / 追加首次落地器），
+  Rime 插件用官方未改动的 APK；修改点与重新构建方式在安卓仓库的声明文件里列出。
+
+### CC-CEDICT 署名（CC BY-SA 4.0 要求的原话）
+
+> 三生输入法包含改编自 **CC-CEDICT** 词典的数据文件（`zh2en_pinyin*`、`zh2en_wubi*` 及由它们派生的中英互译词表）。
+> 原始数据 © *The CC-CEDICT Community Dictionary project*，
+> 以 [Creative Commons Attribution-ShareAlike 4.0 International（CC BY-SA 4.0）](https://creativecommons.org/licenses/by-sa/4.0/)
+> 许可发布，地址 <https://cc-cedict.org/wiki/>。
+> 本项目的改编作品对其中文释义部分**以同一许可继续分发**。许可证全文见 [`LICENSES/CC-BY-SA-4.0.txt`](LICENSES/CC-BY-SA-4.0.txt)。
+
+同一段署名也写进了这几张词库文件自己的表头注释里（v1.10 起），单独拿走词库文件也能看到来源。
+英→中那两张表来自 [ECDICT](https://github.com/skywind3000/ECDICT)（MIT，© skywind3000），表头同样带了声明。
+
 ## 声明
 
 本项目为输入法增强组件，仅做候选注释与调频保障，不修改任何原有候选逻辑。使用风险由使用者自担；部署前请备份 Rime 目录。

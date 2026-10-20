@@ -1,0 +1,166 @@
+# 三生输入法 · 流行固定英文缩写词 · lua 数据文件（自动生成，请勿手改）
+# 生成器：_probe/abbr_lua_gen.py    数据源：rime-config/dicts/abbr-en-seed.txt
+# 格式：码<TAB>词面<TAB>释义 ；释义只进 comment，上屏的是词面
+# 改词条请改种子表再重新生成；本文件与种子表条目数由打包前的硬校验把关。
+abs	ABS	防抱死制动系统
+ai	AI	人工智能
+apec	APEC	亚太经合组织
+api	API	应用程序接口
+apk	APK	安卓安装包
+app	APP	应用程序
+ar	AR	增强现实
+asap	ASAP	尽快
+atm	ATM	自动取款机
+atp	ATP	三磷酸腺苷
+bbc	BBC	英国广播公司
+bcc	BCC	密送
+bd	BD	商务拓展
+bios	BIOS	基本输入输出系统
+bmi	BMI	身体质量指数
+cbd	CBD	中央商务区
+cc	CC	抄送
+cctv	CCTV	中国中央电视台
+cdn	CDN	内容分发网络
+ceo	CEO	首席执行官
+cfo	CFO	首席财务官
+chatgpt	ChatGPT	ChatGPT 对话模型
+cia	CIA	美国中央情报局
+cmo	CMO	首席营销官
+cmyk	CMYK	印刷四色模式
+cnc	CNC	数控机床
+cnn	CNN	美国有线电视新闻网
+coo	COO	首席运营官
+cpi	CPI	居民消费价格指数
+cpu	CPU	中央处理器
+css	CSS	层叠样式表
+ct	CT	CT 断层扫描
+cto	CTO	首席技术官
+cuda	CUDA	CUDA 并行计算
+diy	DIY	自己动手做
+dna	DNA	脱氧核糖核酸
+dns	DNS	域名系统
+doc	DOC	Word 文档
+ems	EMS	邮政特快专递
+eq	EQ	情商
+esg	ESG	环境、社会和公司治理
+esp	ESP	车身电子稳定系统
+eta	ETA	预计完成时间
+eu	EU	欧盟
+exe	EXE	可执行文件
+faq	FAQ	常见问题
+fbi	FBI	美国联邦调查局
+fifa	FIFA	国际足联
+fyi	FYI	供参考
+gdp	GDP	国内生产总值
+github	GitHub	GitHub 代码托管
+gitlab	GitLab	GitLab 代码托管
+gnp	GNP	国民生产总值
+gps	GPS	全球卫星定位
+gpu	GPU	图形处理器
+hdd	HDD	机械硬盘
+hiv	HIV	艾滋病病毒
+hr	HR	人力资源
+html	HTML	网页标记语言
+http	HTTP	超文本传输协议
+https	HTTPS	加密超文本传输协议
+icu	ICU	重症监护室
+id	ID	身份证件
+ide	IDE	集成开发环境
+imei	IMEI	手机串号
+ioc	IOC	国际奥委会
+ios	iOS	苹果移动系统
+iot	IoT	物联网
+ipo	IPO	首次公开募股
+iq	IQ	智商
+javascript	JavaScript	JavaScript 语言
+json	JSON	JSON 数据格式
+kfc	KFC	肯德基
+kpi	KPI	关键绩效指标
+ktv	KTV	量贩式卡拉 OK
+lan	LAN	局域网
+lcd	LCD	液晶显示屏
+led	LED	发光二极管
+llm	LLM	大语言模型
+lte	LTE	4G 长期演进
+macos	macOS	苹果电脑系统
+mlb	MLB	美国职业棒球大联盟
+mpv	MPV	多用途汽车
+mri	MRI	核磁共振
+nato	NATO	北约
+nb	NB	厉害
+nba	NBA	美国职业篮球联赛
+nfc	NFC	近场通信
+nfl	NFL	美国职业橄榄球联盟
+ngo	NGO	非政府组织
+npu	NPU	神经网络处理器
+ocr	OCR	图像文字识别
+okr	OKR	目标与关键成果
+oled	OLED	有机发光显示屏
+opec	OPEC	欧佩克
+os	OS	操作系统
+ota	OTA	远程升级
+otc	OTC	非处方药
+pc	PC	个人电脑
+pdd	PDD	拼多多
+pdf	PDF	PDF 文档
+pe	PE	市盈率
+php	PHP	PHP 语言
+pk	PK	一对一对决
+plc	PLC	可编程逻辑控制器
+pm	PM	项目经理
+pos	POS	销售终端
+ppi	PPI	工业生产者出厂价格指数
+ppt	PPT	PPT 演示文稿
+pr	PR	公关
+qa	QA	质量保证
+qc	QC	质量控制
+qq	QQ	腾讯 QQ
+qr	QR	二维码
+ram	RAM	运行内存
+rfid	RFID	射频识别
+rgb	RGB	RGB 色彩模式
+rna	RNA	核糖核酸
+roi	ROI	投资回报率
+rom	ROM	只读存储器
+rpa	RPA	机器人流程自动化
+rv	RV	房车
+saas	SaaS	软件即服务
+sars	SARS	非典型肺炎
+sdk	SDK	软件开发工具包
+sec	SEC	美国证券交易委员会
+sim	SIM	手机电话卡
+sku	SKU	库存量单位
+sms	SMS	短信
+sop	SOP	标准作业程序
+sos	SOS	求救信号
+sql	SQL	数据库查询语言
+ssd	SSD	固态硬盘
+suv	SUV	运动型多用途车
+tbd	TBD	待定
+tts	TTS	语音合成
+tv	TV	电视
+uav	UAV	无人机
+ufo	UFO	不明飞行物
+ui	UI	用户界面
+uk	UK	英国
+un	UN	联合国
+url	URL	网址
+usa	USA	美国
+usb	USB	通用串行总线
+uv	UV	紫外线
+ux	UX	用户体验
+vc	VC	风险投资
+vip	VIP	贵宾
+vpn	VPN	虚拟专用网
+vr	VR	虚拟现实
+vs	VS	对阵
+wan	WAN	广域网
+wechat	WeChat	微信
+who	WHO	世界卫生组织
+wifi	WIFI	无线局域网
+wlan	WLAN	无线局域网
+wto	WTO	世界贸易组织
+xls	XLS	Excel 表格
+xml	XML	可扩展标记语言
+yy	YY	歪歪语音
+zip	ZIP	压缩包

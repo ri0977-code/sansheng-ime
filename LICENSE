@@ -1,3 +1,12 @@
+本仓库不是单一许可证项目。这份 MIT 许可证**只覆盖三生生成者自己写的文件**
+（构建脚本、`docs/`、`使用说明/`、自研 Lua、图标与主题、README）。
+
+其余内容的版权归各自上游，许可证分别是 LGPL-3.0 / LGPL-2.1 / GPL-3.0 / Apache-2.0 / MIT /
+ CC-BY-SA-4.0，另有 39 个文件来自**没有许可证**的上游仓库 `happyDom/dyyRime`。
+逐文件归属见 [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)，许可证全文见 [`LICENSES/`](LICENSES/)。
+
+（本段 2026-10-20 加入；在此之前这里只有一个笼统的 MIT，与实际不符，已修正。）
+
 MIT License
 
 Copyright (c) 2026 五笔词通 contributors

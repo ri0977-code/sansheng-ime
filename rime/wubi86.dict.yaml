@@ -1,12 +1,27 @@
+# Rime dictionary: wubi86
+# encoding: utf-8
+#
+# Changelog
+# Gong Chen <chen.sst@gmail.com>
+#     - Convert to Rime dictionary format.
+# Yu Yuwei <acevery@gmail.com>
+#     - Use original level 1 and 2 JianMa.
+# Yu Yuwei <acevery@gmail.com>
+#     - Update to Jidian 6, provided by Chen Xing
+# Yu Yuwei <acevery@gmail.com>
+#     - Add freqs from google.
+#     - Fix punctuation freqs
+# Chen Xing <cxcxcxcx@gmail.com>
+#     - Convert from JidianWubi table
+#
+# Original table author
+# Wozy <wozy.in@gmail.com>
+
 ---
 name: wubi86
 version: "0.14"
 sort: by_weight
 import_tables:
-  - wnwb_wubi_user_wp
-  - wnwb_wubi_custom_wp
-  - wnwb_pinyin_user_wp
-  - wnwb_pinyin_custom_wp
   - cn_pinyin_wp
   - zh2en_pinyin_wp
   - zh2en_wubi_wp

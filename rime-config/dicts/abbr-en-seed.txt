@@ -1,0 +1,189 @@
+# 三生输入法 · 流行固定英文缩写词 · 种子表（v1.10 候选功能数据源）
+#
+# 格式：词面<TAB>输入码<TAB>中文释义
+# 词面 = 上屏时真正打出来的样子（大小写混排都合法：CPU / iOS / WeChat）
+# 码   = 用户在小写中文态敲的那串字母（必须纯 a-z，数字与符号进不了表典）
+# 释义 = 只在自测与文档里用；上屏注释交给现有 dic_4w / 反查滤镜，不在这张表里重复造
+#
+# 收录尺子（四条同时满足才收）：
+#   1. 固定写法：业界/大众公认这样拼，不是临时缩写（收到「人工智能」的 AI，不收任意首字母）
+#   2. 中文态常用：打字场景是「在中国打字法里突然要冒出的那个英文词」
+#   3. 现在打不出来：本地已核 dic_4w_en.txt 无 CPU/NBA/PDF/APP/PPT，easy_en 里只有 CPU\tCpu 那种
+#      需要大写键才能命中的条目，且 easy_en 方案根本不在 schema_list 里
+#   4. 码不含数字：5G / B2B / O2B / P2P / PM2.5 / IPv6 这类进不了表典（数字键被选词占用），
+#      只能走 symbols 或 v 模式，另列「不收」清单
+#
+# 状态：主人过目前的初稿，未进打包树。生成器 _probe/qoder_abbr_gen.py 读这张表。
+
+# ── 计算机 / 数码 ──────────────────────────────
+CPU	cpu	中央处理器
+GPU	gpu	图形处理器
+NPU	npu	神经网络处理器
+RAM	ram	运行内存
+ROM	rom	只读存储器
+SSD	ssd	固态硬盘
+HDD	hdd	机械硬盘
+USB	usb	通用串行总线
+BIOS	bios	基本输入输出系统
+OS	os	操作系统
+PC	pc	个人电脑
+APP	app	应用程序
+APK	apk	安卓安装包
+EXE	exe	可执行文件
+ZIP	zip	压缩包
+PDF	pdf	PDF 文档
+DOC	doc	Word 文档
+PPT	ppt	PPT 演示文稿
+XLS	xls	Excel 表格
+IDE	ide	集成开发环境
+API	api	应用程序接口
+SDK	sdk	软件开发工具包
+URL	url	网址
+HTTP	http	超文本传输协议
+HTTPS	https	加密超文本传输协议
+HTML	html	网页标记语言
+CSS	css	层叠样式表
+JSON	json	JSON 数据格式
+XML	xml	可扩展标记语言
+PHP	php	PHP 语言
+SQL	sql	数据库查询语言
+DNS	dns	域名系统
+CDN	cdn	内容分发网络
+VPN	vpn	虚拟专用网
+LAN	lan	局域网
+WAN	wan	广域网
+WIFI	wifi	无线局域网
+WLAN	wlan	无线局域网
+NFC	nfc	近场通信
+RFID	rfid	射频识别
+IoT	iot	物联网
+OCR	ocr	图像文字识别
+TTS	tts	语音合成
+LLM	llm	大语言模型
+AI	ai	人工智能
+AR	ar	增强现实
+VR	vr	虚拟现实
+UI	ui	用户界面
+UX	ux	用户体验
+QR	qr	二维码
+RGB	rgb	RGB 色彩模式
+CMYK	cmyk	印刷四色模式
+LED	led	发光二极管
+LCD	lcd	液晶显示屏
+OLED	oled	有机发光显示屏
+CNC	cnc	数控机床
+PLC	plc	可编程逻辑控制器
+GPS	gps	全球卫星定位
+UAV	uav	无人机
+RPA	rpa	机器人流程自动化
+SIM	sim	手机电话卡
+IMEI	imei	手机串号
+LTE	lte	4G 长期演进
+SMS	sms	短信
+OTA	ota	远程升级
+CUDA	cuda	CUDA 并行计算
+GitHub	github	GitHub 代码托管
+GitLab	gitlab	GitLab 代码托管
+JavaScript	javascript	JavaScript 语言
+ChatGPT	chatgpt	ChatGPT 对话模型
+WeChat	wechat	微信
+iOS	ios	苹果移动系统
+macOS	macos	苹果电脑系统
+SaaS	saas	软件即服务
+
+# ── 职场 / 财经 ────────────────────────────────
+CEO	ceo	首席执行官
+CFO	cfo	首席财务官
+CTO	cto	首席技术官
+COO	coo	首席运营官
+CMO	cmo	首席营销官
+HR	hr	人力资源
+PR	pr	公关
+BD	bd	商务拓展
+PM	pm	项目经理
+QA	qa	质量保证
+QC	qc	质量控制
+KPI	kpi	关键绩效指标
+OKR	okr	目标与关键成果
+ROI	roi	投资回报率
+IPO	ipo	首次公开募股
+GDP	gdp	国内生产总值
+GNP	gnp	国民生产总值
+CPI	cpi	居民消费价格指数
+PPI	ppi	工业生产者出厂价格指数
+PE	pe	市盈率
+VC	vc	风险投资
+ESG	esg	环境、社会和公司治理
+SKU	sku	库存量单位
+SOP	sop	标准作业程序
+FAQ	faq	常见问题
+CC	cc	抄送
+BCC	bcc	密送
+FYI	fyi	供参考
+ASAP	asap	尽快
+TBD	tbd	待定
+ETA	eta	预计完成时间
+
+# ── 机构 / 组织 ────────────────────────────────
+UN	un	联合国
+EU	eu	欧盟
+UK	uk	英国
+USA	usa	美国
+WTO	wto	世界贸易组织
+WHO	who	世界卫生组织
+NGO	ngo	非政府组织
+APEC	apec	亚太经合组织
+NATO	nato	北约
+OPEC	opec	欧佩克
+FBI	fbi	美国联邦调查局
+CIA	cia	美国中央情报局
+SEC	sec	美国证券交易委员会
+NBA	nba	美国职业篮球联赛
+NFL	nfl	美国职业橄榄球联盟
+MLB	mlb	美国职业棒球大联盟
+FIFA	fifa	国际足联
+IOC	ioc	国际奥委会
+CCTV	cctv	中国中央电视台
+BBC	bbc	英国广播公司
+CNN	cnn	美国有线电视新闻网
+UFO	ufo	不明飞行物
+EMS	ems	邮政特快专递
+
+# ── 生活 / 交通 / 医疗 ─────────────────────────
+TV	tv	电视
+RV	rv	房车
+SUV	suv	运动型多用途车
+MPV	mpv	多用途汽车
+ABS	abs	防抱死制动系统
+ESP	esp	车身电子稳定系统
+UV	uv	紫外线
+DNA	dna	脱氧核糖核酸
+RNA	rna	核糖核酸
+ATP	atp	三磷酸腺苷
+BMI	bmi	身体质量指数
+ICU	icu	重症监护室
+CT	ct	CT 断层扫描
+MRI	mri	核磁共振
+OTC	otc	非处方药
+HIV	hiv	艾滋病病毒
+SARS	sars	非典型肺炎
+ATM	atm	自动取款机
+POS	pos	销售终端
+KTV	ktv	量贩式卡拉 OK
+KFC	kfc	肯德基
+CBD	cbd	中央商务区
+SOS	sos	求救信号
+ID	id	身份证件
+IQ	iq	智商
+EQ	eq	情商
+DIY	diy	自己动手做
+VIP	vip	贵宾
+
+# ── 中文互联网常用（流行且写法固定）──────────
+QQ	qq	腾讯 QQ
+PK	pk	一对一对决
+VS	vs	对阵
+NB	nb	厉害
+PDD	pdd	拼多多
+YY	yy	歪歪语音
+

@@ -11,9 +11,6 @@
 name: pinyin_simp
 version: "0.1"
 sort: by_weight
-import_tables:
-  - wnwb_pinyin_user_py
-  - wnwb_pinyin_custom_py
 ...
 
 
