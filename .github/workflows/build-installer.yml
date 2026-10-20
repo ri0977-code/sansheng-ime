@@ -1,0 +1,104 @@
+name: Build installer
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-installer-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHONUTF8: "1"
+  PYTHONIOENCODING: "utf-8"
+  # Public, SHA256-pinned build inputs (config + engine overlay + reg).
+  INPUTS_URL: https://github.com/ri0977-code/sansheng-ime/releases/download/build-inputs-v1.9.10/sansheng-build-inputs-v1.9.10.7z
+  INPUTS_SHA256: 8f75076dc10e111e6ff45f33e54850e35a3646342d45206d584f16c6a3f6eb18
+  # Must match both the build-inputs bundle and install.nsi; the build refuses
+  # to run if they diverge.
+  EXPECTED_VERSION: "1.9.10"
+  # Official upstream engine.
+  WEASEL_URL: https://github.com/rime/weasel/releases/download/0.17.4/weasel-0.17.4.0-installer.exe
+  WEASEL_SHA256: cf509534a8f5f8af9c98ed7cbb8f135439f145a8cbe7e50ede42bb5b5ab45c29
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download and verify inputs
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path _download | Out-Null
+
+          curl.exe -L --retry 5 --retry-delay 5 --connect-timeout 30 `
+            -o _download/build-inputs.7z $env:INPUTS_URL
+          if ($LASTEXITCODE -ne 0) { throw "build-inputs download failed" }
+          $h = (Get-FileHash _download/build-inputs.7z -Algorithm SHA256).Hash.ToLower()
+          if ($h -ne $env:INPUTS_SHA256) {
+            throw "build-inputs SHA256 mismatch: got $h"
+          }
+          "build-inputs SHA256 OK: $h"
+
+          curl.exe -L --retry 5 --retry-delay 5 --connect-timeout 30 `
+            -o _download/weasel-0.17.4.0-installer.exe $env:WEASEL_URL
+          if ($LASTEXITCODE -ne 0) { throw "Weasel download failed" }
+          $h = (Get-FileHash _download/weasel-0.17.4.0-installer.exe -Algorithm SHA256).Hash.ToLower()
+          if ($h -ne $env:WEASEL_SHA256) {
+            throw "Weasel SHA256 mismatch: got $h"
+          }
+          "Weasel SHA256 OK: $h"
+
+          & "C:\Program Files\7-Zip\7z.exe" x -y -o_download/inputs _download/build-inputs.7z
+          if ($LASTEXITCODE -ne 0) { throw "build-inputs extraction failed" }
+          $dir = Get-ChildItem _download/inputs -Directory | Select-Object -First 1
+          if (-not $dir) { throw "build-inputs archive is empty" }
+          "INPUTS_DIR=$($dir.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "inputs: $($dir.FullName)"
+
+      - name: Install NSIS
+        run: choco install nsis -y --no-progress
+
+      - name: Build installer
+        shell: pwsh
+        run: |
+          python packaging/ci/build_installer.py `
+            --inputs "$env:INPUTS_DIR" `
+            --weasel-installer "_download/weasel-0.17.4.0-installer.exe" `
+            --work _work `
+            --out dist `
+            --expect-version "$env:EXPECTED_VERSION"
+
+      - name: Show result
+        shell: pwsh
+        run: |
+          Get-ChildItem dist | Format-Table Name, Length
+          Get-Content dist/SHA256SUMS.txt
+          "### 三生输入法安装包" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          '```' | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          Get-Content dist/SHA256SUMS.txt | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          '```' | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+
+      # SignPath Foundation onboarding is pending. Once approved, add the
+      # signing step here so every CI-built installer is Authenticode-signed
+      # before it is uploaded/published.
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: sansheng-ime-installer
+          path: |
+            dist/*.exe
+            dist/SHA256SUMS.txt
+          if-no-files-found: error
