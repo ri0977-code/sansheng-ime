@@ -105,18 +105,25 @@ Write-Host ''
 # ---------- 2. 输入法键盘列表 ----------
 Write-Host '[1] 当前用户的可用键盘列表'
 try {
+  # Win10/Win11 用系统 API 摘除；语言列表的 InputMethodTips 在部分版本上是只读属性，
+  # 旧写法直接赋值会抛「只读属性」，键盘项就删不掉。
+  if (-not ([System.Management.Automation.PSTypeName]'SanshengInputLayoutApi').Type) {
+    Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public static class SanshengInputLayoutApi {
+  [DllImport("input.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+  public static extern bool InstallLayoutOrTip(string psz, uint dwFlags);
+}
+"@
+  }
   $list = Get-WinUserLanguageList
   $hit = @($list | Where-Object { $_.InputMethodTips -contains $TipStr })
   if ($hit.Count -gt 0) {
     Do-It '摘除键盘项' $TipStr {
-      foreach ($lang in $list) {
-        if ($lang.InputMethodTips -contains $TipStr) {
-          $keep = New-Object System.Collections.Generic.List[string]
-          foreach ($t in $lang.InputMethodTips) { if ($t -ne $TipStr) { $keep.Add($t) } }
-          $lang.InputMethodTips = $keep.ToArray()
-        }
+      if (-not [SanshengInputLayoutApi]::InstallLayoutOrTip($TipStr, 1)) {
+        throw ('InstallLayoutOrTip 失败，LastError=' + [Runtime.InteropServices.Marshal]::GetLastWin32Error())
       }
-      Set-WinUserLanguageList $list -Force
       'OK'
     }
   } else { Add-Act '键盘项' '本来就不在列表里（无需处理）' }

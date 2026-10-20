@@ -1,10 +1,55 @@
-﻿# 把指定输入法（TIP）加入「当前用户可用键盘列表」。
+# 把指定输入法（TIP）加入「当前用户可用键盘列表」。
 # 用法： powershell -NoProfile -ExecutionPolicy Bypass -File enable-tip.ps1 -Tip "0804:{CLSID}{GUID}"
-# 设计要点：读-改-写，幂等，绝不重建语言列表（避免把别的输入法/语言弄丢）。
+# 设计要点：
+#   1) 首选系统 API InstallLayoutOrTip（官方小狼毫也用它），在 Win10/Win11 上
+#      立刻生效，而且不会重建语言列表、不会弄丢别的输入法。
+#      该 API 是幂等的：已经装过时再调用也返回成功。
+#   2) 旧系统没有该 API 时，回退到读-改-写语言列表。
+#   3) 参数格式先校验。格式不对就直接报错，绝不把垃圾字符串写进语言列表
+#      —— 旧版少了语言 ID 后的冒号（0804{...}），Windows 会把它过滤掉，
+#      连带清空该语言下的键盘列表。
 param(
   [Parameter(Mandatory = $true)] [string]$Tip
 )
 $ErrorActionPreference = 'SilentlyContinue'
+
+# 形如 0804:{CLSID}{GUID}
+if ($Tip -notmatch '^\d{4}:\{[0-9A-Fa-f-]{36}\}\{[0-9A-Fa-f-]{36}\}$') {
+  Write-Output 'TIPFAIL_FORMAT'
+  exit 5
+}
+
+function Test-TipPresent {
+  try {
+    $list = Get-WinUserLanguageList
+    foreach ($lang in $list) {
+      if ($lang.InputMethodTips -contains $Tip) { return $true }
+    }
+  } catch { }
+  return $false
+}
+
+# 首选：input.dll!InstallLayoutOrTip(ILOT_INSTALL = 0)
+try {
+  if (-not ([System.Management.Automation.PSTypeName]'SanshengInputLayoutApi').Type) {
+    Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public static class SanshengInputLayoutApi {
+  [DllImport("input.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+  public static extern bool InstallLayoutOrTip(string psz, uint dwFlags);
+}
+"@
+  }
+  if ([SanshengInputLayoutApi]::InstallLayoutOrTip($Tip, 0)) {
+    Write-Output 'TIPADDED_API'
+    exit 0
+  }
+} catch { }
+
+if (Test-TipPresent) { Write-Output 'TIPALREADY'; exit 0 }
+
+# 回退：旧系统，读-改-写当前用户语言列表
 try {
   $list = Get-WinUserLanguageList
 } catch {
@@ -13,28 +58,36 @@ try {
 }
 if (-not $list) { Write-Output 'TIPFAIL_EMPTY'; exit 3 }
 
-$hit = $null
-foreach ($lang in $list) {
-  if ($lang.InputMethodTips -contains $Tip) { $hit = 'already'; break }
-}
-if ($hit -eq 'already') { Write-Output 'TIPALREADY'; exit 0 }
-
-# 找一个中文（zh-*）语言对象挂上去；没有中文就挂第一个
 $target = $null
 foreach ($lang in $list) {
-  if ($lang.LanguageTag -match '^(zh|chi)' ) { $target = $lang; break }
+  if ($lang.LanguageTag -match '^(zh|chi)') { $target = $lang; break }
 }
 if (-not $target) { $target = $list[0] }
 
+$added = $false
 try {
-  $copy = New-Object System.Collections.Generic.List[string]
-  foreach ($t in $target.InputMethodTips) { $copy.Add($t) }
-  $copy.Add($Tip)
-  $target.InputMethodTips = $copy.ToArray()
+  # InputMethodTips 在部分系统上是只读属性，但集合本身可改
+  $target.InputMethodTips.Add($Tip) | Out-Null
+  $added = $true
+} catch {
+  try {
+    $copy = New-Object System.Collections.Generic.List[string]
+    foreach ($t in $target.InputMethodTips) { $copy.Add($t) }
+    $copy.Add($Tip)
+    $target.InputMethodTips = $copy.ToArray()
+    $added = $true
+  } catch { }
+}
+if (-not $added) { Write-Output 'TIPFAIL_SET'; exit 4 }
+
+try {
   Set-WinUserLanguageList $list -Force
-  Write-Output 'TIPADDED'
-  exit 0
 } catch {
   Write-Output 'TIPFAIL_SET'
   exit 4
 }
+
+# 写完再读一遍确认，不接受「命令没报错但实际没进列表」
+if (Test-TipPresent) { Write-Output 'TIPADDED'; exit 0 }
+Write-Output 'TIPFAIL_VERIFY'
+exit 4
