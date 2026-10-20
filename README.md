@@ -14,7 +14,9 @@ Rime「**五笔 · 拼音 · 混输 · 简繁**」全能输入法的增强滤镜
 **[三生输入法 v1.9.10 安装包 `sansheng-ime-v1.9.10-setup.exe`（28.7 MB）](https://github.com/ri0977-code/sansheng-ime/releases/download/v1.9.10/sansheng-ime-v1.9.10-setup.exe)**
 ｜[Releases 列表](https://github.com/ri0977-code/sansheng-ime/releases)
 
-sha256 `a4c50025c081a9a4a46d734a63cf74a22f32e6078f83dbef10e9a5ed75301828`（2026-10-20：保留 v1.9.9 的全部修复；新增「升级不覆盖用户自造词 `Custom_phrase.txt`」，并在打包脚本里加硬校验——TIP 参数缺 `0804:` 冒号、包名与 `DisplayVersion` 不一致都直接禁止出包）。文件名是英文的，装出来的输入法叫「三生输入法」；需 Windows 10/11 64 位，未做代码签名（SmartScreen 提示时点「更多信息 → 仍要运行」）。
+sha256 `a4c50025c081a9a4a46d734a63cf74a22f32e6078f83dbef10e9a5ed75301828`（2026-10-20：保留 v1.9.9 的全部修复；新增「升级不覆盖用户自造词 `Custom_phrase.txt`」，并在打包脚本里加硬校验——TIP 参数缺 `0804:` 冒号、包名与 `DisplayVersion` 不一致都直接禁止出包）。文件名是英文的，装出来的输入法叫「三生输入法」；需 Windows 10/11 64 位。
+
+安装包由 GitHub Actions 从公开源码构建（[构建工作流](https://github.com/ri0977-code/sansheng-ime/actions/workflows/build-installer.yml)），构建输入均做 SHA-256 校验。本项目已申请 [SignPath Foundation](https://signpath.org/) 的免费开源代码签名，获批后发布的安装包将由 **SignPath.io** 使用 SignPath Foundation 证书签名；当前 v1.9.10 尚未签名（SmartScreen 提示时点「更多信息 → 仍要运行」）。签名策略见 [代码签名政策](docs/code-signing.md)，数据处理方式见 [隐私政策](docs/privacy.md)。
 
 > **请直接用 v1.9.10。** v1.9 与 v1.9.1 的安装包在一台干净的电脑上会「装上但打不出汉字」——
 > 包里漏了 Lua 接线文件 `rime.lua`（836 B），v1.9 另外还把 64 位组件注册到了 32 位视图里。
@@ -196,6 +198,14 @@ sha256 `a4c50025c081a9a4a46d734a63cf74a22f32e6078f83dbef10e9a5ed75301828`（2026
 | 早期阶段 | **WorkBuddy** | 图标与界面、打包流程、早期安装脚本 |
 
 每个版本的改动与实测记录都写在上面的「版本沿革」里，方便回溯。
+
+## 代码签名与隐私
+
+- **构建可追溯**：Windows 安装包由 [GitHub Actions](https://github.com/ri0977-code/sansheng-ime/actions/workflows/build-installer.yml) 从本仓库源码构建，上游引擎与构建输入都按 SHA-256 固定；任何人都能复跑工作流核对。
+- **代码签名**：正在申请 [SignPath Foundation](https://signpath.org/) 的免费开源签名。获批后发布包由 SignPath.io 使用 SignPath Foundation 证书签名，签名者为 **SignPath Foundation**；细则见 [代码签名政策](docs/code-signing.md)。
+- **隐私**：不收集输入内容、按键或使用统计，词库与自造词只存本机；只有手动点「检查更新」时才访问 GitHub。详见 [隐私政策](docs/privacy.md)。
+
+免费代码签名由 [SignPath.io](https://signpath.io/) 提供，证书由 [SignPath Foundation](https://signpath.org/) 签发。
 
 ## 声明
 
