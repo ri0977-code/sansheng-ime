@@ -2,7 +2,7 @@
 
 更新日期：2026-10-20
 
-三生输入法（Sansheng IME）的 Windows 安装包由公开源码在 GitHub Actions 上构建，并计划通过 [SignPath Foundation](https://signpath.org/) 提供的免费开源代码签名证书签名。
+三生输入法（Sansheng IME）的 Windows 安装包可由本仓库公开源码在 GitHub Actions 上复现构建。本项目计划通过 [SignPath Foundation](https://signpath.org/) 提供的免费开源代码签名证书签名，签名版本将直接取自该工作流的构建产物。
 
 ## 签名范围 / Scope
 
@@ -16,7 +16,7 @@ sansheng-ime-v<版本号>-setup.exe
 
 ## 构建流程 / Build process
 
-安装包不包含任何手工放入的二进制产物，全部由 CI 从固定版本的输入构建：
+签名版本不包含手工放入的二进制产物，全部由 CI 从固定版本的输入构建：
 
 | 输入 | 来源 | 校验 |
 |------|------|------|
