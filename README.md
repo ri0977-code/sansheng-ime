@@ -21,9 +21,15 @@ v1.10.1 相对 v1.10 的变化：**斜杠 `/` 符号通道整层恢复**（`/szq
 发布正文见 [发布页文本-v1.10.1.md](发布页文本-v1.10.1.md)，斜杠码表见 [符号速查-斜杠码表.md](符号速查-斜杠码表.md)。
 文件名是英文的，装出来的输入法叫「三生输入法」；需 Windows 10/11 64 位。
 
+**安卓**：[三生输入法 安卓版 v1.10.1](https://github.com/ri0977-code/sansheng-ime/releases/tag/v1.10.1-android) ——
+与桌面同一套词库与符号表（`/szq` 那套斜杠符号手机上照样能打）。装两个 APK，顺序不能反：先 `1-sansheng-ime-1.10.1-android.apk`，
+后 `2-rime-plugin-0.1.3-arm64.apk`；升级直接覆盖安装、不要卸载。要求安卓 6.0 以上、64 位（arm64）；
+纯血鸿蒙（HarmonyOS NEXT）装不了 APK，鸿蒙 4.2 及更早可以。附件名用英文是 GitHub 的限制（它会把中文附件名替换成 `-`），
+说明与校验值见发布目录里的 `3-anzhuang-shuoming.txt` 和 `SHA256SUMS.txt`。
+
 安装包可由 GitHub Actions 从公开源码复现构建（[构建工作流](https://github.com/ri0977-code/sansheng-ime/actions/workflows/build-installer.yml)），上游引擎与构建输入均做 SHA-256 校验；v1.9.10 已用该工作流复现，解包内容与发布包一致（仅 NSIS 自身插件 DLL 版本不同）。本项目已申请 [SignPath Foundation](https://signpath.org/) 的免费开源代码签名，获批后发布的安装包将由 **SignPath.io** 使用 SignPath Foundation 证书签名；当前 v1.9.10 尚未签名（SmartScreen 提示时点「更多信息 → 仍要运行」）。签名策略见 [代码签名政策](docs/code-signing.md)，数据处理方式见 [隐私政策](docs/privacy.md)。
 
-> **请直接用 v1.9.10。** v1.9 与 v1.9.1 的安装包在一台干净的电脑上会「装上但打不出汉字」——
+> **请直接用 v1.10.1。** v1.9 与 v1.9.1 的安装包在一台干净的电脑上会「装上但打不出汉字」——
 > 包里漏了 Lua 接线文件 `rime.lua`（836 B），v1.9 另外还把 64 位组件注册到了 32 位视图里。
 > 两个问题在 v1.9.2 都已修掉，并在打包脚本里加成了硬校验（缺文件就禁止出包）。
 > 已经装了 v1.9/v1.9.1 又不想重装：把 `rime.lua` 放进 Rime 用户目录（一般是
@@ -193,7 +199,9 @@ v1.10.1 相对 v1.10 的变化：**斜杠 `/` 符号通道整层恢复**（`/szq
   2. **出包前硬校验 TIP 参数**：`prepare_release.py` 会扫描所有 `-Tip` / `TipStr`，必须以 `0804:` 开头；缺冒号直接判为禁止发布，防止再次出现「装完输入法，用户原有键盘列表被清空」的致命错误。v1.9.9 本地测试时就是这条参数写错，导致本机的万能五笔、搜狗五笔、青简从键盘列表消失；程序本身没被卸载，重新写回 TIP 即可恢复（本机已恢复并验证）。
 
 - **v1.10（2026-10-20，2026-10-21 以 422 条缩写重打包）**：**流行固定英文缩写候选**——打 `cpu`、`ppt`、`nasa` 这类 2~12 位纯字母码，中文候选之后**第 2 位**冒出 `CPU「中央处理器」`；词面走候选、释义走 comment，纯 Lua 滤镜（`abbrGloss_Filter.lua` + `lua/abbr_en.txt`），词库文件一个字节没动，`abbrEn` 开关默认开、F4 可关。出包前加了静态硬校验 `packaging/ci/check_v110.py`（词条与种子表逐条对齐、滤镜必须挂在 comment 链末端之后、开关默认值、包里不许出现本机绝对路径、两棵出包树逐字节一致），全绿才允许出包。中英互译词库 75 个文件的表头编码修复并补齐上游署名（CC-CEDICT、ECDICT、极点五笔），许可证原文（`LICENSE`、`THIRD_PARTY_NOTICES.md`、`LICENSES/` 下 8 份）随安装包分发。**注意**：2026-10-21 那次重打包没抬版本号，已装 v1.10 的用户「检查更新」不会提示，要重新下载覆盖安装——这条正是 v1.10.1 抬版本号的理由。
-- **v1.10.1（2026-10-21，待发布）**：打通斜杠 `/` 通道，三件事。
+- **v1.10.1（2026-10-21 已发布，桌面 + 安卓）**：<https://github.com/ri0977-code/sansheng-ime/releases/tag/v1.10.1>（桌面，Latest）·
+  <https://github.com/ri0977-code/sansheng-ime/releases/tag/v1.10.1-android>（安卓 build 1915，与桌面同一套词库与符号表）。
+  打通斜杠 `/` 通道，三件事。
   1. **恢复 dyy 符号层**：`recognizer/patterns/punct: "^/([0-9]0?|[A-Za-z]+)$"` 在 v1.9 重写 `default.custom.yaml` 时被弄丢了，`symbols.custom.yaml` 里 107 组符号码（`/szq` 数字圈、`/hzq` 汉字圈、`/fs` 分数、`/gz` 干支、`/sx` 数学……）自那以后整层打不出来；本版补回并实测 107 组全部出词。出包前清掉上游留的 162 个 `None`/`None6` 字面占位串（其余条目一字未动）。完整码表与记法见 [符号速查-斜杠码表.md](符号速查-斜杠码表.md)。
   2. **含数字的缩写走 `/`**：这类码过不去纯字母那条通道（`^[a-z]{2,12}$` 拦得住），新增 `rawNum` 模式 + `rawEcho_translator.lua` + `lua/abbr_num.txt`（95 条）：`/5g` → `5G「第五代移动通信」`、`/pm2.5` → `PM2.5「细颗粒物浓度指标」`。纯字母表同时 422 → **603** 条。
   3. **修 `abbrGloss_Filter.lua` 吞候选**：词库里没这个词时（`zqsg`、`ztna`）上游给 0 条候选，滤镜拿 `cands[1].start` 算插入点失败就直接返回，把用户本该看到的普通候选一起带走；现在没有候选就按 `env.engine.context.input` 的长度定位。
