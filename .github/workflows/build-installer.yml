@@ -17,11 +17,20 @@ env:
   PYTHONUTF8: "1"
   PYTHONIOENCODING: "utf-8"
   # Public, SHA256-pinned build inputs (config + engine overlay + reg).
-  INPUTS_URL: https://github.com/ri0977-code/sansheng-ime/releases/download/build-inputs-v1.9.10/sansheng-build-inputs-v1.9.10.7z
-  INPUTS_SHA256: 8f75076dc10e111e6ff45f33e54850e35a3646342d45206d584f16c6a3f6eb18
+  INPUTS_URL: https://github.com/ri0977-code/sansheng-ime/releases/download/build-inputs-v1.10.1/sansheng-build-inputs-v1.10.1.7z
+  INPUTS_SHA256: 08eee8ddbabdf4094cf996c2155b72e298d5894304bb216ebec7b1062574111b
   # Must match both the build-inputs bundle and install.nsi; the build refuses
   # to run if they diverge.
-  EXPECTED_VERSION: "1.9.10"
+  # v1.10.1：上面两行指向 packaging/dist/sansheng-build-inputs-v1.10.1.7z（用
+  # `python packaging/ci/make_build_inputs.py --version 1.10.1` 从 packaging/release 组装，
+  # 已用 build_installer.verify_manifest 本地验过 128 个文件）。
+  # 2026-10-21 21:1x 重出过一次：lua/dic_4w_Filter.lua 加了「中英对照只留前 3 个义项」，
+  # 包体从 9,824,251 → 9,824,406 B、SHA256 换成上面这个（旧值 4d7712fa… 已作废）。
+  # **顺序**：先把这个 7z 传到 tag `build-inputs-v1.10.1`（别设成 latest），再 push 本文件；
+  # 反过来的话 CI 下载 404。上一版踩过的坑就是 7z 还停在 1.9.10（config 里没有
+  # abbrGloss_Filter.lua / abbr_en.txt），那样 CI 会出一个「版本号新、配置旧」的假包，
+  # build_installer.py 的 1b 号硬门会拦下它。
+  EXPECTED_VERSION: "1.10.1"
   # Official upstream engine.
   WEASEL_URL: https://github.com/rime/weasel/releases/download/0.17.4/weasel-0.17.4.0-installer.exe
   WEASEL_SHA256: cf509534a8f5f8af9c98ed7cbb8f135439f145a8cbe7e50ede42bb5b5ab45c29
