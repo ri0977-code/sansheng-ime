@@ -4,7 +4,7 @@
 # 步骤：
 #   1. 校验 install.bat 编码与首行（防闪退老坑）
 #   2. 校验 rime/ 旧配置树依赖完整性（静态检查，无需运行 Rime）
-#   3. 用标签注释作为 Release 说明，自动建 Release
+#   3. 打印标签注释留档 —— 不再自动建 / 改 Release，见文件末尾说明（2026-10-21）
 #
 # v1.9 改动：不再自动打包 wubi-citong zip —— 成品已改成 NSIS 单文件
 #   三生输入法-vX.Y-setup.exe（需 Windows + NSIS 才能编，CI 是 ubuntu 编不了），
@@ -21,7 +21,7 @@ on:
       - 'v*'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   release:
@@ -50,19 +50,13 @@ jobs:
         run: |
           python3 校验安装包.py .
 
-      - name: 提取标签注释作为发布说明
+      - name: 提取标签注释（留档用，不再写进 Release 正文）
         run: |
-          {
-            echo "NOTES<<EOF"
-            git tag -l "v${GITHUB_REF#refs/tags/v}" --format='%(contents)'
-            echo "EOF"
-          } >> "$GITHUB_ENV"
+          git tag -l "v${GITHUB_REF#refs/tags/v}" --format='%(contents)' | head -40
 
-      - name: 创建 GitHub Release（附件由发布人手动上传 setup.exe）
-        uses: softprops/action-gh-release@v3
-        with:
-          # 不要设 name: —— action 会把 tag 名作为标题、name 作为副标题，
-          # 写 name: v${{ github.ref_name }} 就会显示成 "vv1.0.3"
-          body: ${{ env.NOTES }}
-          generate_release_notes: true
-          append_body: true
+      # 2026-10-21 v1.10.1 发布时发现：这一步会把「标签注释 + 自动生成的 commit 列表」
+      # 追加到已经写好的 Release 正文后面。标签是用 API 建的轻量标签（注释为空），
+      # 于是 git 里那条内部提交说明（含 INPUTS_SHA256 这类词）被原样贴到了用户看的发布页上。
+      # 现在 Release 由发布人用 API 建、正文来自《发布页文本-*.md》、附件手动上传，
+      # 所以这里不再创建或修改 Release —— 本流水线只保留上面两道校验门。
+      # 复现记录：_probe/release_audit.txt；清理脚本：_probe/fix_release_bodies.py。
