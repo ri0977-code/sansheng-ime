@@ -255,6 +255,14 @@ def check_release(release):
             print("校验通过 rime.lua：定义 %d 个入口，启用方案 %s 引用 %d 个全部命中"
                   % (len(defined), "/".join(sorted(active)) or "?", len(used)))
 
+    # 1b) v1.10 功能门：构建输入包必须是含缩写滤镜的那一套配置。
+    # CI 的配置来自公开 build-inputs 压缩包，不是仓库；如果输入包还停在 v1.9.10，
+    # 装出来的「v1.10」里根本没有 abbrGloss_Filter.lua —— 版本号对、内容不对，比不发布更坏。
+    for need in ("config/lua/abbrGloss_Filter.lua", "config/lua/abbr_en.txt"):
+        if not (release / need).exists():
+            problems.append("构建输入包缺 %s：输入包还是旧版配置，"
+                            "必须先发布 build-inputs-v1.10 并更新工作流 INPUTS_URL/SHA256" % need)
+
     # 2) TIP format
     tip_bad = []
     for fn in ("install.nsi", "enable-tip.ps1", "remove-tip.ps1", "卸载三生输入法.ps1"):

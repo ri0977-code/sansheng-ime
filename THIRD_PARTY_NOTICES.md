@@ -174,3 +174,35 @@ LICENSES/README.md
 4. 安卓 seed 剔除 832 KB Windows 二进制，并处理铺进用户手机的那份内部调试说明 `_某某版本.txt`。
 5. ~~万能五笔 `wnwb_*` 层是否下架~~ —— **2026-10-20 已整体下架**（见第三节末），桌面 85→75 个文件、安卓随包 82→76 个条目；下一版发布包与安卓 seed 必须按新数据重建。
 
+## 八、v1.10 / v1.10.1 增补（2026-10-21）
+
+> 第一节那个 75 文件逐字节审计是 **2026-10-20** 的快照，**没有重跑**；
+> 本节只覆盖从那天到 v1.10.1 之间新增或改动的那几个文件，其余统计口径不变。
+
+### 8.1 归属判定
+
+| 仓库路径 | 判定 | 来源 | 说明 |
+|---|---|---|---|
+| `rime-config/dic_4w_Filter.lua` | **上游改版** | dyyRime | 原件是 dyy 的 `spaceAppending.lua`（上游署名头 `Copyright (C) 2023 yaoyuan.dou` 原样保留）。v1.10.1 我们在**源头**加了一条义项上限（`maxGlossCount = 3`，多出的折成 `…`），解决多义词英文释义把候选栏撑爆的问题。**主体版权仍属 dyy**（该仓库无 LICENSE = 保留所有权利），与 `inputShow_translator.lua` 同一处理方式：我们加的那一处改动可声明 MIT，文件整体不是 |
+| `rime/lua/dic_4w_Filter.lua` | 原样转发（未动） | dyyRime | 这是 v1.2 时代留在仓库里的旧镜像，**出包不用它**（见 `packaging/ci/check_v110.py` 里 `LEGACY` 的注释）。它保持与上游逐字节相同，所以仍算「原样转发」 |
+| `rime-config/abbrGloss_Filter.lua` | 我们自己写 | — | 英文缩写注释滤镜（MIT） |
+| `rime-config/abbr_en.txt` / `rime-config/dicts/abbr-en-seed.txt` | 我们自己写 | — | 英文缩写数据 603 条与其种子表（MIT） |
+| `rime-config/abbr_num.txt` / `rime-config/dicts/abbr-num-seed.txt` | 我们自己写 | — | 含数字缩写数据 95 条与其种子表（MIT，v1.10.1 新增） |
+| `rime-config/rawEcho_translator.lua` | 我们自己写 | — | 含数字斜杠码通道（MIT，v1.10.1 新增） |
+| `rime-config/symbols.custom.yaml` | **上游改版** | dyyRime | dyy 斜杠符号表的改版：清掉 162 个 `None` / `None6` 空占位、补释义，106 组码与桌面逐字节一致（v1.10.1 新增） |
+| `rime-config/wubi_pinyin.custom.yaml` / `rime-config/rime.lua` | 上游改版 | dyyRime | v1.10.1 在此基础上补了 `recognizer/patterns/punct`（斜杠符号开关）、`rawNum`（含数字斜杠码）与 `rawEcho_translator` 接线 |
+| `packaging/ci/*.py`、`packaging/prepare_release.py` | 我们自己写 | — | 构建与静态校验脚本（MIT） |
+
+### 8.2 随包出去的是哪一份
+
+出包链路是 `packaging/stage/config/` → `packaging/release/config/` → `install.nsi`，
+`packaging/stage/` 是打包源（.gitignore，不进仓库），**随包的是改版**（含义项截断）。
+`rime-config/` 是同一份内容的研发镜像，CI 的 C3 门逐字节比对两者，防止改配置时把出包树里的新功能覆盖掉。
+
+### 8.3 授权口径不变
+
+本节新增的 dyy 改版文件**不改变**第一节、第二节、第七节的结论：
+`happyDom/dyyRime` 仍然没有 LICENSE，默认保留所有权利，授权请求仍挂在
+[dyyRime Issue #9](https://github.com/happyDom/dyyRime/issues/9)（仍待重开，0 回复），
+且按 2026-10-20 主人的决定，**不作为发布闸门**，照发并持续标注。
+

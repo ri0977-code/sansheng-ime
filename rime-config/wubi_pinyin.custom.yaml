@@ -25,8 +25,12 @@ patch:
     - name: markdown					# 一个markdown语法开关
       reset: 0
       states: [Off, md]
+    - name: abbrEn					# 流行固定英文缩写候选（v1.10，三生自研滤镜）
+      reset: 1
+      states: [Off, 缩写]
   engine/translators/+:  #增加以下translator
     - table_translator@custom_phrase  # 指定使用 custom_phrase 进行输入字符的翻译
+    - lua_translator@rawEcho_translator	# v1.10.1：/5g /ri0977 这类含数字原文串
   engine/filters:									# 设置以下filter（简繁开关 zh_trad 定义在基础 schema）
     - simplifier@tradition						# 简繁转换（三生输入法·简繁反查；基础 schema 已定义 zh_trad 开关 + tradition 块）
     - lua_filter@inputShow_Filter					# 这个过滤器用于在特定场景下，增加候选项
@@ -43,6 +47,7 @@ patch:
     - lua_filter@pinyinAdding_Filter				# pinyin滤镜，用于对候选项中的字添加拼音
     - lua_filter@codeLookup_Filter     # 编码反查+多音字注释（三生独立滤镜，不改动 inputShow_Filter）
     - lua_filter@laneChangeAndSpace_Filter
+    - lua_filter@abbrGloss_Filter					# 流行固定英文缩写：中文第1、缩写第2
     # - lua_filter@Upper_Filter          # 三生输入法：英文首字母大写已回退，主人认为不大写也无所谓
   custom_phrase:  # 设置用户字/词典
     dictionary: ""
@@ -51,6 +56,12 @@ patch:
     enable_completion: false
     enable_sentence: true
     initial_quality: 1
+  # v1.10.1 补回两条识别模式。recognizer 排在 selector 之前，所以数字不再被当选词键吃掉：
+  #   punct  = dyy 原配的符号开关，我们重写 default.custom.yaml 时把它弄丢了；
+  #            没这一行，symbols.custom.yaml 里那 107 组 /xx 符号一个都出不来（2026-10-21 沙箱实测）
+  #   rawNum = 三生自加：/ 后面含数字的串（5g / b2b / pm2.5 / ri0977）交给 rawEcho_translator
+  recognizer/patterns/punct: "^/([0-9]0?|[A-Za-z]+)$"
+  recognizer/patterns/rawNum: "^/[A-Za-z0-9]*[0-9][A-Za-z0-9._+%-]*$"
   punctuator:  # 设置标点符号集
     import_preset: symbols
   

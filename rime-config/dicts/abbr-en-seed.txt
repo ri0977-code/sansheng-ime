@@ -187,3 +187,480 @@ NB	nb	厉害
 PDD	pdd	拼多多
 YY	yy	歪歪语音
 
+
+
+# ── 航天 / 科研 / 教育 ────────────────────────────────
+NASA	nasa	美国国家航空航天局
+ESA	esa	欧洲空间局
+JAXA	jaxa	日本宇宙航空研究开发机构
+CNSA	cnsa	中国国家航天局
+ISS	iss	国际空间站
+JWST	jwst	詹姆斯·韦布空间望远镜
+SETI	seti	地外文明搜索
+NOAA	noaa	美国海洋大气管理局
+USGS	usgs	美国地质调查局
+CERN	cern	欧洲核子研究中心
+LHC	lhc	大型强子对撞机
+IPCC	ipcc	政府间气候变化专门委员会
+DOI	doi	数字对象唯一标识符
+ISBN	isbn	国际标准书号
+ISSN	issn	国际标准连续出版物号
+GPA	gpa	平均学分绩点
+MBA	mba	工商管理硕士
+PhD	phd	博士学位
+TOEFL	toefl	托福考试
+IELTS	ielts	雅思考试
+GRE	gre	美国研究生入学考试
+SAT	sat	美国大学入学考试
+MOOC	mooc	大规模开放在线课程
+STEM	stem	科学、技术、工程、数学
+AP	ap	美联社；大学先修课程
+IB	ib	国际文凭课程
+QS	qs	世界大学排名
+
+# ── 政府 / 国际组织 ────────────────────────────────
+IMF	imf	国际货币基金组织
+UNESCO	unesco	联合国教科文组织
+UNICEF	unicef	联合国儿童基金会
+OECD	oecd	经济合作与发展组织
+ASEAN	asean	东南亚国家联盟
+BRICS	brics	金砖国家
+FDA	fda	美国食品药品监督管理局
+CDC	cdc	美国疾病控制与预防中心
+NIH	nih	美国国立卫生研究院
+NSA	nsa	美国国家安全局
+DHS	dhs	美国国土安全部
+FEMA	fema	美国联邦应急管理署
+FAA	faa	美国联邦航空管理局
+NTSB	ntsb	美国国家运输安全委员会
+TSA	tsa	美国运输安全管理局
+NHS	nhs	英国国家医疗服务体系
+FCC	fcc	美国联邦通信委员会
+FTC	ftc	美国联邦贸易委员会
+EPA	epa	美国环境保护署
+IRS	irs	美国国税局
+
+# ── 体育 / 影视 / 音乐 ────────────────────────────────
+NHL	nhl	北美职业冰球联赛
+UFC	ufc	终极格斗冠军赛
+MMA	mma	综合格斗
+WTA	wta	国际女子网球协会
+NCAA	ncaa	美国全国大学体育协会
+MVP	mvp	最有价值球员
+FMVP	fmvp	总决赛最有价值球员
+GOAT	goat	历史最佳
+NBC	nbc	美国全国广播公司
+ABC	abc	美国广播公司
+CBS	cbs	美国哥伦比亚广播公司
+HBO	hbo	美国付费电视网
+IMDb	imdb	互联网电影资料库
+TED	ted	技术、娱乐、设计演讲
+MTV	mtv	音乐电视网
+ESPN	espn	美国体育电视网
+OST	ost	原声音乐
+BGM	bgm	背景音乐
+MV	mv	音乐录影带
+EP	ep	迷你专辑
+LP	lp	黑胶唱片
+DJ	dj	唱片骑师
+EDM	edm	电子舞曲
+BPM	bpm	每分钟节拍数
+Hi-Fi	hifi	高保真音响
+
+# ── 英文网络缩写与流行语 ────────────────────────────────
+LOL	lol	放声大笑
+LMAO	lmao	笑死我了
+ROFL	rofl	笑到打滚
+OMG	omg	我的天
+BTW	btw	顺便说一句
+TBH	tbh	说实话
+IMO	imo	依我看
+IMHO	imho	依我愚见
+IDK	idk	我不知道
+IIRC	iirc	如果我没记错
+AFAIK	afaik	据我所知
+NGL	ngl	实话实说
+SMH	smh	摇头叹气
+IRL	irl	现实生活中
+ICYMI	icymi	万一你错过了
+FOMO	fomo	错失恐惧
+JOMO	jomo	错过的快乐
+YOLO	yolo	人生只有一次
+TIL	til	今天学到了
+TLDR	tldr	太长不看
+BRB	brb	马上回来
+TTYL	ttyl	回头再聊
+GTG	gtg	得走了
+LMK	lmk	告诉我
+HMU	hmu	联系我
+NVM	nvm	算了
+DM	dm	私信
+OOTD	ootd	今日穿搭
+POV	pov	第一人称视角
+ASMR	asmr	自发性知觉经络反应
+NSFW	nsfw	不宜上班观看
+SFW	sfw	适合上班观看
+GG	gg	打得好
+AFK	afk	暂离
+EZ	ez	轻松获胜
+AKA	aka	又名
+PS	ps	附言；Photoshop
+RSVP	rsvp	请回复
+BYOB	byob	自带酒水
+TBA	tba	待公布
+FWIW	fwiw	不管怎样
+IYKYK	iykyk	懂的都懂
+BAE	bae	宝贝
+FYP	fyp	推荐页
+TMI	tmi	信息量过大
+GRWM	grwm	跟我一起准备
+
+# ── 游戏 / 二次元 ────────────────────────────────
+NPC	npc	非玩家角色
+PVP	pvp	玩家对战
+PVE	pve	玩家对环境
+RPG	rpg	角色扮演游戏
+FPS	fps	第一人称射击；每秒帧数
+MOBA	moba	多人在线战术竞技
+MMO	mmo	大型多人在线
+MMORPG	mmorpg	大型多人在线角色扮演游戏
+DLC	dlc	追加下载内容
+AOE	aoe	范围效果
+DPS	dps	每秒伤害
+XP	xp	经验值
+HP	hp	马力；生命值
+MP	mp	魔法值
+CD	cd	冷却时间；光盘
+RNG	rng	随机数生成；运气
+RTS	rts	即时战略
+TPS	tps	第三人称射击
+
+# ── 职场 / 财经补充 ────────────────────────────────
+VP	vp	副总裁
+SVP	svp	高级副总裁
+EVP	evp	执行副总裁
+GM	gm	总经理；游戏主持人
+IR	ir	投资者关系；红外线
+CSR	csr	企业社会责任
+ROE	roe	净资产收益率
+ROA	roa	总资产收益率
+EPS	eps	每股收益
+EBITDA	ebitda	息税折旧摊销前利润
+CAGR	cagr	复合年增长率
+YOY	yoy	同比
+QOQ	qoq	环比
+GMV	gmv	商品交易总额
+ARPU	arpu	每用户平均收入
+DAU	dau	日活跃用户
+MAU	mau	月活跃用户
+CAC	cac	获客成本
+LTV	ltv	用户终身价值
+NPS	nps	净推荐值
+SLA	sla	服务等级协议
+CSAT	csat	客户满意度
+FDI	fdi	外商直接投资
+AUM	aum	资产管理规模
+QE	qe	量化宽松
+PMI	pmi	采购经理指数
+APR	apr	年化利率
+APY	apy	年化收益率
+IBAN	iban	国际银行账户号码
+SWIFT	swift	环球银行金融电信协会
+VAT	vat	增值税
+GST	gst	商品及服务税
+
+# ── 汽车 / 交通 ────────────────────────────────
+EV	ev	电动汽车
+HEV	hev	混合动力汽车
+PHEV	phev	插电式混合动力汽车
+ADAS	adas	高级驾驶辅助系统
+ACC	acc	自适应巡航
+AWD	awd	全轮驱动
+FWD	fwd	前轮驱动
+RWD	rwd	后轮驱动
+CVT	cvt	无级变速器
+DCT	dct	双离合变速器
+EBD	ebd	电子制动力分配
+TCS	tcs	牵引力控制系统
+TPMS	tpms	胎压监测系统
+OBD	obd	车载诊断系统
+HUD	hud	抬头显示
+VIN	vin	车辆识别码
+RPM	rpm	每分钟转速
+DMV	dmv	美国车辆管理局
+
+# ── 医疗 / 健康补充 ────────────────────────────────
+HPV	hpv	人乳头瘤病毒
+PCR	pcr	聚合酶链式反应
+AED	aed	自动体外除颤器
+CPR	cpr	心肺复苏
+ADHD	adhd	注意缺陷多动障碍
+PTSD	ptsd	创伤后应激障碍
+OCD	ocd	强迫症
+BMR	bmr	基础代谢率
+Rx	rx	处方药
+IV	iv	静脉注射
+
+# ── 计算机 / 网络补充 ────────────────────────────────
+ML	ml	机器学习
+DL	dl	深度学习
+NLP	nlp	自然语言处理
+CV	cv	计算机视觉；简历
+AGI	agi	通用人工智能
+AIGC	aigc	生成式人工智能
+GPT	gpt	生成式预训练变换器
+TPU	tpu	张量处理器
+FPGA	fpga	现场可编程门阵列
+SoC	soc	片上系统
+MCU	mcu	微控制器
+DSP	dsp	数字信号处理器
+ADC	adc	模数转换器
+DAC	dac	数模转换器
+PCB	pcb	印制电路板
+IC	ic	集成电路
+EEPROM	eeprom	电可擦可编程只读存储器
+NVMe	nvme	NVMe 固态硬盘协议
+RAID	raid	磁盘阵列
+NAS	nas	网络附加存储
+HDMI	hdmi	高清多媒体接口
+VGA	vga	视频图形阵列
+DVI	dvi	数字视频接口
+GSM	gsm	全球移动通信系统
+CDMA	cdma	码分多址
+UEFI	uefi	统一可扩展固件接口
+SSH	ssh	安全外壳协议
+FTP	ftp	文件传输协议
+SFTP	sftp	安全文件传输协议
+TCP	tcp	传输控制协议
+UDP	udp	用户数据报协议
+IP	ip	知识产权；网际协议
+SSL	ssl	安全套接层
+TLS	tls	传输层安全
+DHCP	dhcp	动态主机配置协议
+URI	uri	统一资源标识符
+YAML	yaml	YAML 数据格式
+NoSQL	nosql	NoSQL 数据库
+CLI	cli	命令行界面
+GUI	gui	图形用户界面
+NFT	nft	非同质化代币
+DeFi	defi	去中心化金融
+CEX	cex	中心化交易所
+DEX	dex	去中心化交易所
+KYC	kyc	了解你的客户
+AML	aml	反洗钱
+IPFS	ipfs	星际文件系统
+
+# ── 中文网络拼音缩写 ────────────────────────────────
+YYDS	yyds	永远的神
+AWSL	awsl	啊我死了
+XSWL	xswl	笑死我了
+NSDD	nsdd	你说得对
+BDJW	bdjw	不懂就问
+PYQ	pyq	朋友圈
+YYGQ	yygq	阴阳怪气
+ZQSG	zqsg	真情实感
+KSWL	kswl	磕死我了
+SRDS	srds	虽然但是
+YYSY	yysy	有一说一
+DBQ	dbq	对不起
+XJJ	xjj	小姐姐
+XGG	xgg	小哥哥
+CP	cp	情侣档；配对
+JK	jk	日本女高中生
+YJJC	yjjc	一骑绝尘
+
+
+# ── AI / 大模型 ────────────────────────────────
+RAG	rag	检索增强生成
+SLM	slm	小语言模型
+MCP	mcp	模型上下文协议
+RLHF	rlhf	人类反馈强化学习
+DPO	dpo	直接偏好优化对齐
+LoRA	lora	低秩适配微调
+GAN	gan	生成对抗网络
+BERT	bert	双向编码器预训练模型
+ASR	asr	自动语音识别
+Copilot	copilot	微软 AI 编程助手
+Gemini	gemini	谷歌多模态大模型
+Claude	claude	Anthropic 对话模型
+DeepSeek	deepseek	深度求索大模型
+Qwen	qwen	阿里通义千问模型
+Kimi	kimi	月之暗面对话模型
+Doubao	doubao	字节跳动豆包模型
+OpenAI	openai	GPT 系列模型公司
+Anthropic	anthropic	Claude 模型公司
+Mistral	mistral	法国开源大模型
+LLaMA	llama	Meta 开源大模型
+Sora	sora	文本生成视频模型
+Midjourney	midjourney	AI 绘画工具
+ComfyUI	comfyui	开源 AI 绘图工作流
+SDXL	sdxl	开源文生图模型
+HuggingFace	huggingface	开源模型托管社区
+PyTorch	pytorch	开源深度学习框架
+TensorFlow	tensorflow	开源深度学习框架
+OpenCV	opencv	开源计算机视觉库
+MLOps	mlops	机器学习运维
+AIOps	aiops	智能运维
+MATLAB	matlab	科学计算软件
+Unity	unity	实时 3D 创作引擎
+DLSS	dlss	英伟达 AI 超采样
+FSR	fsr	AMD 超级分辨率技术
+
+# ── 网络协议 / 云原生 / 安全 ────────────────────────────────
+BGP	bgp	边界网关协议
+ICMP	icmp	互联网控制报文协议
+VLAN	vlan	虚拟局域网
+NAT	nat	网络地址转换
+QoS	qos	服务质量保障
+MTU	mtu	最大传输单元
+TTL	ttl	数据包存活时间
+SNMP	snmp	简单网络管理协议
+MQTT	mqtt	轻量消息传输协议
+gRPC	grpc	高性能远程调用框架
+RPC	rpc	远程过程调用
+REST	rest	表述性状态转移接口
+CRUD	crud	增删改查操作
+ORM	orm	对象关系映射
+MVC	mvc	模型视图控制器
+OOP	oop	面向对象编程
+SMTP	smtp	简单邮件传输协议
+IMAP	imap	互联网邮件访问协议
+LDAP	ldap	轻量目录访问协议
+CORS	cors	跨域资源共享
+CSRF	csrf	跨站请求伪造
+XSS	xss	跨站脚本攻击
+AES	aes	高级加密标准
+RSA	rsa	非对称加密算法
+JWT	jwt	网络身份令牌
+SSO	sso	单点登录
+MFA	mfa	多因素认证
+OTP	otp	一次性动态口令
+RBAC	rbac	角色访问控制
+DDoS	ddos	分布式拒绝服务攻击
+WAF	waf	网络应用防火墙
+ZTNA	ztna	零信任网络访问
+ASCII	ascii	美国信息交换标准码
+Unicode	unicode	统一字符编码
+WebSocket	websocket	全双工通信协议
+DevOps	devops	开发运维一体化
+Kubernetes	kubernetes	容器编排系统
+Docker	docker	容器化运行环境
+Nginx	nginx	反向代理服务器
+Apache	apache	开源 Web 服务器
+MySQL	mysql	关系型数据库
+PostgreSQL	postgresql	开源关系型数据库
+MongoDB	mongodb	文档型数据库
+Redis	redis	内存数据库缓存
+
+# ── 编程语言 / 开发工具 ────────────────────────────────
+Java	java	面向对象编程语言
+Python	python	通用解释型语言
+C++	cpp	高性能编程语言
+Vue	vue	渐进式前端框架
+React	react	前端组件库
+Node.js	nodejs	服务端运行环境
+Next.js	nextjs	React 全栈框架
+GraphQL	graphql	接口查询语言
+NPM	npm	Node 包管理器
+Markdown	markdown	轻量标记语言
+LaTeX	latex	学术排版系统
+VSCode	vscode	微软代码编辑器
+Vim	vim	终端文本编辑器
+CMD	cmd	Windows 命令行
+Git	git	分布式版本控制系统
+CAD	cad	计算机辅助设计
+AutoCAD	autocad	专业制图软件
+Photoshop	photoshop	平面图像处理软件
+Excel	excel	电子表格软件
+PowerPoint	powerpoint	演示文稿软件
+Outlook	outlook	邮件日程客户端
+
+# ── 操作系统 / 平台 / 品牌 ────────────────────────────────
+Linux	linux	开源操作系统
+Ubuntu	ubuntu	桌面 Linux 发行版
+Windows	windows	微软桌面系统
+Android	android	谷歌移动系统
+HarmonyOS	harmonyos	华为鸿蒙系统
+MIUI	miui	小米安卓界面
+EMUI	emui	华为安卓界面
+ColorOS	coloros	OPPO 安卓界面
+Siri	siri	苹果语音助手
+Alexa	alexa	亚马逊语音助手
+AirPods	airpods	苹果无线耳机
+USB-C	usbc	正反可插数据接口
+Thunderbolt	thunderbolt	高速外接扩展接口
+Google	google	搜索引擎公司
+YouTube	youtube	视频分享平台
+TikTok	tiktok	国际版短视频平台
+Instagram	instagram	图片社交平台
+Facebook	facebook	社交网络平台
+LinkedIn	linkedin	职业社交平台
+Reddit	reddit	英文论坛社区
+Discord	discord	语音社区平台
+Telegram	telegram	即时通讯软件
+WhatsApp	whatsapp	即时通讯应用
+Wikipedia	wikipedia	网络百科全书
+Netflix	netflix	流媒体平台
+Spotify	spotify	音乐流媒体
+Steam	steam	PC 游戏分发平台
+Figma	figma	在线设计协作工具
+Xbox	xbox	微软游戏主机
+TapTap	taptap	手游分发平台
+Alipay	alipay	支付宝应用
+
+# ── 文件格式 / 硬件 / 显示 ────────────────────────────────
+PNG	png	无损位图格式
+JPG	jpg	有损压缩图片格式
+JPEG	jpeg	图片压缩标准格式
+GIF	gif	无损动图格式
+SVG	svg	可缩放矢量图格式
+WebP	webp	高压缩网页图片
+HEIC	heic	苹果高效图片格式
+RAW	raw	相机原始图像格式
+MKV	mkv	多媒体封装格式
+FLAC	flac	无损音频压缩格式
+AAC	aac	高级音频编码格式
+MOV	mov	苹果视频封装格式
+AVI	avi	微软视频封装格式
+SATA	sata	硬盘串行接口
+PCIe	pcie	主板高速扩展总线
+DDR	ddr	双倍速率内存
+AMOLED	amoled	有源矩阵 OLED 屏
+HDR	hdr	高动态范围画质
+DPI	dpi	每英寸点数
+RTX	rtx	英伟达光追显卡
+Bluetooth	bluetooth	蓝牙无线技术
+
+# ── 云服务 / 商业 / 管理 ────────────────────────────────
+AWS	aws	亚马逊云服务
+GCP	gcp	谷歌云服务
+Azure	azure	微软云服务
+PaaS	paas	平台即服务
+IaaS	iaas	基础设施即服务
+VPC	vpc	云上专有网络
+IDC	idc	互联网数据中心
+PoC	poc	概念验证
+CRM	crm	客户关系管理
+ERP	erp	企业资源计划
+SCM	scm	供应链管理系统
+MES	mes	制造执行系统
+OEM	oem	原始设备代工
+ODM	odm	原始设计代工
+FOB	fob	船上交货价格
+PV	pv	页面浏览量
+PRD	prd	产品需求文档
+BRD	brd	商业需求文档
+PMO	pmo	项目管理办公室
+CIO	cio	首席信息官
+CSO	cso	首席安全官
+
+# ── 游戏 / 网络口语补充 ────────────────────────────────
+PUA	pua	搭讪艺术家；职场精神控制
+IKR	ikr	就是说、可不是嘛
+WIP	wip	正在进行中
+EOD	eod	今天之内
+ETC	etc	等等
+BUFF	buff	增益状态
+DEBUFF	debuff	减益状态
+AAA	aaa	高成本大制作游戏
+CI	ci	持续集成

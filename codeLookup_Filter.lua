@@ -195,8 +195,6 @@ function M.load(dir)
   pinyinMap = {}
   wubiMultiOwners = {}
   load_dict_file(dir .. '/wubi86.dict.yaml', 'wubi')             -- 主五笔词库（13.7万条）
-  load_dict_file(dir .. '/wnwb_wubi_custom_wp.dict.yaml', 'wubi') -- 万能五笔自造词
-  load_dict_file(dir .. '/wnwb_wubi_user_wp.dict.yaml', 'wubi')   -- 用户五笔自造词
   load_dict_file(dir .. '/user.txt', 'wubi')                       -- 运行时用户真实词条（自动组词结果）
   load_dict_file(dir .. '/cn_pinyin_wp.dict.yaml', 'pinyin')       -- 全量汉字拼音（含多音字多行）
   return M

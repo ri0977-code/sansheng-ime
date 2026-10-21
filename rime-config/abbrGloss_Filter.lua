@@ -184,7 +184,7 @@ local function abbrGloss_Filter(input, env)
 
 	local pos, injected
 	local okJob = pcall(function()
-		if dup or #cands == 0 then
+		if dup then
 			return
 		end
 		-- 插在第一条中文候选之后；一条中文都没有时插到最前（该码本来就没有中文可让）
@@ -196,7 +196,21 @@ local function abbrGloss_Filter(input, env)
 			end
 		end
 		local comment = hit.gloss ~= "" and ('「' .. hit.gloss .. '」') or ''
-		injected = Candidate("word", cands[1].start, cands[1]._end, hit.text, comment)
+		-- 起止位置：上游有候选就借第一条的；一条都没有（词库里没这个词，比如 zqsg / ztna）
+		-- 就用输入串自己的长度算。以前这里写死 cands[1].start，配上 #cands == 0 直接 return，
+		-- 结果是「词库越空的码，缩写越出不来」——2026-10-21 全量回归（v1101_full_verify.py）实测。
+		local start, stop = 0, 0
+		if #cands > 0 then
+			start, stop = cands[1].start, cands[1]._end
+		else
+			local okRaw, raw = pcall(function()
+				return env.engine.context.input
+			end)
+			if okRaw and type(raw) == "string" then
+				stop = #raw
+			end
+		end
+		injected = Candidate("word", start, stop, hit.text, comment)
 		if DIAG then
 			local parts = {}
 			for i = 1, math.min(6, #cands) do
