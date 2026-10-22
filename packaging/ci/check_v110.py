@@ -24,6 +24,13 @@ v1.9.10 的做法是把「TIP 参数必须 0804: 开头」这类致命错误挡�
      C3 研发镜像 rime-config/ 与 stage 的关键文件也逐字节相同
         —— v1.10.1 补这条：上一版把 abbrEn/abbrGloss 只落在出包树、rime-config 停在旧快照，
            结果拿 rime-config 当基准打补丁时把两行 v1.10 功能覆盖掉了（2026-10-21 实测踩坑）
+  E 单字 stem 列（v1.10.2：修自动造词取码）
+     E1 词库里每个不同单字，至少有一行带第 4 列 stem（2 位小写字母）
+     E2 stem 必须等于该字「最短码（长度≥2）的前两位」——独立重算，不信任写进去的值
+     E3 单字总数不得低于下限（防止整层单字被删掉后 E1 还「通过」）
+        —— 为什么要有这一节：2026-10-22 给 20,910 个单字补了 stem，但任何「按 词/码/权重 三列
+           重写整个词库」的脚本（刷权重、同步上游）都会把第 4 列整层冲掉，且不报错。
+           这条门就是为了让那种改动在出包前直接失败。
   D 「/」通道（v1.10.1：含数字的原文串 + dyy 的 107 组符号）
      D1 abbr_num.txt 与种子表 abbr-num-seed.txt 条目数一致（防「改了表忘了生成」）
      D2 每条：码=2~14 位且必含数字；词面≠码且给出正确写法；码唯一；释义非空且宽度 ≤20 格
@@ -220,6 +227,64 @@ def check_raw_num(tree, tag):
         ok("%s rime.lua 已注册 rawEcho_translator" % tag)
 
 
+STEM_MIN_CHARS = 20000
+STEM_RE = re.compile(r"^[a-z]{2}$")
+
+
+def check_char_stems(tree, tag):
+    """E：单字 stem 列在位且取值正确（v1.10.2 修自动造词取码的回归门）。"""
+    d = os.path.join(tree, "wubi86.dict.yaml")
+    if not os.path.isfile(d):
+        bad("%s 找不到 wubi86.dict.yaml，stem 门无法判定" % tag)
+        return
+    lines = read(d).split(chr(10))
+    if "..." not in lines:
+        bad("%s wubi86.dict.yaml 没有 `...` 表头结束标记，stem 门无法判定" % tag)
+        return
+    codes = {}          # 单字 -> 该字所有码
+    stems = {}          # 单字 -> 写进第 4 列的 stem 集合
+    for ln in lines[lines.index("...") + 1:]:
+        if not ln.strip():
+            continue
+        f = ln.split(chr(9))
+        w = f[0]
+        if len(w) != 1 or not (u"一" <= w <= u"鿿"):
+            continue
+        if len(f) >= 2 and f[1]:
+            codes.setdefault(w, set()).add(f[1])
+        if len(f) >= 4 and f[3]:
+            stems.setdefault(w, set()).add(f[3])
+    n = len(codes)
+    if n < STEM_MIN_CHARS:
+        bad("%s 词库里只有 %d 个单字（下限 %d），单字层疑似被删" % (tag, n, STEM_MIN_CHARS))
+        return
+    missing = [c for c in codes if c not in stems]
+    if len(missing) > 10:
+        bad("%s 有 %d 个单字没有 stem 列（前 10 个：%s）—— 词库疑似被三列格式重写过，"
+            "自动造词会退回算错码，禁止出包" % (tag, len(missing), u"".join(missing[:10])))
+        return
+    badfmt = {c: v for c, v in stems.items() if any(not STEM_RE.match(x) for x in v)}
+    if badfmt:
+        bad("%s 有 %d 个单字的 stem 不是 2 位小写字母（例：%s）"
+            % (tag, len(badfmt), list(badfmt.items())[:3]))
+        return
+    wrong = []
+    for c, sv in stems.items():
+        cand = codes.get(c, set())
+        short = [x for x in cand if len(x) >= 2]
+        if not short:
+            continue
+        low = min(len(x) for x in short)
+        allow = set(x[:2] for x in short if len(x) == low)
+        if not sv <= allow:
+            wrong.append((c, sorted(sv), sorted(allow)))
+    if wrong:
+        bad("%s 有 %d 个单字的 stem 与「最短码前两位」不符（例：%s）" % (tag, len(wrong), wrong[:3]))
+        return
+    ok("%s 单字 stem：%d 个单字，%d 个带 stem（缺 %d），取值全部等于最短码前两位"
+       % (tag, n, len(stems), len(missing)))
+
+
 def check_custom(tree, tag):
     p = os.path.join(tree, "wubi_pinyin.custom.yaml")
     if not os.path.isfile(p):
@@ -341,6 +406,7 @@ def main():
         check_custom(tree, tag)
         check_schema_and_internal(tree, tag)
         check_rime_lua(tree, tag)
+        check_char_stems(tree, tag)
     check_trees_match()
     legacy_has = os.path.isfile(os.path.join(LEGACY, "lua", "abbr_en.txt"))
     ok("旧树 rime/ %s（v1.2 遗留镜像，只被 release.yml 做依赖完整性校验，不参与出包）"
@@ -353,8 +419,9 @@ def main():
             print("  ✗ " + line)
         print("v1.10 硬校验未通过：%d 条问题，禁止出包" % len(fails))
         sys.exit(1)
-    print("v1.10.1 硬校验通过：%d 项全绿（纯字母缩写 %d 条 + 含数字原文串 %d 条与种子同步 / "
-          "滤镜与 translator 挂载位 / 两条 recognizer 模式 / 互译表未激活的门禁 / 两棵出包树与研发镜像一致）"
+    print("v1.10.2 硬校验通过：%d 项全绿（纯字母缩写 %d 条 + 含数字原文串 %d 条与种子同步 / "
+          "滤镜与 translator 挂载位 / 两条 recognizer 模式 / 互译表未激活的门禁 / "
+          "两棵出包树与研发镜像一致 / 单字 stem 列在位且取值正确）"
           % (len(oks), len(seed_rows()), len(seed_rows(SEED_NUM))))
 
 
