@@ -49,8 +49,16 @@ engine:
     - punct_translator
     - table_translator
     - reverse_lookup_translator
-    - lua_translator@inputShow_translator
-    - lua_translator@help_translator
+    # 2026-10-22 性能修复：librime 每挂一个 lua_translator，每次按键都要跨一次 Lua
+    # 边界并调用它一次，实测单个约 +10~13 ms，与脚本内容无关（空脚本也要钱）。
+    # 十组码均值：3 个 translator + 11 个 filter = 44.0 ms/键，0 个 = 9.1 ms/键。
+    # 依据 _probe/lag_report_20261022.txt。
+    #   - inputShow_translator：功能与 inputShow_Filter 完全重复（同一张 candsWillBeShown
+    #     表，Filter 第 221-233 行自己生成候选），删掉后「a→a」「Ni/He/ID…」输出逐一
+    #     比对不变，零损失。
+    #   - help_translator：只处理 /help 一个输入，14 条候选已搬进 lua/slash_translator.lua，
+    #     与 /5g 原文通道合并成一个 translator，只付一次开销。用法不变。
+    # 十个 lua_filter 全部保留（它们只在候选算完后跑一遍，合计约 9~11 ms）。
     # DSH 2026-10-14 补回：13号原有的三个中英互译 translator
     - table_translator@zh2en_wubi     # 中→英：打五笔码候选出英文
     - table_translator@en2zh_v2       # 英→中：打英文候选出中文

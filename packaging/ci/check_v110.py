@@ -35,12 +35,22 @@ v1.9.10 的做法是把「TIP 参数必须 0804: 开头」这类致命错误挡�
      D1 abbr_num.txt 与种子表 abbr-num-seed.txt 条目数一致（防「改了表忘了生成」）
      D2 每条：码=2~14 位且必含数字；词面≠码且给出正确写法；码唯一；释义非空且宽度 ≤20 格
         （宽度这条是硬约束：rawEcho 的 comment 写在 phoneComment 之后，安卓上不会被截断，超宽会顶破候选窗）
-     D3 rawEcho_translator.lua 存在、在 rime.lua 里注册、在 custom.yaml 的 engine/translators 里，
+     D3 slash_translator.lua 存在、在 rime.lua 里注册、在 custom.yaml 的 engine/translators 里，
         且排在 table_translator@custom_phrase 之后（同层按序，别把自定义短语挤掉）
      D4 custom.yaml 里 recognizer/patterns/punct + rawNum 两条都在。
         punct 缺一条 → symbols.custom.yaml 那 107 组 /xx 符号全哑（dyy 原配开关，我们重写
         default.custom.yaml 时丢了它）；rawNum 缺一条 → /5g /ri0977 出不来，数字还会被 selector 当选词键吃掉。
-     D5 rawEcho_translator.lua 与 abbr_num.txt 里不出现本机绝对路径
+     D5 slash_translator.lua 与 abbr_num.txt 里不出现本机绝对路径
+  F 每键延迟闸门（v1.10.3：修「打字明显卡顿」）
+     F1 生效的 lua_translator 只能是 1 个 slash_translator。
+        librime 每挂一个 lua_translator，每次按键都要跨一次 Lua 边界并调用它一次，
+        实测单个 +10~13 ms 且与脚本内容无关（3 个 translator + 11 个 filter = 44.0 ms/键，
+        0 个 = 9.1 ms/键；lua_filter 只在候选算完后跑一遍，不构成这个成本）。
+        见 _probe/lag_report_20261022.txt。
+        —— 生效集合 = 基础 schema 的 translators + custom.yaml 的 engine/translators/+ ，
+           所以只查 schema 会漏（slash_translator 是补丁加进去的），只查 custom 会漏（有人在 schema 里加回一个）。
+     F2 三台树的 rime.lua 里不得再出现 help_translator / inputShow_translator / rawEcho_translator
+        的 require —— 老脚本留在 lua/ 目录不加载没关系，一旦被重新注册，卡顿立刻回来。
 
 用法：python packaging/ci/check_v110.py
 """
@@ -152,11 +162,11 @@ def gloss_width(s):
 def check_raw_num(tree, tag):
     """D 组：v1.10.1 的「/」通道。数据表 + 滤镜注册 + 两条 recognizer 模式。"""
     txt = os.path.join(tree, "lua", "abbr_num.txt")
-    lua = os.path.join(tree, "lua", "rawEcho_translator.lua")
+    lua = os.path.join(tree, "lua", "slash_translator.lua")
     if not os.path.isfile(txt):
         bad("%s 缺 lua/abbr_num.txt（/5g 这类含数字码的数据表）" % tag)
     elif not os.path.isfile(lua):
-        bad("%s 缺 lua/rawEcho_translator.lua" % tag)
+        bad("%s 缺 lua/slash_translator.lua" % tag)
     else:
         rows = [l for l in read(txt).splitlines() if l.strip() and not l.lstrip().startswith("#")]
         srows = seed_rows(SEED_NUM)
@@ -196,21 +206,43 @@ def check_raw_num(tree, tag):
             if m:
                 bad("%s %s 里出现本机绝对路径：%s" % (tag, os.path.basename(p), m.group(0)))
         if len(fails) == local_bad:
-            ok("%s rawEcho 滤镜与数据表无本机绝对路径" % tag)
+            ok("%s slash 滤镜与数据表无本机绝对路径" % tag)
 
+    # 2026-10-22 性能闸门：librime 每挂一个 lua_translator 就让每次按键多约 10~13 ms
+    # （实测五笔方案 3 个 translator + 11 个 filter = 44.0 ms/键，0 个 = 9.1 ms/键）。
+    # lua_filter 只在候选算完之后跑一遍，十一个合计约 9 ms，不受这条限制。
+    # 现在只允许一个 slash_translator；将来若有人加第二个，卡顿立刻回来，出包前必须拦下。
+    spath = os.path.join(tree, "wubi_pinyin.schema.yaml")
     cpath = os.path.join(tree, "wubi_pinyin.custom.yaml")
+    lua_t = []
+    if os.path.isfile(spath):
+        lua_t += re.findall(r"^\s*-\s*[\"']?lua_translator@(\w+)", read(spath), re.M)
+    if os.path.isfile(cpath):
+        # custom.yaml 用 engine/translators/+: 追加，所以补丁里的每一项也是生效的 translator
+        lua_t += re.findall(r"^\s*-\s*[\"']?lua_translator@(\w+)", read(cpath), re.M)
+    extra = [x for x in lua_t if x != "slash_translator"]
+    if extra:
+        bad("%s 生效的 translators 里多了 lua_translator：%s —— 每个让每键多约 10~13 ms"
+            "（实测依据 _probe/lag_report_20261022.txt；/xx 通道请走 symbols 或 slash_translator）"
+            % (tag, "、".join(extra)))
+    elif len(lua_t) != 1:
+        bad("%s 生效的 lua_translator 有 %d 个（%s），只应保留 1 个 slash_translator"
+            % (tag, len(lua_t), "、".join(lua_t) or "无"))
+    else:
+        ok("%s 每键成本受控：生效 lua_translator 只有 slash_translator（1 个）" % tag)
+
     if not os.path.isfile(cpath):
         return
     data = read(cpath)
-    m = re.search(r"^\s*-\s*lua_translator@rawEcho_translator", data, re.M)
+    m = re.search(r"^\s*-\s*lua_translator@slash_translator", data, re.M)
     if not m:
-        bad("%s custom.yaml 的 engine/translators 没挂 rawEcho_translator —— /5g 通道不会加载" % tag)
+        bad("%s custom.yaml 的 engine/translators 没挂 slash_translator —— /help 与 /5g 通道不会加载" % tag)
     else:
         c = re.search(r"^\s*-\s*table_translator@custom_phrase", data, re.M)
         if c and c.start() > m.start():
-            bad("%s rawEcho_translator 排在 custom_phrase 之前，会抢自定义短语" % tag)
+            bad("%s slash_translator 排在 custom_phrase 之前，会抢自定义短语" % tag)
         else:
-            ok("%s rawEcho_translator 已挂在 translators 且位次在 custom_phrase 之后" % tag)
+            ok("%s slash_translator 已挂在 translators 且位次在 custom_phrase 之后" % tag)
     for pat, why in (("recognizer/patterns/punct",
                       "缺它则 symbols.custom.yaml 那 107 组 /xx 符号一个都出不来"),
                      ("recognizer/patterns/rawNum",
@@ -221,10 +253,22 @@ def check_raw_num(tree, tag):
         ok("%s 两条 recognizer 模式在位（punct 点亮 dyy 符号库 / rawNum 走原文串）" % tag)
 
     rl = os.path.join(tree, "rime.lua")
-    if os.path.isfile(rl) and 'rawEcho_translator = require("rawEcho_translator")' not in read(rl):
-        bad("%s rime.lua 没注册 rawEcho_translator —— 滤镜不会被加载" % tag)
-    elif os.path.isfile(rl):
-        ok("%s rime.lua 已注册 rawEcho_translator" % tag)
+    if not os.path.isfile(rl):
+        bad("%s 缺 rime.lua —— slash_translator 与各滤镜都无从注册" % tag)
+        return
+    rdata = read(rl)
+    if 'slash_translator = require("slash_translator")' not in rdata:
+        bad("%s rime.lua 没注册 slash_translator —— /help 与 /5g 通道不会被加载" % tag)
+    else:
+        ok("%s rime.lua 已注册 slash_translator" % tag)
+    # F2：老脚本一旦被重新 require，每键又要多付一次 Lua 边界开销
+    back = [n for n in ("help_translator", "inputShow_translator", "rawEcho_translator")
+            if re.search(r"^\s*%s\s*=\s*require" % n, rdata, re.M)]
+    if back:
+        bad("%s rime.lua 又注册了旧的 lua_translator：%s —— 打字卡顿会回来（44.0 ms/键）"
+            % (tag, "、".join(back)))
+    else:
+        ok("%s rime.lua 未重新注册旧 translator（help/inputShow/rawEcho）" % tag)
 
 
 STEM_MIN_CHARS = 20000
@@ -357,9 +401,9 @@ def md5(p):
 
 def check_trees_match():
     files = ["lua/abbr_en.txt", "lua/abbrGloss_Filter.lua",
-             "lua/abbr_num.txt", "lua/rawEcho_translator.lua",
+             "lua/abbr_num.txt", "lua/slash_translator.lua",
              "lua/dic_4w_Filter.lua",
-             "wubi_pinyin.custom.yaml", "rime.lua"]
+             "wubi_pinyin.schema.yaml", "wubi_pinyin.custom.yaml", "rime.lua"]
     for f in files:
         digs = {}
         for tag, tree in TREES.items():
@@ -367,11 +411,17 @@ def check_trees_match():
             if os.path.isfile(p):
                 digs[tag] = md5(p)
         vals = set(digs.values())
+        missing = sorted(set(TREES) - set(digs))
         if len(vals) > 1:
             bad("跨树不一致：%s 在 %s 里内容不同 → 装的包与仓库校验树不是同一套"
                 % (f, ", ".join("%s=%s" % (k, v[:8]) for k, v in digs.items())))
         elif not digs:
             bad("三棵树都没有 %s" % f)
+        elif missing:
+            # 只查「有文件的那些树相同」会漏掉「release 树里根本没这个新文件」——
+            # 安装包是 prepare_release.py 从 stage 拷过来的，漏拷等于功能没进包。
+            bad("跨树缺文件：%s 不在 %s（stage 改了没同步到出包树？）"
+                % (f, "、".join(missing)))
         else:
             ok("跨树一致：%s（%s 同 md5）" % (f, "/".join(sorted(digs))))
     # C3 研发镜像漂移：rime-config 是「改配置时最容易下手」的那棵树，

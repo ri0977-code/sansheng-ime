@@ -30,7 +30,9 @@ patch:
       states: [Off, 缩写]
   engine/translators/+:  #增加以下translator
     - table_translator@custom_phrase  # 指定使用 custom_phrase 进行输入字符的翻译
-    - lua_translator@rawEcho_translator	# v1.10.1：/5g /ri0977 这类含数字原文串
+    - lua_translator@slash_translator	# 2026-10-22：help_translator + rawEcho_translator 合并版
+    #   每挂一个 lua_translator 每次按键就多约 10 ms（实测 44.0 → 9.7 ms/键），
+    #   两个必须保留功能（/help 速查、/5g 原文通道）合并成一个，只付一次开销。
   engine/filters:									# 设置以下filter（简繁开关 zh_trad 定义在基础 schema）
     - simplifier@tradition						# 简繁转换（三生输入法·简繁反查；基础 schema 已定义 zh_trad 开关 + tradition 块）
     - lua_filter@inputShow_Filter					# 这个过滤器用于在特定场景下，增加候选项
@@ -59,7 +61,7 @@ patch:
   # v1.10.1 补回两条识别模式。recognizer 排在 selector 之前，所以数字不再被当选词键吃掉：
   #   punct  = dyy 原配的符号开关，我们重写 default.custom.yaml 时把它弄丢了；
   #            没这一行，symbols.custom.yaml 里那 107 组 /xx 符号一个都出不来（2026-10-21 沙箱实测）
-  #   rawNum = 三生自加：/ 后面含数字的串（5g / b2b / pm2.5 / ri0977）交给 rawEcho_translator
+  #   rawNum = 三生自加：/ 后面含数字的串（5g / b2b / pm2.5 / ri0977）交给 slash_translator
   recognizer/patterns/punct: "^/([0-9]0?|[A-Za-z]+)$"
   recognizer/patterns/rawNum: "^/[A-Za-z0-9]*[0-9][A-Za-z0-9._+%-]*$"
   punctuator:  # 设置标点符号集
