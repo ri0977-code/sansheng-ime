@@ -458,6 +458,38 @@ reg_ok:
   File "检查更新.cmd"
   File "反查诊断.ps1"
   File "反查诊断.cmd"
+  File "自动更新提醒.ps1"
+  File "自动更新提醒.cmd"
+  File "设置更新提醒.ps1"
+
+  ; ===== 10b. 自动更新提醒：每周日查一次，有新版才弹一条桌面通知 =====
+  ; 为什么要它：发布页曾说「已装旧版的用户会收到检查更新提示」，
+  ; 而「检查更新」原本只是开始菜单里一个手动双击的入口 —— 没人点就永远不知道有新版。
+  ; 这个任务让那句承诺变成真的。
+  ;
+  ; 边界（刻意做窄）：
+  ;   - 只弹一条通知告知「有新版 + 怎么升」，**绝不自动下载、绝不自动安装**；
+  ;   - 已卸载 / 不是用 setup.exe 装的 → 读不到注册表版本号，脚本静默退出；
+  ;   - 没网 / GitHub 不可达 → 静默退出，等下一轮；
+  ;   - 已是最新版 → 一声不吭，不打扰；
+  ;   - 联网只查 github.com/ri0977-code/sansheng-ime 的 releases/latest，不发任何本机数据。
+  ;
+  ; 坑（实测踩过，别改回 schtasks 命令行）：
+  ;   `schtasks /Create /TR "... -File \"C:\Program Files\...\x.ps1\""` 会在空格处把参数拆开，
+  ;   装在带空格的目录（典型是 C:\Program Files\）会得到 Execute=D:\Program、
+  ;   Arguments=Files\... 的坏任务，回读时目标文件 Test-Path=False，任务每次必失败。
+  ;   所以这里让 PowerShell 脚本走 Task Scheduler 的 COM 接口建任务，绕开命令行引号解析；
+  ;   脚本内部还会回读核对（状态 / 下次运行时间 / 目标文件是否存在），不对就当没建成。
+  DetailPrint "设置自动更新提醒（每周一次）..."
+  ExecWait 'powershell -NoProfile -ExecutionPolicy Bypass -File "$INSTDIR\tools\设置更新提醒.ps1" -Action Install -ScriptPath "$INSTDIR\tools\自动更新提醒.cmd"' $0
+  ${If} $0 != 0
+    DetailPrint "自动更新提醒没能建立（不影响输入法使用）：设置更新提醒.ps1 返回 $0"
+    ${IfNot} ${Silent}
+      MessageBox MB_ICONINFORMATION "自动更新提醒没能建立（不影响输入法使用）。$\n$\n以后想查新版：开始菜单 ▸ 三生输入法 ▸ 检查更新。"
+    ${EndIf}
+  ${Else}
+    DetailPrint "自动更新提醒已就绪：SanshengIME-UpdateCheck（每周日 11:30）"
+  ${EndIf}
 
   ; ===== 11. 把三生加入当前用户的键盘列表（免手动去设置里添加）=====
   DetailPrint "注册到输入法列表..."
@@ -621,6 +653,9 @@ Section "Uninstall"
   ${EndIf}
 
   ; 5) 引擎子目录与三生自己的图标（都是精确文件名，不用通配）
+  ; 先撤掉自动更新提醒任务：它指向 $INSTDIR\tools\自动更新提醒.cmd，
+  ; 那个目录马上要删，任务留着就会每周日跑一次必然报错的死任务。
+  ExecWait 'powershell -NoProfile -ExecutionPolicy Bypass -File "$INSTDIR\tools\设置更新提醒.ps1" -Action Remove' $0
   RMDir /r "$INSTDIR\weasel-0.17.4"
   RMDir /r "$INSTDIR\tools"
   Delete "$INSTDIR\icon-sansheng-tray.ico"
@@ -671,6 +706,8 @@ uninstall_sansheng_only:
   DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "WeaselServer"
 
   ; 三生自己的工具、图标、开始菜单
+  ; 与前面那条路径一样：先撤任务，再删它依赖的脚本目录
+  ExecWait 'powershell -NoProfile -ExecutionPolicy Bypass -File "$INSTDIR\tools\设置更新提醒.ps1" -Action Remove' $0
   RMDir /r "$INSTDIR\tools"
   ${If} "$INSTDIR" != "$R9"
     ; 共享 TIP 的 IconFile 现在指向三生图标。图标文件马上要删，先把
