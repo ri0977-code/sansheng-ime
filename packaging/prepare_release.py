@@ -44,6 +44,14 @@ SKIP_DIRS = {"sync", "__pycache__", "weasel.user", "wiki-keep"}
 # 后缀：整类跳过
 SKIP_SUFFIX = (".bak", ".orig", ".sw-", ".test-bak", ".userdb", ".log", ".tmp")
 
+# 许可证正文（本机根目录里那批 *.txt 是合规材料，不是运行时配置）。
+# 它由 install.nsi 显式 File 打进安装包（LICENSE、THIRD_PARTY_NOTICES.md、LICENSES\*），
+# 不需要也不应该再随 config/ 复制进用户目录；5.6 的「本机有、发布树没有」检查要跳过它们。
+# 名字直接从仓库 LICENSES/ 取，避免手抄文件名（MIT-ECDICT 之类容易打错）。
+_LIC_DIR = os.path.join(ROOT, "LICENSES")
+LICENSE_DOCS = {n.lower() for n in os.listdir(_LIC_DIR)} if os.path.isdir(_LIC_DIR) else set()
+LICENSE_DOCS |= {"license", "license.txt", "copying", "notice.txt", "third_party_notices.md"}
+
 INSTDIR_PLACEHOLDER = r"$INSTDIR"
 
 CHECK_TABLES = ["zh2en_pinyin_wp.dict.yaml", "zh2en_wubi_wp.dict.yaml"]
@@ -238,8 +246,8 @@ def main():
             continue          # 只看运行时配置（文档/构建脚本不在此列）
         if ".bak" in n or ".sw-" in n or ".orig" in n or "moved-" in n or "-bak" in n:
             continue          # 各种备份残留（后缀五花八门，按子串判）
-        if n in PERSONAL or n.endswith(SKIP_SUFFIX) or n in ENGINE_SKIP:
-            continue          # 有意不带的个人数据/杂物
+        if n in PERSONAL or n.endswith(SKIP_SUFFIX) or n in ENGINE_SKIP or n in LICENSE_DOCS:
+            continue          # 有意不带的个人数据/杂物/许可证正文
         if not os.path.exists(os.path.join(rel_cfg, fn)):
             only_live.append(fn)
     if only_live:

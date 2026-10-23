@@ -3,7 +3,7 @@
 !include "FileFunc.nsh"
 
 Name "三生输入法"
-OutFile "三生输入法-v1.10.3-setup.exe"
+OutFile "三生输入法-v1.10.4-setup.exe"
 InstallDir "$PROGRAMFILES64\Rime"
 RequestExecutionLevel admin
 
@@ -500,7 +500,7 @@ tip_warn_done:
   SetRegView 64
   WriteRegStr HKLM "${UN_KEY}" "DisplayIcon" "$INSTDIR\icon-sansheng-tray.ico"
   WriteRegStr HKLM "${UN_KEY}" "DisplayName" "三生输入法"
-  WriteRegStr HKLM "${UN_KEY}" "DisplayVersion" "1.10.3"
+  WriteRegStr HKLM "${UN_KEY}" "DisplayVersion" "1.10.4"
   WriteRegStr HKLM "${UN_KEY}" "Publisher" "WorkBuddy"
   WriteRegStr HKLM "${UN_KEY}" "InstallLocation" "$INSTDIR"
   WriteRegStr HKLM "${UN_KEY}" "UninstallString" '"$INSTDIR\uninstall-sansheng.exe"'

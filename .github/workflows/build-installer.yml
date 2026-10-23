@@ -17,22 +17,20 @@ env:
   PYTHONUTF8: "1"
   PYTHONIOENCODING: "utf-8"
   # Public, SHA256-pinned build inputs (config + engine overlay + reg).
-  INPUTS_URL: https://github.com/ri0977-code/sansheng-ime/releases/download/build-inputs-v1.10.3/sansheng-build-inputs-v1.10.3.7z
-  INPUTS_SHA256: bea43a1fbf5ee4900c30998895176447731fc551c402915158bcab497a235d76
+  INPUTS_URL: https://github.com/ri0977-code/sansheng-ime/releases/download/build-inputs-v1.10.4/sansheng-build-inputs-v1.10.4.7z
+  INPUTS_SHA256: 9db0184972ed668cd7e035a5caf61f94a37282dccafb7cb010ae75dbb9e6811f
   # Must match both the build-inputs bundle and install.nsi; the build refuses
   # to run if they diverge.
-  # v1.10.3：上面两行指向 packaging/dist/sansheng-build-inputs-v1.10.3.7z（用
-  # `python packaging/ci/make_build_inputs.py --version 1.10.3` 从 packaging/release 组装，
-  # 129 个文件 = config 119 + overlay 4 + reg 4 + 说明 1 + MANIFEST 1，本地验过 MANIFEST）。
-  # 这一版换的东西只有一处数据：wubi86.dict.yaml 给 20,910 个单字补了第 4 列 stem，
-  # 修「自动造词造出歪码」。候选、排序、耗时零变化（见 演进与遗留问题记录.md 第二十一/二十二节）。
-  # 之所以抬版本号而不复用 1.10.1：检查更新.ps1 按版本号比对，同名换包等于让已装 1.10.1
-  # 的人永远收不到这个修复。
-  # **顺序**：先把这个 7z 传到 tag `build-inputs-v1.10.3`（别设成 latest），再 push 本文件；
-  # 反过来的话 CI 下载 404。踩过的坑是 7z 还停在 1.9.10（config 里没有
-  # abbrGloss_Filter.lua / abbr_en.txt），那样 CI 会出一个「版本号新、配置旧」的假包，
-  # build_installer.py 的 1b 号硬门会拦下它。
-  EXPECTED_VERSION: "1.10.3"
+  # v1.10.4：上面两行指向 packaging/dist/sansheng-build-inputs-v1.10.4.7z（用
+  # `python packaging/ci/make_build_inputs.py --version 1.10.4` 从 packaging/release 组装，
+  # 130 个文件 = config 120 + overlay 4 + reg 4 + 说明 1 + MANIFEST 1，本地验过 MANIFEST）。
+  # 这一版只换了一处数据：lua/dic_4w_cn.txt 给 3,401 个常用单字补了英文释义（CC-CEDICT，
+  # CC BY-SA 4.0），候选文字/顺序/条数不变，只往注释里追加。桌面、安卓、Trime 三端同源。
+  # 之所以抬版本号而不复用 1.10.3：检查更新.ps1 按版本号比对，同名换包等于让已装 1.10.3
+  # 的人永远收不到这个改动。
+  # **顺序**：先把这个 7z 传到 tag `build-inputs-v1.10.4`（别设成 latest），再 push 本文件；
+  # 反过来的话 CI 下载 404。
+  EXPECTED_VERSION: "1.10.4"
   # Official upstream engine.
   WEASEL_URL: https://github.com/rime/weasel/releases/download/0.17.4/weasel-0.17.4.0-installer.exe
   WEASEL_SHA256: cf509534a8f5f8af9c98ed7cbb8f135439f145a8cbe7e50ede42bb5b5ab45c29
