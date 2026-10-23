@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="三生输入法图标：黑底金色圆环，内为金色汉字三">
+  <circle cx="128" cy="128" r="124" fill="#000000"/>
+  <circle cx="128" cy="128" r="124" fill="none" stroke="#fad76e" stroke-width="7"/>
+  <rect x="59" y="66" width="138" height="24" fill="#fad76e"/>
+  <rect x="67" y="116" width="122" height="23" fill="#fad76e"/>
+  <rect x="50" y="167" width="159" height="24" fill="#fad76e"/>
+</svg>
