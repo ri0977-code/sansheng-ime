@@ -6,6 +6,14 @@ on:
     tags:
       - "v*"
 
+    # #63（2026-10-24）：安卓 / 同文试用版的 tag 也长成 v*（v1.10.4-android、
+    # v1.10.3-trime-trial），以前每次发安卓都会把这条桌面流水线一起点着
+    # （改前取证 _probe/ci63_before.txt：两个 tag 各触发 Release + Build installer）。
+    # 桌面工作流只认真正的桌面 tag；实证脚本 _probe/ci63_verify.py。
+    tags-ignore:
+      - "*-android"
+      - "*-trime-trial"
+      - "build-inputs-*"
 permissions:
   contents: read
 
