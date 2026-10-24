@@ -19,15 +19,16 @@ on:
   push:
     tags:
       - 'v*'
-
-    # #63（2026-10-24）：安卓 / 同文试用版的 tag 也长成 v*（v1.10.4-android、
-    # v1.10.3-trime-trial），以前每次发安卓都会把这条桌面流水线一起点着
-    # （改前取证 _probe/ci63_before.txt：两个 tag 各触发 Release + Build installer）。
-    # 桌面工作流只认真正的桌面 tag；实证脚本 _probe/ci63_verify.py。
-    tags-ignore:
-      - '*-android'
-      - '*-trime-trial'
-      - 'build-inputs-*'
+      # #63（2026-10-24）：安卓 / 同文试用版的 tag 也长成 v*（v1.10.4-android、
+      # v1.10.3-trime-trial），以前每次发安卓都会把这条桌面流水线一起点着
+      # （改前取证 _probe/ci63_before.txt：两个 tag 各触发 Release + Build installer）。
+      # 只能用 tags 列表内的 ! 负向匹配：GitHub 明确规定 tags 与 tags-ignore
+      # 不能同时出现在一个 on.push 里，写了 tags-ignore 整个文件解析失败，
+      # 反而退化成「任何 push 都触发 + 秒失败空 run」（取证 _probe/ci63_bad_tagsignore.txt）。
+      # build-inputs-* 一类 tag 不以 v 开头，本来就不匹配 v*，无需再排除。
+      # 实证脚本 _probe/ci63_verify.py（负向 tag 0 条 run / 正向 tag 2 条 run）。
+      - '!v*-android'
+      - '!v*-trime-trial'
 permissions:
   contents: read
 
