@@ -33,6 +33,14 @@ LIVE = r"D:\Program Files\Rime"
 PERSONAL = {
     "user.txt", "user.yaml", "installation.yaml", "custom_phrase.txt",
     "runlog.txt", "phraseext personal.txt",
+    # Qoder 2026-10-26：wubi86.txt 是 **wubi86 词典的用户学习词 TextDb 导出**
+    #   （文件头 `#@/db_name wubi86` + `#@/db_type tabledb` + `#@/tick 83`，
+    #     正文是「工<Tab>aaaa<Tab>2」这类学习计数，本机那份 mtime 10-25 14:54，
+    #     是 #125 实验把 user_dict 指向 wubi86 期间生成的残留）。
+    #   和 user.txt 同一类：装到别人机器上=把主人的自造词带过去，属个人数据泄露；
+    #   干净机器不需要它——引擎自己会生成。所以进白名单，而不是补进 config/。
+    #   （#127 之后现役方案 db_class 全是 userdb，本文件在运行期也不会再被写。）
+    "wubi86.txt",
 }
 # 引擎目录杂物
 ENGINE_SKIP = {

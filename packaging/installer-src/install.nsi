@@ -3,7 +3,7 @@
 !include "FileFunc.nsh"
 
 Name "三生输入法"
-OutFile "三生输入法-v1.10.4-setup.exe"
+OutFile "三生输入法-v1.10.5-setup.exe"
 InstallDir "$PROGRAMFILES64\Rime"
 RequestExecutionLevel admin
 
@@ -458,6 +458,24 @@ reg_ok:
   File "检查更新.cmd"
   File "反查诊断.ps1"
   File "反查诊断.cmd"
+  File "migrate-user-txt-to-userdb.ps1"
+
+  ; ===== 10c. #127 老用户词库迁移（tabledb 的 user.txt -> userdb 的 LevelDb）=====
+  ; 根因（#A1「造词/调频学了不落盘」）：老配置里 translator/db_class: tabledb，
+  ; 那是一只在部署/同步时才把内存写回 user.txt 的文本库，引擎一重启（服务端重开、
+  ; 崩溃、重新部署）这中间学到的词和调过的词频就全蒸发。v1.10.5 的配置已改为
+  ; db_class: userdb —— leveldb，每次上屏当场落盘。
+  ; 但老用户攒在 user.txt 里的自造词不会自己进新库：librime 自带的升级任务只认
+  ; 更老古董格式 ".userdb.txt"（deployment_tasks.cc:504 + user_db.cc:59 实测过源码），
+  ; 所以要在这里跑一次迁移：user.txt -> sync\<installation_id>\user.userdb.txt 快照，
+  ; 建空库目录，再交给 Weasel 自带的「同步」由 UserDbMerger 合并（取 max 不累加，
+  ; 重复跑安全），最后用 librime 回写的快照做读回校验。
+  ; 铁律：不建任何 Windows 计划任务（主人 2026-10-25 明确否掉，必须对所有用户从根上生效）、
+  ; 不删用户任何东西（user.txt 留副本）、脚本自带 600 秒超时与校验，失败只返回码，
+  ; 卡不住安装。日志写在 $R9\sansheng-127-migrate.log。
+  DetailPrint "迁移老用户词典（#127）..."
+  ExecWait 'powershell -NoProfile -ExecutionPolicy Bypass -File "$INSTDIR\tools\migrate-user-txt-to-userdb.ps1" -RimeDir "$R9" -Deployer "$INSTDIR\weasel-0.17.4\WeaselDeployer.exe" -Server "$INSTDIR\weasel-0.17.4\WeaselServer.exe"' $0
+  DetailPrint "#127 迁移返回码: $0（0=完成或无需迁移，详见 $R9\sansheng-127-migrate.log）"
 
   ; ===== 10b. （已取消）自动更新提醒 =====
   ; 2026-10-22 做过一版：安装时注册计划任务 SanshengIME-UpdateCheck，每周日 11:30 查一次
@@ -500,7 +518,7 @@ tip_warn_done:
   SetRegView 64
   WriteRegStr HKLM "${UN_KEY}" "DisplayIcon" "$INSTDIR\icon-sansheng-tray.ico"
   WriteRegStr HKLM "${UN_KEY}" "DisplayName" "三生输入法"
-  WriteRegStr HKLM "${UN_KEY}" "DisplayVersion" "1.10.4"
+  WriteRegStr HKLM "${UN_KEY}" "DisplayVersion" "1.10.5"
   WriteRegStr HKLM "${UN_KEY}" "Publisher" "WorkBuddy"
   WriteRegStr HKLM "${UN_KEY}" "InstallLocation" "$INSTDIR"
   WriteRegStr HKLM "${UN_KEY}" "UninstallString" '"$INSTDIR\uninstall-sansheng.exe"'
