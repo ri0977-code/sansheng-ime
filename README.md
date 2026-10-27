@@ -1,7 +1,7 @@
 # 三生输入法 Sansheng IME
 
 <p align="center">
-  <img src="assets/icon-sansheng-formal-256.png" width="128" height="128" alt="三生输入法图标：黑色方底上金色圆环，环内上下两横为阴阳两仪，中间鱼眼环心一点">
+  <img src="assets/icon-sansheng-formal-1024.png" width="160" height="160" alt="三生输入法图标：黑色方底上金色圆环，环内上下两横为阴阳两仪，中间鱼眼环心一点">
 </p>
 
 <p align="center"><strong>太极八卦意，三生万物名。</strong></p>
@@ -21,7 +21,9 @@ Rime「**五笔 · 拼音 · 混输 · 简繁**」全能输入法的增强滤镜
 ### 图标取意
 
 <p align="center">
-  <img src="assets/icon-sansheng-formal-128.png" width="112" height="112" alt="变形三：黑底金色圆环，上下两横为阴阳两仪，中间化作鱼眼（环心一点）">
+  <img src="assets/icon-sansheng-formal-1024.png" width="140" height="140" alt="变形三 · 圈三：黑底金色圆环，环内上下两横为阴阳两仪，中间化作鱼眼（环心一点）">
+  &nbsp;&nbsp;&nbsp;
+  <img src="assets/icon-circle-A-1024.png" width="140" height="140" alt="三道横 · 乾卦象：金环之内三道横，三才聚于圆中">
 </p>
 
 1. **三道横，乾卦象。** 上下两长横为阴、阳两仪，中间短横为鱼眼——太极核心、生生不息之变量生机。道生一，一生二，二生三，三生万物；三生即**五笔 · 拼音 · 英文**同框、全向互译混输。
