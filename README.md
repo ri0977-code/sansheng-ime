@@ -27,21 +27,21 @@ Rime「**五笔 · 拼音 · 混输 · 简繁**」全能输入法的增强滤镜
   <tr>
     <td align="center" valign="top" width="150"><img src="assets/icon-sansheng-black-gold-1024.png" width="128" alt="三道横：黑色方底上的金色汉字三，不带圈"></td>
     <td valign="top">
-      <b>一，图标三道横：乾卦象。</b>三生万物，生生不息。<br>
+      <b>一，图标黑方底金横三：乾卦象。</b>三生万物，生生不息。<br>
       上下两长横为阴 · 阳两仪，中短横为鱼眼——太极核心、生生不息之变量生机。
     </td>
   </tr>
   <tr>
     <td align="center" valign="top" width="150"><img src="assets/icon-sansheng-ring-512.png" width="128" alt="金圈三：金色汉字三外面一圈金环"></td>
     <td valign="top">
-      <b>二，图标金圈三：方圆象。</b>内圆外方，向外生长。<br>
+      <b>二，图标黑方底金环三：方圆象。</b>内圆外方，向外生长。<br>
       寓意三是最小的生成系统。是最小的多，最大的少。
     </td>
   </tr>
   <tr>
     <td align="center" valign="top" width="150"><img src="assets/icon-sansheng-formal-1024.png" width="128" alt="变形三：黑底金色圆环，上下两横为阴阳两仪，中间化作鱼眼（环心一点）"></td>
     <td valign="top">
-      <b>三，图标变形三：鱼眼象。</b>循环变化，无限生机。<br>
+      <b>三，图标黑方底金环变形三：鱼眼象。</b>循环变化，无限生机。<br>
       由内向外：环心小点为一，中环为二，大环为三，三环即三生，寓意无中生有，有生万物。<br>
       由外向内：大环为系统，上下横为内部阴阳，中间圆环为鱼眼变量，象征内部变动变化，环心小点象征系统的生机涌现。
     </td>
