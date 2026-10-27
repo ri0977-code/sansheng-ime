@@ -78,16 +78,16 @@ Windows、安卓、鸿蒙（上架中）三端同源。
 | 附件 | 用在哪 | 字节数 | SHA-256 |
 |---|---|---|---|
 | `sansheng-ime-v1.10.5-setup.exe` | 电脑：Windows 10/11 64 位 | 29,810,511 | `cbc04d284dede839d09f19aacaa63c7b69f3ebc2dd1f79c52acf15fd8eceec9b` |
-| `1-sansheng-ime-1.10.5-android.apk` | 手机：主程序（安卓 6.0 以上、arm64） | 53,922,583 | `a718bae477a31fe85576c1ab262acf94e2fdac576fa39e727ce4620bd4ac393b` |
-| `2-rime-plugin-0.1.3-arm64.apk` | 手机：必装的官方 Rime 引擎插件 | 5,763,096 | `2d8d27cd127647fc2e171297d220dd1a6ed6f295a82d047ebbcb882ddd37ca0c` |
-| `sansheng-ime-android-1.10.5.zip` | 手机：一次下全（两个 apk + 说明 + 校验值） | 58,786,660 | `83160dbd537c15856e07ea643bc438054e060aabf434e1ee991dbc713c621c20` |
-| `3-anzhuang-shuoming.txt` | 手机装机逐步说明 | 10,475 | `d66a4669b3cb33f30a2701ac21cac70bf5e3b34e944074e723e525828a75134a` |
-| `SHA256SUMS.txt` | 安卓发布目录逐项校验值 | 2,115 | `8edfe615e6ae2a2f40dc6acf45c73196b53c338027c801dc2121d441f7da189a` |
+| `sansheng-ime-1.10.5-android.apk` | 手机：一个包装完（安卓 6.0 以上、arm64） | 59,610,656 | `5ec5ee6590bdedea41102dc00e3037a5df36d753ef906bc63f30609ffe03045e` |
+| `anzhuang-shuoming.txt` | 手机装机逐步说明 | 10,481 | `0944b41066a30833f3a649debdcb75c2520c2a8637c190bf17bbf7a949639aec` |
+| `THIRD_PARTY_NOTICES.md` | 开源组件归属与许可证 | 22,210 | `53acb31bbff66f90464d9767f5ddbc0b9608df493ce514223176290337598a1d` |
+| `SHA256SUMS.txt` | 逐个文件校验值 | 672 | `03923c847f1b703f9ce679fcc6c57e1a90d3283dc677d9ad7286822573448173` |
 
-手机**两个 apk 都要装，顺序不能反**：先 `1-sansheng-ime-1.10.5-android.apk`，
-后 `2-rime-plugin-0.1.3-arm64.apk`（主程序没装时插件装不上）；升级直接覆盖安装、不要卸载。
+手机**只装这一个 apk**：Rime 引擎和方案、词库已经并进安装包，
+不用再装插件，装完打开一次让它铺数据（10~40 秒），再启用键盘即可。
+升级直接覆盖安装、不要卸载。
 纯血鸿蒙（HarmonyOS NEXT）装不了 APK，鸿蒙 4.2 及更早的华为/荣耀可以。
-附件名用英文是 GitHub 的限制（它会把中文附件名替换成 `-`），逐条步骤见 `3-anzhuang-shuoming.txt`。
+附件名用英文是 GitHub 的限制（它会把中文附件名替换成 `-`），逐条步骤见 `anzhuang-shuoming.txt`。
 嫌 GitHub 慢可以走网盘：[夸克 https://pan.quark.cn/s/1a3be5986f8a](https://pan.quark.cn/s/1a3be5986f8a)（无提取码，桌面 + 安卓）、
 蓝奏云 [exe](https://mersol.lanzout.com/iLsOl4dils4h) 提取码 `8hvh` · [apk](https://mersol.lanzout.com/iTvcb4dlkvoj) 提取码 `8be3`。
 
