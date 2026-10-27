@@ -5,11 +5,10 @@
 </p>
 
 <p align="center"><strong>太极八卦意，三生万物名。</strong></p>
-<p align="center"><strong>三生即五笔 · 拼音 · 英文同框全向互译混输。</strong></p>
 
-> **三**：三道横——**上横阳 · 下横阴**，**中间一横是变数**。太极核心、生生不息之变量生机。太极生两仪、两仪生三才，三才生万物；三生即**五笔 · 拼音 · 英文**全向混输。
+> 名字里的「三」就是顶部这个**不带圈**的**汉字三**：三道横——**上横阳 · 下横阴**，中间一横在「变形三」里化作鱼眼。太极核心、生生不息之变量生机。太极生两仪、两仪生三才，三才生万物；三生即**五笔 · 拼音 · 英文**全向混输。
 
-Rime「**五笔 · 拼音 · 英文 · 简繁 · 混输**」全能输入法的增强滤镜：给候选加 **三向编码反查**、**多音字注释**、**简繁切换**与**自调频**，完全不改输入法原文件，独立 Lua 滤镜，安全可卸。
+Rime「**五笔 · 拼音 · 混输 · 简繁**」全能输入法的增强滤镜：给候选加 **三向编码反查**、**多音字注释**、**简繁切换**与**自调频**，完全不改输入法原文件，独立 Lua 滤镜，安全可卸。
 
 原名「五笔词通」，2026-10-15 更名为「三生输入法」。
 
@@ -27,21 +26,21 @@ Rime「**五笔 · 拼音 · 英文 · 简繁 · 混输**」全能输入法的�
   <tr>
     <td align="center" valign="top" width="150"><img src="assets/icon-sansheng-black-gold-1024.png" width="128" alt="三道横：黑色方底上的金色汉字三，不带圈"></td>
     <td valign="top">
-      <b>图标一，黑方底金横三：乾卦象。</b>三生万物，生生不息。<br>
+      <b>一，图标三道横：乾卦象。</b>三生万物，生生不息。<br>
       上下两长横为阴 · 阳两仪，中短横为鱼眼——太极核心、生生不息之变量生机。
     </td>
   </tr>
   <tr>
     <td align="center" valign="top" width="150"><img src="assets/icon-sansheng-ring-512.png" width="128" alt="金圈三：金色汉字三外面一圈金环"></td>
     <td valign="top">
-      <b>图标二，黑方底金环三：方圆象。</b>内圆外方，向外生长。<br>
+      <b>二，图标金圈三：方圆象。</b>内圆外方，向外生长。<br>
       寓意三是最小的生成系统。是最小的多，最大的少。
     </td>
   </tr>
   <tr>
     <td align="center" valign="top" width="150"><img src="assets/icon-sansheng-formal-1024.png" width="128" alt="变形三：黑底金色圆环，上下两横为阴阳两仪，中间化作鱼眼（环心一点）"></td>
     <td valign="top">
-      <b>图标三，黑方底金环变形三：鱼眼象。</b>循环变化，无限生机。<br>
+      <b>三，图标变形三：鱼眼象。</b>循环变化，无限生机。<br>
       由内向外：环心小点为一，中环为二，大环为三，三环即三生，寓意无中生有，有生万物。<br>
       由外向内：大环为系统，上下横为内部阴阳，中间圆环为鱼眼变量，象征内部变动变化，环心小点象征系统的生机涌现。
     </td>
@@ -53,7 +52,7 @@ Rime「**五笔 · 拼音 · 英文 · 简繁 · 混输**」全能输入法的�
 ### 特点
 
 **五笔 · 拼音 · 英文互译混输 + 三向反查 + 简繁切换 + 自动造词 + 自动调频。**
-Windows、安卓、鸿蒙（上架中）三端同源。
+Windows、安卓、鸿蒙三端同源。
 
 ### 键盘交互
 
@@ -71,12 +70,29 @@ Windows、安卓、鸿蒙（上架中）三端同源。
 
 ## 下载
 
-**[三生输入法 v1.10.5 安装包 `sansheng-ime-v1.10.5-setup.exe`（29.81 MB）](https://github.com/ri0977-code/sansheng-ime/releases/download/v1.10.5/sansheng-ime-v1.10.5-setup.exe)**
+**电脑和安卓的包在同一个发布页**：
+**[三生输入法 v1.10.5（Windows · 安卓）](https://github.com/ri0977-code/sansheng-ime/releases/tag/v1.10.5)**
 ｜[Releases 列表](https://github.com/ri0977-code/sansheng-ime/releases)
 
-sha256 `cbc04d284dede839d09f19aacaa63c7b69f3ebc2dd1f79c52acf15fd8eceec9b`（29,810,511 B）。
+| 附件 | 用在哪 | 字节数 | SHA-256 |
+|---|---|---|---|
+| `sansheng-ime-v1.10.5-setup.exe` | 电脑：Windows 10/11 64 位 | 29,810,511 | `cbc04d284dede839d09f19aacaa63c7b69f3ebc2dd1f79c52acf15fd8eceec9b` |
+| `1-sansheng-ime-1.10.5-android.apk` | 手机：主程序（安卓 6.0 以上、arm64） | 53,922,583 | `a718bae477a31fe85576c1ab262acf94e2fdac576fa39e727ce4620bd4ac393b` |
+| `2-rime-plugin-0.1.3-arm64.apk` | 手机：必装的官方 Rime 引擎插件 | 5,763,096 | `2d8d27cd127647fc2e171297d220dd1a6ed6f295a82d047ebbcb882ddd37ca0c` |
+| `sansheng-ime-android-1.10.5.zip` | 手机：一次下全（两个 apk + 说明 + 校验值） | 58,786,660 | `83160dbd537c15856e07ea643bc438054e060aabf434e1ee991dbc713c621c20` |
+| `3-anzhuang-shuoming.txt` | 手机装机逐步说明 | 10,475 | `d66a4669b3cb33f30a2701ac21cac70bf5e3b34e944074e723e525828a75134a` |
+| `SHA256SUMS.txt` | 安卓发布目录逐项校验值 | 2,115 | `8edfe615e6ae2a2f40dc6acf45c73196b53c338027c801dc2121d441f7da189a` |
+
+手机**两个 apk 都要装，顺序不能反**：先 `1-sansheng-ime-1.10.5-android.apk`，
+后 `2-rime-plugin-0.1.3-arm64.apk`（主程序没装时插件装不上）；升级直接覆盖安装、不要卸载。
+纯血鸿蒙（HarmonyOS NEXT）装不了 APK，鸿蒙 4.2 及更早的华为/荣耀可以。
+附件名用英文是 GitHub 的限制（它会把中文附件名替换成 `-`），逐条步骤见 `3-anzhuang-shuoming.txt`。
+嫌 GitHub 慢可以走网盘：[夸克 https://pan.quark.cn/s/1a3be5986f8a](https://pan.quark.cn/s/1a3be5986f8a)（无提取码，桌面 + 安卓）、
+蓝奏云 [exe](https://mersol.lanzout.com/iLsOl4dils4h) 提取码 `8hvh` · [apk](https://mersol.lanzout.com/iTvcb4dlkvoj) 提取码 `8be3`。
+
 v1.10.5 桌面侧含 **用户词库迁移**：升级后老版本的自造词、调频记录自动迁入新库，不再丢失；
-安卓侧把空格键上的「三生」二字放大显示、底部一排按键加高，打字更好按。
+安卓侧把空格键上的「三生」二字放大显示、底部一排按键加高，字母键上滑出大写、候选字号跟随设置。
+**注意**：安卓为保启动速度，中英对照默认关（`encnDic` `reset: 0`）——键盘 `>` ▸ `···` 快捷面板里把「中英对照」切到开即可看到；桌面默认开。
 上一版 v1.10.3 修的是**打字卡顿**：长句连续输入不再一顿一顿，最慢一键从约 205 毫秒降到 26~34 毫秒，功能一条没少。
 再往前，v1.10.2 修的是**自造词编码算错**：补齐 20,910 个单字的首码，随机 600 词逐字打完，
 造出条目里编码全部正确的从 3 条变成 558 条；**只影响从现在起新造的词**。
@@ -87,20 +103,16 @@ v1.10.1 相对 v1.10 的变化：**斜杠 `/` 符号通道整层恢复**（`/szq
 斜杠码表见 [符号速查-斜杠码表.md](符号速查-斜杠码表.md)。
 文件名是英文的，装出来的输入法叫「三生输入法」；需 Windows 10/11 64 位。
 
-**安卓**：[三生输入法 安卓版 v1.10.5](https://github.com/ri0977-code/sansheng-ime/releases/tag/v1.10.5-android) ——
-与桌面同一套词库与符号表（`/szq` 那套斜杠符号手机上照样能打），这一版空格键上的「三生」二字放大显示、底部一排按键加高。
-**注意**：安卓为保启动速度，中英对照默认关（`encnDic` `reset: 0`）——键盘 `>` ▸ `···` 快捷面板里把「中英对照」切到开即可看到；桌面默认开。
-装两个 APK，顺序不能反：先 `1-sansheng-ime-1.10.5-android.apk`，
-后 `2-rime-plugin-0.1.3-arm64.apk`；升级直接覆盖安装、不要卸载。要求安卓 6.0 以上、64 位（arm64）；
-纯血鸿蒙（HarmonyOS NEXT）装不了 APK，鸿蒙 4.2 及更早可以。附件名用英文是 GitHub 的限制（它会把中文附件名替换成 `-`），
-说明与校验值见发布目录里的 `3-anzhuang-shuoming.txt` 和 `SHA256SUMS.txt`。
+**安卓与桌面是同一套词库与符号表**（`/szq` 那套斜杠符号手机上照样能打）。
+以前单独发的 [安卓发布页](https://github.com/ri0977-code/sansheng-ime/releases/tag/v1.10.5-android) 仍然打得开，
+但正文已改成指向上面那一页，新包请从合并后的 `v1.10.5` 下载。
 
 **同文（Trime）试用版**：拿官方同文当外壳的手势试用包，也已同步到 1.10.5 词库，
 见 [同文手势试用版 v1.10.4](https://github.com/ri0977-code/sansheng-ime/releases/tag/v1.10.3-trime-trial)（试用通道，不占 Latest）。
 
 安装包可由 GitHub Actions 从公开源码复现构建（[构建工作流](https://github.com/ri0977-code/sansheng-ime/actions/workflows/build-installer.yml)），上游引擎与构建输入均做 SHA-256 校验；v1.9.10 已用该工作流复现，解包内容与发布包一致（仅 NSIS 自身插件 DLL 版本不同）。本项目已申请 [SignPath Foundation](https://signpath.org/) 的免费开源代码签名，获批后发布的安装包将由 **SignPath.io** 使用 SignPath Foundation 证书签名；当前 v1.9.10 尚未签名（SmartScreen 提示时点「更多信息 → 仍要运行」）。签名策略见 [代码签名政策](docs/code-signing.md)，数据处理方式见 [隐私政策](docs/privacy.md)。
 
-> **请直接用 v1.10.4。** v1.9 与 v1.9.1 的安装包在一台干净的电脑上会「装上但打不出汉字」——
+> **请直接用 v1.10.5。** v1.9 与 v1.9.1 的安装包在一台干净的电脑上会「装上但打不出汉字」——
 > 包里漏了 Lua 接线文件 `rime.lua`（836 B），v1.9 另外还把 64 位组件注册到了 32 位视图里。
 > 两个问题在 v1.9.2 都已修掉，并在打包脚本里加成了硬校验（缺文件就禁止出包）。
 > 已经装了 v1.9/v1.9.1 又不想重装：把 `rime.lua` 放进 Rime 用户目录（一般是
