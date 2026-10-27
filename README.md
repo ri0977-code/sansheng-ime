@@ -79,9 +79,10 @@ Windows、安卓、鸿蒙（上架中）三端同源。
 |---|---|---|---|
 | `sansheng-ime-v1.10.5-setup.exe` | 电脑：Windows 10/11 64 位 | 29,810,511 | `cbc04d284dede839d09f19aacaa63c7b69f3ebc2dd1f79c52acf15fd8eceec9b` |
 | `sansheng-ime-1.10.5-android.apk` | 手机：一个包装完（安卓 6.0 以上、arm64） | 59,610,656 | `5ec5ee6590bdedea41102dc00e3037a5df36d753ef906bc63f30609ffe03045e` |
-| `anzhuang-shuoming.txt` | 手机装机逐步说明 | 10,481 | `0944b41066a30833f3a649debdcb75c2520c2a8637c190bf17bbf7a949639aec` |
+| `anzhuang-shuoming.txt` | 手机装机逐步说明 | 10,589 | `1f330719024800f203ad9565a4253bd2ecc0d3eeb26663b8a3440fa654dd36a2` |
 | `THIRD_PARTY_NOTICES.md` | 开源组件归属与许可证 | 22,210 | `53acb31bbff66f90464d9767f5ddbc0b9608df493ce514223176290337598a1d` |
-| `SHA256SUMS.txt` | 逐个文件校验值 | 672 | `03923c847f1b703f9ce679fcc6c57e1a90d3283dc677d9ad7286822573448173` |
+| `third-party-licenses.zip` | 各开源组件的许可证全文 | 46,115 | `8b9a1ebf0a1b287a81bca99ebc340477687c60c332cced17d71f692f85def852` |
+| `SHA256SUMS.txt` | 逐个文件校验值 | 764 | `adcd2ceae5e4746ba18cd58d5a8345bbe4554efc4adfd909350ed3bc7fa753d2` |
 
 手机**只装这一个 apk**：Rime 引擎和方案、词库已经并进安装包，
 不用再装插件，装完打开一次让它铺数据（10~40 秒），再启用键盘即可。
