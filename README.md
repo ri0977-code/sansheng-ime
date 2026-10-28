@@ -106,8 +106,6 @@ v1.10.1 相对 v1.10 的变化：**斜杠 `/` 符号通道整层恢复**（`/szq
 文件名是英文的，装出来的输入法叫「三生输入法」；需 Windows 10/11 64 位。
 
 **安卓与桌面是同一套词库与符号表**（`/szq` 那套斜杠符号手机上照样能打）。
-以前单独发的 [安卓发布页](https://github.com/ri0977-code/sansheng-ime/releases/tag/v1.10.5-android) 仍然打得开，
-但正文已改成指向上面那一页，新包请从合并后的 `v1.10.5` 下载。
 
 **同文（Trime）试用版**：拿官方同文当外壳的手势试用包，也已同步到 1.10.5 词库，
 见 [同文手势试用版 v1.10.4](https://github.com/ri0977-code/sansheng-ime/releases/tag/v1.10.3-trime-trial)（试用通道，不占 Latest）。
