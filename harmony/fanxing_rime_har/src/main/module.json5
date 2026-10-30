@@ -1,0 +1,9 @@
+{
+  "module": {
+    "name": "fanxing_rime_har",
+    "type": "har",
+    "deviceTypes": [
+      "default"
+    ]
+  }
+}

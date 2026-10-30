@@ -1,0 +1,245 @@
+__build_info:
+  rime_version: 1.16.1
+  timestamps:
+    default: 1792566057
+    default.custom: 0
+    wubi_pinyin.custom: 1792566054
+    wubi_pinyin.schema: 1792566054
+abc_segmentor:
+  extra_tags:
+    - reverse_lookup
+custom_phrase:
+  db_class: stabledb
+  dictionary: ""
+  enable_completion: false
+  enable_sentence: true
+  initial_quality: 1
+  user_dict: Custom_phrase
+en2zh_v2:
+  comment_format:
+    - "xform/.+//"
+  dictionary: en2zh_v2
+  enable_charset_filter: false
+  enable_completion: false
+  enable_encoder: false
+  enable_sentence: false
+  enable_user_dict: false
+  initial_quality: "-5"
+engine:
+  filters:
+    - "simplifier@tradition"
+    - "lua_filter@inputShow_Filter"
+    - "lua_filter@phraseExt_Filter"
+    - "lua_filter@dateTime_Filter"
+    - "lua_filter@dynamicPhrase_Filter"
+    - "lua_filter@phraseReplace_Filter"
+    - uniquifier
+    - "lua_filter@dic_4w_Filter"
+    - "lua_filter@phraseComment_Filter"
+    - "lua_filter@pinyinAdding_Filter"
+    - "lua_filter@codeLookup_Filter"
+    - "lua_filter@laneChangeAndSpace_Filter"
+    - "lua_filter@abbrGloss_Filter"
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator
+    - reverse_lookup_translator
+    - "lua_translator@inputShow_translator"
+    - "lua_translator@help_translator"
+    - "table_translator@zh2en_wubi"
+    - "table_translator@en2zh_v2"
+    - "table_translator@zh2en_pinyin"
+    - "table_translator@custom_phrase"
+key_binder:
+  bindings:
+    - {accept: minus, send: Page_Up, when: has_menu}
+    - {accept: equal, send: Page_Down, when: has_menu}
+    - {accept: comma, send: Page_Up, when: paging}
+    - {accept: period, send: Page_Down, when: has_menu}
+    - {accept: bracketleft, send: Page_Up, when: has_menu}
+    - {accept: bracketright, send: Page_Down, when: has_menu}
+    - {accept: "Control+Shift+f", toggle: zh_trad, when: always}
+    - {accept: minus, send: Page_Up, when: has_menu}
+    - {accept: equal, send: Page_Down, when: has_menu}
+    - {accept: "Control+Shift+f", toggle: zh_trad, when: always}
+  import_preset: default
+  select_first_candidate:
+    - Control_f
+    - Control_y
+menu:
+  page_size: 50
+punctuator:
+  full_shape:
+    " ": " "
+    "!": "！"
+    "\"": "“"
+    "'": "’"
+    "(": "（"
+    ")": "）"
+    ",": "，"
+    .: "。"
+    "/": "、"
+    0: "０"
+    1: "１"
+    2: "２"
+    3: "３"
+    4: "４"
+    5: "５"
+    6: "６"
+    7: "７"
+    8: "８"
+    9: "９"
+    ":": "："
+    ";": "；"
+    "?": "？"
+  half_shape:
+    "!": "！"
+    "\"": "“"
+    "#": "#"
+    "$": "$"
+    "%": "%"
+    "&": "&"
+    "'": "’"
+    "(": "（"
+    ")": "）"
+    "*": "*"
+    "+": "+"
+    ",": "，"
+    "-": "-"
+    .: "。"
+    "/": "、"
+    ":": "："
+    ";": "；"
+    "<": "《"
+    "=": "="
+    ">": "》"
+    "?": "？"
+    "@": "@"
+    "[": "【"
+    "\\": "\\"
+    "]": "】"
+    "^": "^"
+    _: _
+    "`": "`"
+    "{": "{"
+    "|": "|"
+    "}": "}"
+    "~": "~"
+  import_preset: default
+recognizer:
+  import_preset: default
+  patterns:
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+    reverse_lookup: "`[a-z]*'?$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+reverse_lookup:
+  dictionary: pinyin_simp
+  preedit_format:
+    - "xform/([nl])v/$1ü/"
+    - "xform/([nl])ue/$1üe/"
+    - "xform/([jqxy])v/$1u/"
+  prefix: "`"
+  suffix: "'"
+  tips: "〔拼音〕"
+schema:
+  author:
+    - "發明人 王永民先生"
+  dependencies:
+    - pinyin_simp
+  description: |
+    五筆字型86版＋漢語拼音混合輸入＋中英雙向（DSH 2026-10-13）
+
+  name: "五笔·拼音"
+  schema_id: wubi_pinyin
+  version: 1.0
+speller:
+  delimiter: " ;'"
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: ["中文", "西文"]
+  - name: full_shape
+    states: ["半角", "全角"]
+  - name: extended_charset
+    states: ["常用", "增廣"]
+  - name: ascii_punct
+    states: ["。，", "．，"]
+  - name: zh_trad
+    reset: 0
+    states: ["简体", "繁體"]
+  - name: phraseComment
+    reset: 1
+    states: [Off, commentOn]
+  - name: encnDic
+    reset: 1
+    states: [Off, "中英对照"]
+  - name: phraseReplace
+    reset: 0
+    states: [Off, "👙"]
+  - name: pinyin
+    reset: 0
+    states: [Off, "pīnyīn"]
+  - name: phraseExt
+    reset: 1
+    states: [Off, phraseExt]
+  - name: phraseComment
+    reset: 1
+    states: [Off, commentOn]
+  - name: markdown
+    reset: 0
+    states: [Off, md]
+  - name: abbrEn
+    reset: 1
+    states: [Off, "缩写"]
+tradition:
+  opencc_config: s2t.json
+  option_name: zh_trad
+translator:
+  db_class: tabledb
+  dictionary: wubi86
+  disable_user_dict_for_patterns:
+    - "^z.*$"
+  enable_charset_filter: false
+  enable_completion: false
+  enable_encoder: true
+  enable_sentence: true
+  enable_user_dict: true
+  encode_commit_history: true
+  max_phrase_length: 4
+  user_dict: user
+zh2en_pinyin:
+  comment_format:
+    - "xform/.+//"
+  dictionary: zh2en_pinyin
+  enable_charset_filter: false
+  enable_completion: false
+  enable_encoder: false
+  enable_sentence: false
+  enable_user_dict: false
+  initial_quality: "-5"
+zh2en_wubi:
+  comment_format:
+    - "xform/.+//"
+  dictionary: zh2en_wubi
+  enable_charset_filter: false
+  enable_completion: false
+  enable_encoder: false
+  enable_sentence: false
+  enable_user_dict: false
+  initial_quality: "-5"

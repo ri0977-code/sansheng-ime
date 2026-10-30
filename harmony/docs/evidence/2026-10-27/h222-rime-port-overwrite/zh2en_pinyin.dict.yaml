@@ -1,0 +1,11 @@
+# 【Qoder 2026-10-26】从 wubi86 拆出：中→英（拼音版）独立字典，
+# 供 table_translator@zh2en_pinyin 挂载（原为 #A11 假通路：配置有、文件无）。
+# 拆开的原因：混在 wubi86 里时英文候选和中文同为 initial_quality 0，
+# 且权重更高，打拼音首页被 watchdog 这类英文占掉。
+---
+name: zh2en_pinyin
+version: "2026.10.26"
+sort: by_weight
+import_tables:
+  - zh2en_pinyin_wp
+...

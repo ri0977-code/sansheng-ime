@@ -1,0 +1,171 @@
+-- enWord_translator.lua
+-- 三生输入法 · 英文单词 Lua translator（H-260 方向1：不依赖 schema/trie，直查分桶数据）
+-- v31 优化：哈希表精确匹配 O(1) + 二分查找前缀匹配 O(log n + k)，替代线性扫描 O(n)
+--
+-- 判据与红线：
+--   ① 只在纯字母且长度≥2 时工作（单字母如 'q' 不出英文候选）
+--   ② ascii_mode 为真时不出候选（西文态原文上屏，出了反而挡路）
+--   ③ 前缀匹配用二分查找定位范围，不许全表线扫
+--   ④ 限量 MAX_EN_CANDS = 5，不挤占中文候选
+--   ⑤ 懒加载+不许抛错——首次调用才读桶文件，读不到就 return
+--   ⑥ comment 写中文释义（与 enWord_Filter 的「apple→苹果」口径一致）
+--
+-- 合同：librime 1.13 协程生成器：yield(Candidate("word", seg.start, seg._end, text, comment))
+
+local MAX_EN_CANDS = 5
+local BUCKET_FILE = "en_word_bucket.txt"
+
+-- ------------------------------------------------------------------ 目录解析
+
+local function luaDirFromSelf()
+  local ok, info = pcall(function() return debug.getinfo(1, "S") end)
+  if not ok or not info or not info.source then return nil end
+  local src = tostring(info.source)
+  if src:sub(1, 1) ~= "@" then return nil end
+  src = src:gsub("\\", "/"):sub(2)
+  return src:match("^(.-/lua/)[^/]+$")
+end
+
+local function dirCandidates()
+  local out = {}
+  local function add(d)
+    if type(d) == "string" and d ~= "" then out[#out + 1] = d end
+  end
+  add(luaDirFromSelf())
+  local okApi, api = pcall(function() return rime.get_api() end)
+  if okApi and api then
+    local okDd, dd = pcall(api.get_user_data_dir, api)
+    if okDd and dd and tostring(dd) ~= "" then
+      add(tostring(dd):gsub("\\", "/") .. "/")
+    end
+  end
+  add("./")
+  return out
+end
+
+-- ------------------------------------------------------------------ 分桶数据
+-- buckets[first_letter] = {
+--   words = {w1, w2, ...}   -- 排序的词列表（用于二分查找）
+--   data  = {w1 = {gloss, weight}, ...}  -- 哈希表（用于精确匹配 O(1)）
+-- }
+
+local buckets = {}
+local loaded = false
+
+local function loadBuckets()
+  if loaded then return end
+  loaded = true
+  local dirs = dirCandidates()
+  local fn = nil
+  for i = 1, #dirs do
+    local d = dirs[i]
+    fn = io.open(d .. BUCKET_FILE, "r")
+    if fn then break end
+    fn = io.open(d .. "lua/" .. BUCKET_FILE, "r")
+    if fn then break end
+  end
+  if not fn then return end
+  for line in fn:lines() do
+    -- 格式：首字母<TAB>词<TAB>词频<TAB>释义
+    local letter, word, weight, gloss = line:match("^([a-z])\t(%S+)\t(%d+)\t(.*)$")
+    if letter and word then
+      if not buckets[letter] then
+        buckets[letter] = {words = {}, data = {}}
+      end
+      local b = buckets[letter]
+      b.data[word] = {gloss = gloss or "", weight = tonumber(weight) or 2}
+      b.words[#b.words + 1] = word
+    end
+  end
+  fn:close()
+  -- 排序每个桶的词列表（用于二分查找）
+  for _, b in pairs(buckets) do
+    table.sort(b.words)
+  end
+end
+
+-- ------------------------------------------------------------------ 二分查找
+
+-- 在排序的 words 数组中找第一个 >= target 的位置
+local function lowerBound(words, target)
+  local lo, hi = 1, #words + 1
+  while lo < hi do
+    local mid = math.floor((lo + hi) / 2)
+    if words[mid] < target then
+      lo = mid + 1
+    else
+      hi = mid
+    end
+  end
+  return lo
+end
+
+-- ------------------------------------------------------------------ translator
+
+local function enWordTranslate(input, seg)
+  -- 快速过滤：非字符串、太短、非纯字母 → 立即返回（不执行任何 API 调用）
+  if type(input) ~= "string" or #input < 2 then return end
+  if not input:match("^[a-zA-Z]+$") then return end
+
+  -- 懒加载桶数据（首次调用才读桶文件，读不到就 return）
+  if not loaded then
+    local okLoad = pcall(loadBuckets)
+    if not okLoad then return end
+  end
+
+  local raw = input:lower()
+  local first = raw:sub(1, 1)
+  local bucket = buckets[first]
+  -- 桶为空 → 立即返回（不执行 API 调用，避免每次按键都跨 Lua-C++ 边界）
+  if not bucket then return end
+
+  -- ascii_mode 为真时不出候选（放后面：只在确认有桶数据时才检查，减少 API 调用开销）
+  local okApi, api = pcall(function() return rime.get_api() end)
+  if okApi and api then
+    local okCtx, ctx = pcall(function() return api.get_context and api:get_context() end)
+    if okCtx and ctx then
+      local okOpt, val = pcall(function() return ctx:get_option("ascii_mode") end)
+      if okOpt and val then return end
+    end
+  end
+
+  local start, stop = seg.start, seg._end
+  local count = 0
+
+  -- 精确匹配：哈希表 O(1)
+  local exact = bucket.data[raw]
+  if exact then
+    local c = exact.gloss
+    if c and c ~= "" then
+      yield(Candidate("word", start, stop, raw, c))
+    else
+      yield(Candidate("word", start, stop, raw, ""))
+    end
+    count = count + 1
+  end
+
+  -- 前缀联想：二分查找定位范围 O(log n + k)
+  if count < MAX_EN_CANDS then
+    local words = bucket.words
+    local startPos = lowerBound(words, raw)
+    for i = startPos, #words do
+      if count >= MAX_EN_CANDS then break end
+      local w = words[i]
+      -- 词不再以 raw 为前缀 → 范围结束
+      if w:sub(1, #raw) ~= raw then break end
+      -- 跳过精确匹配（已 yield）
+      if w ~= raw then
+        local d = bucket.data[w]
+        local c = d and d.gloss or ""
+        if c and c ~= "" then
+          yield(Candidate("word", start, stop, w, c))
+        else
+          yield(Candidate("word", start, stop, w, ""))
+        end
+        count = count + 1
+      end
+    end
+  end
+end
+
+return enWordTranslate

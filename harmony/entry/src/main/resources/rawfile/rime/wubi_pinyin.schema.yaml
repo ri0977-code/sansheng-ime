@@ -1,0 +1,175 @@
+# Rime schema settings
+# encoding: utf-8
+
+schema:
+  schema_id: wubi_pinyin
+  name: "五笔·拼音"
+  version: "1.0"
+  author:
+    - 發明人 王永民先生
+  description: |
+    五筆字型86版＋漢語拼音混合輸入＋中英雙向（DSH 2026-10-13）
+  dependencies:
+    - pinyin_simp
+
+
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: extended_charset
+    states: [ 常用, 增廣 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+  - name: zh_trad
+    reset: 0
+    states: [ 简体, 繁體 ]
+  - name: phraseComment
+    reset: 1
+    states: [Off, commentOn]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator
+    - reverse_lookup_translator
+    - lua_translator@inputShow_translator
+    - lua_translator@help_translator
+    # DSH 2026-10-14 补回：13号原有的三个中英互译 translator
+  filters:
+    - simplifier@tradition
+    - lua_filter@inputShow_Filter
+    - lua_filter@phraseExt_Filter
+    - lua_filter@dateTime_Filter
+    - lua_filter@dynamicPhrase_Filter
+    - lua_filter@phraseReplace_Filter
+    - uniquifier
+    - lua_filter@dic_4w_Filter
+    - lua_filter@phraseComment_Filter
+    - lua_filter@pinyinAdding_Filter
+    - lua_filter@laneChangeAndSpace_Filter
+    - lua_filter@Upper_Filter
+
+speller:
+  delimiter: " ;'"
+
+translator:
+  dictionary: wubi86
+  enable_charset_filter: false        # 关：原为true，会滤掉英文候选（DSH 2026-10-13）
+  enable_completion: false            # DSH 2026-10-14 恢复 v1.0.0 原值
+  enable_sentence: true               # DSH 2026-10-14 恢复 v1.0.0 原值（关掉会导致造不出词）
+  enable_encoder: true
+  encode_commit_history: true
+  enable_user_dict: true
+  max_phrase_length: 6                # DSH 2026-10-15：v1.0.0为4，单变量改为6以支持5字词（金木水火土）
+  user_dict: user
+  # DSH 2026-10-21（M4）：tabledb → userdb。
+  # tabledb 是**纯内存** TextDb，只有 db 析构（Close→SaveToFile）时才写 <user>/user.txt；
+  # 桌面端 Rime 退出时会 RimeFinalize 所以没事，鸿蒙这边 IME 进程常驻、桥上原本没有
+  # finalize ⇒ user.txt 永远只有表头，自造词/自调频跨会话全丢（run16 实测）。
+  # userdb（LevelDb）每次提交立即写 WAL，不依赖任何收尾回调，进程被杀也不丢。
+  db_class: userdb
+  disable_user_dict_for_patterns:
+    - "^z.*$"
+
+abc_segmentor:
+  extra_tags:
+    - reverse_lookup
+
+# DSH 2026-10-14 补回：13号原有的三个中英互译 translator 配置
+zh2en_wubi:
+  dictionary: zh2en_wubi
+  enable_charset_filter: false
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  enable_encoder: false
+  initial_quality: -5      # 三生输入法：五笔码输入时中文优先，英文翻译候选置后
+  comment_format:
+    - xform/.+//
+
+en2zh_v2:
+  dictionary: en2zh_v2
+  enable_charset_filter: false
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  enable_encoder: false
+  initial_quality: -5      # 三生输入法：英文输入时中文释义仍可出现，但不压过中文候选
+  comment_format:
+    - xform/.+//
+
+zh2en_pinyin:
+  dictionary: zh2en_pinyin
+  enable_charset_filter: false
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  enable_encoder: false
+  initial_quality: -5      # 三生输入法：拼音输入时中文优先，英文候选置后
+  comment_format:
+    - xform/.+//
+
+# H-260(CodeArts) v44: 关闭 enable_user_dict，消除 LevelDb 卡顿
+# v43 确认 userdb(LevelDb) 读写导致卡顿；调频改由 enWord_Filter(Lua层) 实现
+# enWord_Filter 维护自己的 en_word_userfreq.tsv，不依赖 librime user_dict
+en_word:
+  dictionary: en_word
+  enable_completion: true
+  enable_sentence: false
+  enable_user_dict: false
+  initial_quality: 0
+
+reverse_lookup:
+  dictionary: pinyin_simp
+  prefix: "`"
+  suffix: "'"
+  tips: 〔拼音〕
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  import_preset: default
+  bindings:
+    # DSH 2026-10-15 加：明确的翻页键
+    # 原因：default 预设里 comma 绑定的条件是 when: paging（仅翻页后有效），
+    # 第一页按 , 无效；] 完全未绑定。
+    - {accept: "minus", send: Page_Up, when: has_menu}
+    - {accept: "equal", send: Page_Down, when: has_menu}
+
+recognizer:
+  import_preset: default
+  patterns:
+    reverse_lookup: "`[a-z]*'?$"
+tradition:
+  opencc_config: s2t.json
+  option_name: zh_trad
+
+
+
+
+
+

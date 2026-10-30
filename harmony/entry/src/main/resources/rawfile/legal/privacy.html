@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三生输入法隐私政策</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: #f6f8fa; color: #1f2328;
+  font-family: -apple-system, BlinkMacSystemFont, "HarmonyOS Sans SC",
+    "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  line-height: 1.8;
+}
+main {
+  max-width: 860px; margin: 24px auto; padding: 40px 48px;
+  background: #fff; border: 1px solid #d0d7de; border-radius: 12px;
+}
+main.inapp {
+  max-width: none; margin: 0; padding: 24px 18px 40px;
+  border: 0; border-radius: 0;
+}
+nav { margin-bottom: 24px; font-size: 14px; }
+nav a { color: #0a59f7; text-decoration: none; margin-right: 16px; }
+nav a:hover { text-decoration: underline; }
+h1 { font-size: 28px; line-height: 1.35; margin: 0 0 8px; }
+h2 { font-size: 20px; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #eaeef2; }
+h3 { font-size: 16px; margin: 24px 0 8px; }
+p { margin: 10px 0; }
+ul, ol { margin: 10px 0; padding-left: 26px; }
+li { margin: 6px 0; }
+hr { border: 0; border-top: 1px solid #d8dee4; margin: 28px 0; }
+table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+th, td { border: 1px solid #d0d7de; padding: 8px 10px; text-align: left; vertical-align: top; }
+th { background: #f6f8fa; }
+code { background: #f6f8fa; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+figure { margin: 18px 0; text-align: center; }
+figure img { max-width: 86%; height: auto; border: 1px solid #d0d7de; border-radius: 8px; }
+figcaption { margin-top: 6px; color: #57606a; font-size: 13px; }
+.draft {
+  margin: 0 0 20px; padding: 10px 14px; border-radius: 8px;
+  background: #fff8c5; border: 1px solid #d4a72c; font-size: 14px;
+}
+footer { margin-top: 32px; color: #6e7781; font-size: 12px; }
+@media (max-width: 640px) {
+  main { margin: 0; border: 0; border-radius: 0; padding: 24px 18px; }
+  h1 { font-size: 24px; }
+  table { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+<main class="inapp">
+<h1>三生输入法隐私政策</h1>
+<table>
+<thead><tr>
+<th>项目</th>
+<th>内容</th>
+</tr></thead><tbody>
+<tr>
+<td>版本</td>
+<td>1.0.0（定稿；与 HarmonyOS 版 <code>versionName 1.0.0</code> / <code>versionCode 1000000</code> 对齐）</td>
+</tr>
+<tr>
+<td>生效日期</td>
+<td>2026 年 10 月 22 日</td>
+</tr>
+<tr>
+<td>适用平台</td>
+<td>HarmonyOS（华为应用市场分发版本）</td>
+</tr>
+<tr>
+<td>个人信息处理者</td>
+<td>[机主姓名已脱敏]（个人开发者）</td>
+</tr>
+<tr>
+<td>联系邮箱</td>
+<td>ri0977@qq.com（备用 ri0977@gmail.com）</td>
+</tr>
+</tbody></table>
+<p>三生输入法是一款运行在 HarmonyOS 上的本地输入法。我们把隐私设计成默认状态：<strong>输入内容只在本机处理，应用不联网、不上传、不收集个人信息</strong>。本应用<strong>不通过连接公共互联网提供任何互联网信息服务</strong>（在应用市场的申报口径为「单机应用」），词库、用户词典与自造词<strong>只存在于你的设备上，不会离开设备</strong>。本政策说明我们如何处理与你有关的信息，以及你可以如何管理这些信息。</p>
+<h2>一、适用范围</h2>
+<p>本政策适用于三生输入法 HarmonyOS 版（包名 <code>com.sansheng.ime</code>）及其后续更新版本。华为应用市场作为分发平台，可能按其自身隐私政策收集分发与运营数据，该部分不由本应用控制。</p>
+<h2>二、我们处理哪些信息</h2>
+<h3>1. 输入内容</h3>
+<ul>
+<li>你按下的按键、当前编码、候选词与上屏文本，<strong>仅在本机内存中</strong>参与输入法计算。</li>
+<li>本应用<strong>不保留逐次输入历史</strong>，不建立持久化的按键日志，不把输入内容发送到任何服务器。</li>
+<li>当你选定候选词或使用自造词上屏后，该词条可能被加入<strong>本机用户词典</strong>，用于改善后续候选排序。用户词典只保存在应用沙箱内，不会上传。</li>
+</ul>
+<h3>2. 用户词典与自造词</h3>
+<ul>
+<li>用户词典（LevelDB 格式）与自造词/自定义短语保存在本应用沙箱内。</li>
+<li>中英文、简繁等输入模式是引擎的运行期状态，长按底栏布局键切换后立即生效，不另行保存为文件。</li>
+<li>这些数据不会与其他应用共享，也不会备份到开发者服务器。</li>
+<li>卸载应用或在系统设置中清除应用数据，会删除上述全部本地数据。</li>
+</ul>
+<h3>3. 设备能力</h3>
+<ul>
+<li>为适配横竖屏，本应用读取当前屏幕尺寸与方向，仅用于键盘布局计算，不保存、不上传。</li>
+<li>为提供按键触感，本应用调用系统振动能力，不读取振动历史或设备标识。</li>
+</ul>
+<h2>三、我们不做的事</h2>
+<p>本应用当前版本：</p>
+<ul>
+<li>不要求注册账号，不收集手机号、姓名、身份证号、通讯录、短信、位置、相册、相机、麦克风或剪贴板内容；</li>
+<li>不读取广告标识符（OAID）、设备序列号、IMEI 等设备标识；</li>
+<li>不接入广告、统计、埋点、崩溃上报或任何第三方数据 SDK；</li>
+<li><strong>未声明网络权限</strong>（<code>ohos.permission.INTERNET</code>），无法主动访问互联网，因此不存在把输入内容上传网络的路径；</li>
+<li>不在应用内展示个性化广告，不进行用户画像。</li>
+</ul>
+<h2>四、系统权限与用途</h2>
+<p>本应用仅声明以下一项权限：</p>
+<table>
+<thead><tr>
+<th>权限</th>
+<th>用途</th>
+<th>是否必需</th>
+<th>拒绝后的影响</th>
+</tr></thead><tbody>
+<tr>
+<td><code>ohos.permission.VIBRATE</code></td>
+<td>按键时提供轻振反馈</td>
+<td>否</td>
+<td>键盘仍可正常输入，仅没有振动反馈</td>
+</tr>
+</tbody></table>
+<p>输入法服务本身由 HarmonyOS 输入法框架管理，不属于上述权限。完整清单见 <code>permission-list.md</code>。</p>
+<h2>五、存储与删除</h2>
+<ul>
+<li><strong>存储位置</strong>：全部数据位于本应用沙箱（应用私有目录），其他应用无法直接读取。</li>
+<li><strong>保存期限</strong>：用户词典与自造词会一直保存在本机，直到你清除应用数据或卸载应用。</li>
+<li><strong>删除方式</strong>：在系统「设置 → 应用 → 三生输入法 → 存储」中选择清除数据，或直接卸载应用。删除后不可恢复。</li>
+<li><strong>云端备份</strong>：开发者不提供云端账号或云同步，服务器上没有任何你的输入数据。</li>
+</ul>
+<h2>六、共享、转让与公开披露</h2>
+<ul>
+<li>我们不会向任何第三方共享、转让或公开披露你的输入内容或本地数据。</li>
+<li>只有在法律法规明确要求，或司法机关、行政机关依法提出要求时，才可能依法提供；由于本应用不收集、不存储服务器端数据，通常不存在可供提供的数据。</li>
+<li>本应用不涉及数据出境。</li>
+</ul>
+<h2>七、未成年人</h2>
+<p>本应用不专门面向未成年人，也不收集任何个人信息。未成年人使用本应用时，输入内容同样只在本机处理。若监护人认为有必要，可通过清除应用数据或卸载应用删除本地数据。</p>
+<h2>八、第三方组件与词库</h2>
+<p>本应用包含 librime、LevelDB、OpenCC 等开源组件，以及来自 CC-CEDICT、ECDICT 等来源的词库数据。这些组件与数据均在本机运行或读取，<strong>不包含收集用户数据的网络 SDK</strong>。完整许可与署名见应用内「关于」页、随包 <code>NOTICE</code> 文件与 <code>LICENSES/</code> 目录。</p>
+<h2>九、政策更新</h2>
+<ul>
+<li>本政策可能随功能或法规变化更新，更新后的版本会随应用版本发布，并在应用内或应用市场说明中标注。</li>
+<li>若更新涉及个人信息处理方式的实质变化，我们会在生效前以显著方式提示；你不同意时可停止使用并卸载应用。</li>
+</ul>
+<h2>十、联系我们</h2>
+<p>如对本政策有疑问、意见或投诉，请联系：</p>
+<ul>
+<li>开发者：[机主姓名已脱敏]（个人开发者）</li>
+<li>邮箱：ri0977@qq.com（备用 ri0977@gmail.com）</li>
+<li>我们会在收到后 15 个工作日内答复。</li>
+</ul>
+<hr>
+<p><strong>说明</strong>：本政策与《用户协议》已随 HarmonyOS 版 V1.0 定稿（联系邮箱、生效日期与主体信息三项均已确认）。若应用市场侧「开发者名称」与应用内主体写法需要调整，会在提交审核前重新生成本页并同步应用内副本，不保留占位符。</p>
+<footer>三生输入法 V1.0 · 本页内容随应用版本更新</footer>
+</main>
+</body>
+</html>

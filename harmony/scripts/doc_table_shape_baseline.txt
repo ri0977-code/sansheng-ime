@@ -1,0 +1,76 @@
+# doc_table_shape_check（H-250）的基线 —— Qoder 2026-10-28 07:2x 生成
+#
+# 含义：这些行在守卫上线**之前就已经**列数不对／尾格丢失。守卫只拦新增违规（棘轮），
+# 不追改别人的账：整包重写＝越界，逐条修＝逐条决定（H-129 口径）。
+# 行格式：`表名:行首格:症状`（症状＝列N／尾格丢失／续行）。
+# 谁把某一行修好了，就删掉对应这一行；守卫按本次扫描命中的键逐条比对，键消失即视为该形状已消失，
+# 届时主检查会打印「可收缩 N 条」提示（不 FAIL）。
+# 生成命令：PYTHONIOENCODING=utf-8 python docs/evidence/2026-10-28/tmp/gen_shape_baseline.py
+#
+ISSUES:**2026-10-24_00:2x_复验（Qo:列0
+ISSUES:**2026-10-24_00:2x_复验（Qo:尾格丢失
+ISSUES:H-008:尾格丢失
+ISSUES:H-010:尾格丢失
+ISSUES:H-028:尾格丢失
+ISSUES:H-045:尾格丢失
+ISSUES:H-046:尾格丢失
+ISSUES:H-047:尾格丢失
+ISSUES:H-061:列8
+ISSUES:H-062:列8
+ISSUES:H-063:列10
+ISSUES:H-064:列8
+ISSUES:H-065:列8
+ISSUES:H-066:列8
+ISSUES:H-067:列8
+ISSUES:H-068:列8
+ISSUES:H-069:列8
+ISSUES:H-070:列8
+ISSUES:H-072:列8
+ISSUES:H-073:列8
+ISSUES:H-074:列9
+ISSUES:H-075:列8
+ISSUES:H-077:列8
+ISSUES:H-078:列8
+ISSUES:H-079:列4
+ISSUES:H-079:尾格丢失
+ISSUES:H-081:列6
+ISSUES:H-082:列5
+ISSUES:H-092:列6
+ISSUES:H-092:尾格丢失
+ISSUES:H-108:列4
+ISSUES:H-108:尾格丢失
+ISSUES:H-108:续行
+ISSUES:H-165:列10
+ISSUES:H-194:列8
+ISSUES:H-215:列8
+ISSUES:H-228:列8
+ISSUES:H-229:列8
+ISSUES:H-230:列8
+ISSUES:H-234:尾格丢失
+MAILBOX:M-033-verdict:列5
+MAILBOX:M-038:列9
+MAILBOX:M-053-re:列8
+MAILBOX:M-053:列8
+MAILBOX:M-054-review:列6
+MAILBOX:M-054:列8
+MAILBOX:M-058-re2:列11
+MAILBOX:M-059:列3
+MAILBOX:M-060:列3
+MAILBOX:M-033-review:尾格丢失
+MAILBOX:M-059:尾格丢失
+MAILBOX:M-060:尾格丢失
+MAILBOX:M-060:续行
+MAILBOX:M-066:列8
+MAILBOX:M-070-re:列9
+MAILBOX:M-073:列2
+MAILBOX:M-133:列6
+MAILBOX:M-210:列9
+MAILBOX:M-219-re:列7
+MAILBOX:M-232:列4
+MAILBOX:M-287:列9
+MAILBOX:M-288:列9
+MAILBOX:M-289:列9
+MAILBOX:M-290:列9
+MAILBOX:M-291:列9
+MAILBOX:M-292:列9
+# ↑ 以上 17 条由 H-253（10-28 08:5x Qoder）登记：H-250 那版按 `## 消息表` 划范围，文件末尾追加的消息（含 9 列看板行、2 列催办小表）根本没被扫到，这些违规一直存在、只是第一次被看见。逐条修＝逐条决定（H-129），不整包重写。

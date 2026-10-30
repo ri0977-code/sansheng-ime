@@ -1,0 +1,65 @@
+{
+  "module": {
+    "name": "entry",
+    "type": "entry",
+    "description": "三生输入法：五笔拼音英文三向混输、互译反查，全程本机处理不联网",
+    "mainElement": "EntryAbility",
+    "deviceTypes": [
+      "phone"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.VIBRATE",
+        "reason": "$string:ime_vibrate_reason",
+        "usedScene": {
+          "abilities": [
+            "InputMethodService"
+          ],
+          "when": "inuse"
+        }
+      }
+    ],
+    "abilities": [
+      {
+        "name": "EntryAbility",
+        "srcEntry": "./ets/entryability/EntryAbility.ets",
+        "description": "三生输入法：五笔拼音英文三向混输、互译反查，全程本机处理不联网",
+        "icon": "$media:app_icon",
+        "label": "$string:app_name",
+        "startWindowIcon": "$media:app_icon",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "ohos.want.action.home"
+            ]
+          }
+        ],
+
+      }
+    ],
+    "extensionAbilities": [
+      {
+        "name": "InputMethodService",
+        "srcEntry": "./ets/inputmethod/InputMethodService.ets",
+        "label": "$string:ime_label",
+        "description": "$string:ime_desc",
+        "type": "inputMethod",
+        "exported": true,
+        "metadata": [
+          {
+            "name": "ohos.extension.input_method",
+            "resource": "$profile:input_method_config"
+          }
+        ]
+      }
+    ]
+  }
+}

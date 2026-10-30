@@ -1,0 +1,10 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "三生输入法 · HarmonyOS 版（五笔 · 拼音 · 英文三向混输）",
+  "author": "Sansheng",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "fanxing_rime_har": "file:../fanxing_rime_har"
+  }
+}

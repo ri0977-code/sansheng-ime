@@ -1,0 +1,416 @@
+[
+ {
+  "path": "legal/notice.html",
+  "bytes": 77255,
+  "md5_16": "f2c71b6efc89e48f",
+  "declared": true
+ },
+ {
+  "path": "legal/privacy.html",
+  "bytes": 8862,
+  "md5_16": "010fa98ac8b96c35",
+  "declared": true
+ },
+ {
+  "path": "legal/terms.html",
+  "bytes": 7712,
+  "md5_16": "7579f6706ac97ede",
+  "declared": true
+ },
+ {
+  "path": "rime/Custom_phrase.txt",
+  "bytes": 1657,
+  "md5_16": "a11524cf8fe85669",
+  "declared": true
+ },
+ {
+  "path": "rime/README.md",
+  "bytes": 7638,
+  "md5_16": "ead037cc8ee30df0",
+  "declared": true
+ },
+ {
+  "path": "rime/cn_pinyin_wp.dict.yaml",
+  "bytes": 1450889,
+  "md5_16": "bd7b3aecefcff3ce",
+  "declared": true
+ },
+ {
+  "path": "rime/default.yaml",
+  "bytes": 4828,
+  "md5_16": "90c6458beeaaea03",
+  "declared": true
+ },
+ {
+  "path": "rime/en2zh_v2.dict.yaml",
+  "bytes": 475430,
+  "md5_16": "96284f0e69a4421b",
+  "declared": true
+ },
+ {
+  "path": "rime/en2zh_v2_wp.dict.yaml",
+  "bytes": 2234473,
+  "md5_16": "9463ef0767f01ee5",
+  "declared": true
+ },
+ {
+  "path": "rime/lua-files.txt",
+  "bytes": 1092,
+  "md5_16": "cd59388ca5f67192",
+  "declared": true
+ },
+ {
+  "path": "rime/pinyin_simp.dict.yaml",
+  "bytes": 1266106,
+  "md5_16": "2ca4eeef8cf1455a",
+  "declared": true
+ },
+ {
+  "path": "rime/pinyin_simp.schema.yaml",
+  "bytes": 1840,
+  "md5_16": "b0d7948559334d74",
+  "declared": true
+ },
+ {
+  "path": "rime/rime.lua",
+  "bytes": 6853,
+  "md5_16": "ba1df220e405a4ba",
+  "declared": true
+ },
+ {
+  "path": "rime/sansheng_t9.schema.yaml",
+  "bytes": 4023,
+  "md5_16": "c0d57f1743956858",
+  "declared": true
+ },
+ {
+  "path": "rime/wubi86.dict.yaml",
+  "bytes": 2289631,
+  "md5_16": "449bbe2adbd952b3",
+  "declared": true
+ },
+ {
+  "path": "rime/wubi_pinyin.custom.yaml",
+  "bytes": 5910,
+  "md5_16": "3274e000423aecb3",
+  "declared": true
+ },
+ {
+  "path": "rime/wubi_pinyin.schema.yaml",
+  "bytes": 4506,
+  "md5_16": "0c9d783879372bf1",
+  "declared": true
+ },
+ {
+  "path": "rime/zh2en_pinyin.dict.yaml",
+  "bytes": 2253148,
+  "md5_16": "fd20cc6a591e2226",
+  "declared": true
+ },
+ {
+  "path": "rime/zh2en_pinyin_wp.dict.yaml",
+  "bytes": 2346140,
+  "md5_16": "12dcdcec4d5ff0b7",
+  "declared": true
+ },
+ {
+  "path": "rime/zh2en_wubi.dict.yaml",
+  "bytes": 1907702,
+  "md5_16": "b72c3fca1a7ba249",
+  "declared": true
+ },
+ {
+  "path": "rime/zh2en_wubi_wp.dict.yaml",
+  "bytes": 2046267,
+  "md5_16": "be8f6a98a689163a",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/GUID.lua",
+  "bytes": 1468,
+  "md5_16": "0131a155b3737960",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/Upper_Filter.lua",
+  "bytes": 1875,
+  "md5_16": "a0f58a5eb0baa3bf",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/abbrGloss_Filter.lua",
+  "bytes": 7495,
+  "md5_16": "f10f12b38cf0c7b4",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/abbr_en.txt",
+  "bytes": 17146,
+  "md5_16": "2500936430cdd596",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/abbr_num.txt",
+  "bytes": 3636,
+  "md5_16": "6adbdfb79c3c4805",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/codeLookup_Filter.lua",
+  "bytes": 21408,
+  "md5_16": "d098a3fea97542ae",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/dateTimeModule.lua",
+  "bytes": 16151,
+  "md5_16": "cbf4dda9a7e33dff",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/dateTime_filter.lua",
+  "bytes": 20353,
+  "md5_16": "ed9e108e5ef0d0c1",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/dic_4w.lua",
+  "bytes": 1812,
+  "md5_16": "91139a71572ed14b",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/dic_4w_Filter.lua",
+  "bytes": 2842,
+  "md5_16": "007142ba814066f4",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/dic_4w_cn.txt",
+  "bytes": 888075,
+  "md5_16": "76bde539be5882a0",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/dic_4w_en.txt",
+  "bytes": 2022029,
+  "md5_16": "b4d234a21adb9108",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/dynamicPhrase_Filter.lua",
+  "bytes": 6522,
+  "md5_16": "ba83389cbf475f48",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/eventsList.txt",
+  "bytes": 12440,
+  "md5_16": "f8fcf39c8486f552",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/eventsListModule.lua",
+  "bytes": 31592,
+  "md5_16": "e4290148fff42367",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/help.lua",
+  "bytes": 1868,
+  "md5_16": "af5aa74c82a3b287",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/inputShow.lua",
+  "bytes": 2919,
+  "md5_16": "f762a3e45e9e1271",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/inputShow_Filter.lua",
+  "bytes": 7813,
+  "md5_16": "0b493515f3035570",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/laneChangeAndSpace_Filter.lua",
+  "bytes": 3946,
+  "md5_16": "e0a92e251a5d5782",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/lunarModule.lua",
+  "bytes": 18127,
+  "md5_16": "708728567fc195db",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/lunarjieQiModule.lua",
+  "bytes": 44399,
+  "md5_16": "1f28f48d0776cc06",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phoneComment_Filter.lua",
+  "bytes": 2397,
+  "md5_16": "3cd9b776895346b3",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/phraseComment chemicalElement.txt",
+  "bytes": 35279,
+  "md5_16": "f2dba39a96f9b795",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phraseComment commonPhrase.txt",
+  "bytes": 20537,
+  "md5_16": "1b30b7885e89f278",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phraseComment personal.txt",
+  "bytes": 98,
+  "md5_16": "66d306c3e263c98d",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/phraseComment_Filter.lua",
+  "bytes": 1529,
+  "md5_16": "1e7d1650b4b2a34a",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phraseComment_Module.lua",
+  "bytes": 2599,
+  "md5_16": "829ada8458255e12",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phraseExt commonPhrase.txt",
+  "bytes": 7277,
+  "md5_16": "6a40fa05093a284b",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phraseExt esAppEmoji.txt",
+  "bytes": 12802,
+  "md5_16": "f6403751bee54a5d",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phraseExt esUnicode.txt",
+  "bytes": 16276,
+  "md5_16": "7d55f13a3578cd3c",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phraseExt personal.txt",
+  "bytes": 121,
+  "md5_16": "dbfa85ac6b9f67c3",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/phraseExt_Filter.lua",
+  "bytes": 5171,
+  "md5_16": "e9ad1826a4ca2a59",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phraseExt_Module.lua",
+  "bytes": 3446,
+  "md5_16": "101d5881c5a4f193",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phraseReplace.txt",
+  "bytes": 949,
+  "md5_16": "75d6424190879f80",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phraseReplaceModule.lua",
+  "bytes": 2402,
+  "md5_16": "a60a87a482c984b6",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/phraseReplace_Filter.lua",
+  "bytes": 2144,
+  "md5_16": "4b3af3d009ad2125",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/pinyinAdding.txt",
+  "bytes": 4531,
+  "md5_16": "9eee4745e1799dcc",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/pinyinAddingModule.lua",
+  "bytes": 3462,
+  "md5_16": "b01e6953c62e0d09",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/pinyinAdding_Filter.lua",
+  "bytes": 2096,
+  "md5_16": "d231f12475728bb4",
+  "declared": false
+ },
+ {
+  "path": "rime/lua/rawEcho_translator.lua",
+  "bytes": 5395,
+  "md5_16": "c0cf6412e2df5e3a",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/runLog.lua",
+  "bytes": 2939,
+  "md5_16": "a7eb73294b4577a8",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/socket.lua",
+  "bytes": 1680,
+  "md5_16": "b2608e26ad1b815b",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/sysInfo.lua",
+  "bytes": 4686,
+  "md5_16": "0e071110fe09d1a1",
+  "declared": true
+ },
+ {
+  "path": "rime/lua/utf8String.lua",
+  "bytes": 8121,
+  "md5_16": "18bfe003cbb3615d",
+  "declared": false
+ },
+ {
+  "path": "rime/opencc/STCharacters.ocd2",
+  "bytes": 45310,
+  "md5_16": "cb009d723fb69938",
+  "declared": true
+ },
+ {
+  "path": "rime/opencc/STPhrases.ocd2",
+  "bytes": 925143,
+  "md5_16": "f97081a674cd8e5c",
+  "declared": true
+ },
+ {
+  "path": "rime/opencc/s2t.json",
+  "bytes": 428,
+  "md5_16": "ab8511f45523464c",
+  "declared": true
+ },
+ {
+  "path": "symbols/symbols.json",
+  "bytes": 34984,
+  "md5_16": "4bb32817c8d4b65b",
+  "declared": true
+ }
+]

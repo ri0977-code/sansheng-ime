@@ -1,0 +1,28 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "三生输入法"
+    },
+    {
+      "name": "ime_subtype_chinese",
+      "value": "三生 · 中文"
+    },
+    {
+      "name": "ime_subtype_english",
+      "value": "三生 · 英文"
+    },
+    {
+      "name": "ime_label",
+      "value": "三生输入法"
+    },
+    {
+      "name": "ime_desc",
+      "value": "五笔 · 拼音 · 中英混输 · 三向反查"
+    },
+    {
+      "name": "ime_vibrate_reason",
+      "value": "按键时提供轻触振动反馈"
+    }
+  ]
+}

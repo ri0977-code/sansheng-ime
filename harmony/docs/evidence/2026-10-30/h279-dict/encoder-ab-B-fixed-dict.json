@@ -1,0 +1,31 @@
+{
+  "tag": "B-fixed-dict",
+  "steps": [
+    "create_session=2209302406752 find_session=1 select_schema(wubi_pinyin)=1",
+    "current_schema=wubi_pinyin",
+    "set_option enable_sentence=0 (判定用，发布配置仍是 1)",
+    "分别上屏 tf->行:OK / gi->不:OK / tf->行:OK",
+    "phase2 create_session=2209407214800 select_schema=1"
+  ],
+  "librime": "?function 'rime_get_version' not found",
+  "user_txt_files": [
+    "user.txt",
+    "sync\\a2d95e50-613b-44eb-ad98-bdd2d13782b9\\user.txt"
+  ],
+  "user_行不行_encoded_codes": [
+    "tgtf"
+  ],
+  "user_行不行_tgtf": true,
+  "encoded_code": "tgtf",
+  "probe_tgtf": {
+    "preedit": "tgtf",
+    "n_candidates": 50,
+    "行不行": "命中，第 6 位，comment='xingbuxing ☯'",
+    "top": "称王称霸(chenwangchenba) | first of all | to coin | wait a moment | Dragon Boat Festival | to reconstruct"
+  },
+  "verdict_能造出并记住": "PASS：打 tgtf ⇒ 重开引擎后第 6 位出「行不行」",
+  "userdb_has_行不行": false,
+  "userdb_bytes": 0,
+  "dict_md5": "8e020b029ad8dab31ccc8a74ad7f17c3",
+  "dict_bytes": 2352834
+}

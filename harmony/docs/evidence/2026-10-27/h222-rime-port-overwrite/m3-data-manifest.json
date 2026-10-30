@@ -1,0 +1,244 @@
+{
+  "generated_at": "2026-10-27 15:27:18",
+  "tool": "scripts/port_rime_data.py",
+  "dest": "F:/qoderwork/sansheng-ime-harmony/entry/src/main/resources/rawfile/rime",
+  "files": 19,
+  "total_bytes": 15049369,
+  "lua_modules_included": false,
+  "missing": [],
+  "gear_gaps": [],
+  "diverged": [
+    {
+      "file": "wubi_pinyin.schema.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime-config/wubi_pinyin.schema.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/wubi_pinyin.schema.yaml",
+          "bytes": 8867
+        },
+        {
+          "path": "F:/workbuddywork/三生输入法/rime/wubi_pinyin.schema.yaml",
+          "bytes": 1706
+        }
+      ]
+    },
+    {
+      "file": "wubi_pinyin.custom.yaml",
+      "chosen": "D:/Program Files/Rime/wubi_pinyin.custom.yaml",
+      "others": [
+        {
+          "path": "F:/workbuddywork/三生输入法/rime-config/wubi_pinyin.custom.yaml",
+          "bytes": 5472
+        },
+        {
+          "path": "F:/workbuddywork/三生输入法/rime/wubi_pinyin.custom.yaml",
+          "bytes": 3168
+        }
+      ]
+    },
+    {
+      "file": "wubi86.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/wubi86.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/wubi86.dict.yaml",
+          "bytes": 2352069
+        }
+      ]
+    },
+    {
+      "file": "cn_pinyin_wp.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/cn_pinyin_wp.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/cn_pinyin_wp.dict.yaml",
+          "bytes": 1516010
+        }
+      ]
+    },
+    {
+      "file": "zh2en_pinyin_wp.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/zh2en_pinyin_wp.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/zh2en_pinyin_wp.dict.yaml",
+          "bytes": 2227191
+        }
+      ]
+    },
+    {
+      "file": "zh2en_wubi_wp.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/zh2en_wubi_wp.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/zh2en_wubi_wp.dict.yaml",
+          "bytes": 1933964
+        }
+      ]
+    },
+    {
+      "file": "en2zh_v2_wp.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/en2zh_v2_wp.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/en2zh_v2_wp.dict.yaml",
+          "bytes": 2340486
+        }
+      ]
+    },
+    {
+      "file": "pinyin_simp.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/pinyin_simp.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/pinyin_simp.dict.yaml",
+          "bytes": 1331241
+        }
+      ]
+    },
+    {
+      "file": "Custom_phrase.txt",
+      "chosen": "F:/workbuddywork/三生输入法/rime/Custom_phrase.txt",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/Custom_phrase.txt",
+          "bytes": 1636
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "dest": "rime/Custom_phrase.txt",
+      "source": "F:/workbuddywork/三生输入法/rime/Custom_phrase.txt",
+      "source_mtime": "2026-10-19 15:31:47",
+      "bytes": 1657,
+      "md5_8": "a11524cf"
+    },
+    {
+      "dest": "rime/cn_pinyin_wp.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/cn_pinyin_wp.dict.yaml",
+      "source_mtime": "2026-10-18 11:26:52",
+      "bytes": 1450889,
+      "md5_8": "bd7b3aec"
+    },
+    {
+      "dest": "rime/en2zh_v2.dict.yaml",
+      "source": "D:/Program Files/Rime/en2zh_v2.dict.yaml",
+      "source_mtime": "2026-10-13 03:37:40",
+      "bytes": 475430,
+      "md5_8": "96284f0e"
+    },
+    {
+      "dest": "rime/en2zh_v2_wp.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/en2zh_v2_wp.dict.yaml",
+      "source_mtime": "2026-10-20 22:29:27",
+      "bytes": 2234473,
+      "md5_8": "9463ef07"
+    },
+    {
+      "dest": "rime/opencc/STCharacters.ocd2",
+      "source": "F:/workbuddywork/三生输入法/opencc/STCharacters.ocd2",
+      "source_mtime": "2026-10-16 11:11:54",
+      "bytes": 45310,
+      "md5_8": "cb009d72"
+    },
+    {
+      "dest": "rime/opencc/STPhrases.ocd2",
+      "source": "F:/workbuddywork/三生输入法/opencc/STPhrases.ocd2",
+      "source_mtime": "2026-10-16 11:11:54",
+      "bytes": 925143,
+      "md5_8": "f97081a6"
+    },
+    {
+      "dest": "rime/opencc/s2t.json",
+      "source": "F:/workbuddywork/三生输入法/opencc/s2t.json",
+      "source_mtime": "2026-10-16 11:11:53",
+      "bytes": 428,
+      "md5_8": "ab8511f4"
+    },
+    {
+      "dest": "rime/pinyin_simp.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/pinyin_simp.dict.yaml",
+      "source_mtime": "2026-10-20 21:51:02",
+      "bytes": 1266106,
+      "md5_8": "2ca4eeef"
+    },
+    {
+      "dest": "rime/pinyin_simp.schema.yaml",
+      "source": "D:/Program Files/Rime/pinyin_simp.schema.yaml",
+      "source_mtime": "2025-11-19 16:09:42",
+      "bytes": 1840,
+      "md5_8": "b0d79485"
+    },
+    {
+      "dest": "rime/symbols.custom.yaml",
+      "source": "F:/dshdesktopwork/sansheng-ime-android/rime/symbols.custom.yaml",
+      "source_mtime": "2026-10-21 15:00:49",
+      "bytes": 11696,
+      "md5_8": "b1e28d38"
+    },
+    {
+      "dest": "rime/symbols.yaml",
+      "source": "F:/dshdesktopwork/sansheng-ime-android/_emulator_runs/apktool/rime/assets/usr/share/rime-data/symbols.yaml",
+      "source_mtime": "2026-10-20 00:58:30",
+      "bytes": 28473,
+      "md5_8": "b4fe9b1f"
+    },
+    {
+      "dest": "rime/wubi86.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/wubi86.dict.yaml",
+      "source_mtime": "2026-10-20 21:51:02",
+      "bytes": 2289631,
+      "md5_8": "449bbe2a"
+    },
+    {
+      "dest": "rime/wubi_pinyin.custom.yaml",
+      "source": "D:/Program Files/Rime/wubi_pinyin.custom.yaml",
+      "source_mtime": "2026-10-26 16:22:54",
+      "bytes": 5862,
+      "md5_8": "67fdba3a"
+    },
+    {
+      "dest": "rime/wubi_pinyin.schema.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime-config/wubi_pinyin.schema.yaml",
+      "source_mtime": "2026-10-22 19:11:29",
+      "bytes": 5029,
+      "md5_8": "7a17a17e"
+    },
+    {
+      "dest": "rime/zh2en_pinyin.dict.yaml",
+      "source": "D:/Program Files/Rime/zh2en_pinyin.dict.yaml",
+      "source_mtime": "2026-10-26 16:22:54",
+      "bytes": 440,
+      "md5_8": "5ebf1c91"
+    },
+    {
+      "dest": "rime/zh2en_pinyin_wp.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/zh2en_pinyin_wp.dict.yaml",
+      "source_mtime": "2026-10-20 22:29:27",
+      "bytes": 2346140,
+      "md5_8": "12dcdcec"
+    },
+    {
+      "dest": "rime/zh2en_wubi.dict.yaml",
+      "source": "D:/Program Files/Rime/zh2en_wubi.dict.yaml",
+      "source_mtime": "2026-10-20 22:36:22",
+      "bytes": 1907702,
+      "md5_8": "c616960c"
+    },
+    {
+      "dest": "rime/zh2en_wubi_wp.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/zh2en_wubi_wp.dict.yaml",
+      "source_mtime": "2026-10-20 22:29:27",
+      "bytes": 2046267,
+      "md5_8": "be8f6a98"
+    },
+    {
+      "dest": "rime.lua",
+      "source": "generated by port_rime_data.py",
+      "bytes": 6853,
+      "md5_8": "ba1df220"
+    }
+  ]
+}

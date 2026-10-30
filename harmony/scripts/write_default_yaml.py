@@ -1,0 +1,164 @@
+#!/usr/bin/env python3
+"""Write default.yaml with correct Unicode quote characters (H-093/H-094)."""
+import yaml
+
+# Unicode constants
+LSQ = '\u2018'  # ' left single quote
+RSQ = '\u2019'  # ' right single quote
+LDQ = '\u201c'  # " left double quote
+RDQ = '\u201d'  # " right double quote
+
+content = f"""\
+# 三生输入法 · 鸿蒙版默认配置（M3）
+# 由 Qoder 维护；数据文件见 rawfile/rime/README.md 的来源清单。
+#
+# 与桌面（小狼毫）default.yaml 的差异，都是「手机上不该要」的东西：
+#   1. 不吃 Ctrl/Shift 组合键切中英——手机没有物理修饰键，中英由键盘 UI 的「中」键
+#      直接 setOption(ascii_mode)；
+#   2. 不写 Weasel/Squirrel 的 distribution 字段；
+#   3. menu/page_size 保持 50：Rime 一次多给，桥内按 UI 实测宽度切片（H-035/H-042
+#      弹性候选栏），这样「一滑一页」和「横屏放得下几条」都由宽度决定，不写死档位；
+#   4. 标点在这里自带一套常用中文标点，不依赖桌面端 weasel 的 symbols 预设
+#      （那个文件我们没有打包，三生手机上的符号页由键盘 UI 自己出）。
+
+config_version: 0.40
+
+schema_list:
+  - schema: wubi_pinyin      # 主方案：五笔·拼音·英文混输 + 中英互译 + 简繁
+  - schema: sansheng_t9      # 智能九键：数字入、拼音出（H-028 ①）
+
+menu:
+  page_size: 50
+
+switcher:
+  caption: "〔三生方案〕"
+  hotkeys: []
+
+# 手机上禁用修饰键切中英，避免误触；大写锁定交给 UI 的 Shift 状态
+ascii_composer:
+  good_old_caps_lock: true
+  switch_key:
+    Shift_L: commit_code
+    Shift_R: noop
+    Control_L: noop
+    Control_R: noop
+    Caps_Lock: clear
+
+key_binder:
+  select_first_candidate: [Control_f, Control_y]
+  bindings:
+    # 翻页：与键盘 UI 的左右滑并存（真机验收口径：一滑一页）
+    - {{when: has_menu, accept: "minus", send: Page_Up}}
+    - {{when: has_menu, accept: "equal", send: Page_Down}}
+    - {{when: paging, accept: comma, send: Page_Up}}
+    - {{when: has_menu, accept: period, send: Page_Down}}
+    - {{when: has_menu, accept: bracketleft, send: Page_Up}}
+    - {{when: has_menu, accept: bracketright, send: Page_Down}}
+    # 简繁切换：与桌面端一致（手机无物理键，入口是「中」键长按/弹出，见 H-041）
+    - {{when: always, accept: "Control+Shift+f", toggle: zh_trad}}
+
+# 三个方案的 recognizer / key_binder / punctuator 都是 `import_preset: default`
+# D-020：多义标点与 /xx 斜杠符号从 symbols.custom.yaml 并入（dyy 斜杠符号表派生片段）
+recognizer:
+  patterns:
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+    punct: "^/([0-9]0?|[A-Za-z]+)$"
+
+punctuator:
+  # 半角状态下打出中文标点（数字仍直出，符合「数字标点直出」的验收口径）
+  # D-020：多义标点与 /xx 斜杠符号从 symbols.custom.yaml 并入（dyy 斜杠符号表派生片段）
+  half_shape:
+    ",": "，"
+    ".": "。"
+    "?": "？"
+    "!": "！"
+    ";": "；"
+    ":": "："
+    "'": ["{LSQ}", "{RSQ}", "「", "」"]
+    '"': ["{LDQ}", "{RDQ}", "『", "』"]
+    "(": "（"
+    ")": "）"
+    "/": [commit: "/"]
+    '\\': '、'
+    "`": ["`", "```"]
+    "~": "～"
+    "-": "-"
+    _: ["_", "╩", "╦"]
+    "+": "+"
+    "=": "＝"
+    "*": "*"
+    "#": ["#", "%23", "№", "╬"]
+    "&": "&"
+    "@": "@"
+    "%": "％"
+    "$": ["￥", "$"]
+    "^": ["^", "……"]
+    "[": ["［", "【", "〔"]
+    "]": ["］", "】", "〕"]
+    "{{": "｛"
+    "}}": "｝"
+    "|": "｜"
+    "<": "《"
+    ">": "》"
+  full_shape:
+    ",": "，"
+    ".": "。"
+    "?": "？"
+    "!": "！"
+    ";": "；"
+    ":": "："
+    "'": "{LSQ}"
+    '"': "{LDQ}"
+    "(": "（"
+    ")": "）"
+    "/": "、"
+    " ": " "
+    "0": "０"
+    "1": "１"
+    "2": "２"
+    "3": "３"
+    "4": "４"
+    "5": "５"
+    "6": "６"
+    "7": "７"
+    "8": "８"
+    "9": "９"
+  # D-020：/xx 斜杠符号（dyy 斜杠符号表派生片段）
+  symbols:
+    "/zt": ["➖", "✔", "❌", "❓"]
+    "/tj": ["★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★", "☆☆☆☆☆"]
+    "/jd": ["▉▁▁▁▁", "▉▉▁▁▁", "▉▉▉▁▁", "▉▉▉▉▁", "▉▉▉▉▉", "▁▁▁▁▁"]
+    "/dc": ["☐", "☑", "☒", "✅", "❌", "✓", "✕", "✔", "✖", "✗", "✘"]
+    "/lm": ["ⅰ", "ⅱ", "ⅲ", "ⅳ", "ⅴ", "ⅵ", "ⅶ", "ⅷ", "ⅸ", "ⅺ", "ⅻ", "ⅼ", "ⅽ", "ⅾ", "ⅿ", "17", "18", "19", "ⅹ"]
+    "/lmd": ["Ⅰ", "Ⅱ", "Ⅲ", "Ⅳ", "Ⅴ", "Ⅵ", "Ⅶ", "Ⅷ", "Ⅸ", "Ⅺ", "Ⅻ", "Ⅼ", "Ⅽ", "Ⅾ", "Ⅿ", "17", "18", "19", "Ⅹ"]
+    "/szd": ["⒈", "⒉", "⒊", "⒋", "⒌", "⒍", "⒎", "⒏", "⒐", "⒒", "⒓", "⒔", "⒕", "⒖", "⒗", "⒘", "⒙", "⒚", "⒑", "⒛"]
+    "/szk": ["⑴", "⑵", "⑶", "⑷", "⑸", "⑹", "⑺", "⑻", "⑼", "⑾", "⑿", "⒀", "⒁", "⒂", "⒃", "⒄", "⒅", "⒆", "⑽", "⒇"]
+    "/szm": ["〡", "〢", "〣", "〤", "〥", "〦", "〧", "〨", "〩", "〸", "〹", "〺"]
+"""
+
+# Verify YAML
+try:
+    data = yaml.safe_load(content)
+    print("YAML OK")
+    hs = data['punctuator']['half_shape']
+    sq_val = hs.get("'")
+    dq_val = hs.get('"')
+    print(f"half_shape ' key: {[hex(ord(c)) for c in sq_val]}")
+    print(f"half_shape \" key: {[hex(ord(c)) for c in dq_val]}")
+    fs = data['punctuator']['full_shape']
+    print(f"full_shape ' key: {hex(ord(fs.get("'")))}")
+    print(f"full_shape \" key: {hex(ord(fs.get('\"')))}")
+    syms = data['punctuator']['symbols']
+    print(f"symbols: {len(syms)} groups: {list(syms.keys())}")
+    print(f"punct pattern: {data['recognizer']['patterns'].get('punct')}")
+except Exception as e:
+    print(f"YAML ERROR: {e}")
+    import sys; sys.exit(1)
+
+# Write file
+outpath = 'F:/qoderwork/sansheng-ime-harmony/entry/src/main/resources/rawfile/rime/default.yaml'
+with open(outpath, 'w', encoding='utf-8', newline='\n') as f:
+    f.write(content)
+print(f"Written to {outpath}")

@@ -1,0 +1,196 @@
+-- enWord_translator.lua
+-- 三生输入法 · 英文单词 Lua translator（H-260 方向1：不依赖 schema/trie，直查分桶数据）
+-- Qoder M-324-re 变更包：从 en_word_bucket.txt 按首字母分桶出英文候选
+--
+-- 判据与红线：
+--   ① 只在纯字母且长度≥2 时工作（单字母如 'q' 不出英文候选）
+--   ② ascii_mode 为真时不出候选（西文态原文上屏，出了反而挡路）
+--   ③ 前缀匹配不许全表线扫 —— Qoder 2026-10-29 14:4x 校正：原来「按首字母分桶」这条是空的，
+--      旧实现每次按键把命中桶**整桶扫两遍**（最大桶 's' 5,973 条 ⇒ 一次按键 ≈1.2 万次
+--      字符串比较 + 等量 :lower() 分配），每敲一个字母都重来 ⇒ 打字卡。现在见 ⑧。
+--   ④ 限量 MAX_EN_CANDS = 5，不挤占中文候选
+--   ⑤ 懒加载+不许抛错——首次调用才读桶文件，读不到就 return
+--   ⑥ comment 写中文释义（与 enWord_Filter 的「apple→苹果」口径一致）
+--   ⑦ Qoder 2026-10-29 14:1x（H-265 鸿蒙半）：输入本身就是英文单词时，紧跟其后补一条
+--      「中文译词」候选（一位本义、二位翻译，和 Windows/安卓 enWord_Filter 场景1b 同口径）。
+--      这条不占用 MAX_EN_CANDS 的英文联想名额，也不新读任何文件——用的就是桶里已有的释义。
+--   ⑧ Qoder 2026-10-29 14:4x（H-267 卡顿半）：加载时把表建成三张索引——
+--        exact[word]  O(1) 命中本词
+--        idx2[前2字母] / idx3[前3字母]  = **按表内原顺序**的词行数组
+--      查询按输入长度取对应索引：长度 2 用 idx2、长度 3 用 idx3（整组天然命中）、
+--      长度 ≥4 用 idx3 的前 3 字母小组再筛（该组平均 15.7 条，最大 'con' 709 条）。
+--      联想顺序＝表内原顺序，**一条都没变**（离线用真 Lua 对 122 个逐字母前缀做新旧逐条比对，
+--      产出全等；每按键 CPU 时间 0.647 ms → 实测见 ISSUES H-267）。
+--      注意：不能改成「按字典序排好再二分」——桶里那 51 处非字典序相邻是数据自带的优先级，
+--      排完序 `appl` 的首条联想会从 apple 变成 applaud，属于改行为不是改性能（踩过，已回退）。
+--
+-- 合同：librime 1.13 协程生成器：yield(Candidate("word", seg.start, seg._end, text, comment))
+
+local MAX_EN_CANDS = 5
+local BUCKET_FILE = "en_word_bucket.txt"
+
+-- ------------------------------------------------------------------ 目录解析
+
+local function luaDirFromSelf()
+  local ok, info = pcall(function() return debug.getinfo(1, "S") end)
+  if not ok or not info or not info.source then return nil end
+  local src = tostring(info.source)
+  if src:sub(1, 1) ~= "@" then return nil end
+  src = src:gsub("\\", "/"):sub(2)
+  return src:match("^(.-/lua/)[^/]+$")
+end
+
+local function dirCandidates()
+  local out = {}
+  local function add(d)
+    if type(d) == "string" and d ~= "" then out[#out + 1] = d end
+  end
+  add(luaDirFromSelf())
+  local okApi, api = pcall(function() return rime.get_api() end)
+  if okApi and api then
+    local okDd, dd = pcall(api.get_user_data_dir, api)
+    if okDd and dd and tostring(dd) ~= "" then
+      add(tostring(dd):gsub("\\", "/") .. "/")
+    end
+  end
+  add("./")
+  return out
+end
+
+-- ------------------------------------------------------------------ 索引数据
+-- Qoder 2026-10-29 14:4x（H-267）：三张索引共用同一批行对象（不是三份拷贝）。
+-- 行只留 word / gloss 两列：原来的 weight 列在查询里从来没被读过（已核对），
+-- 留着只是让每张表多一个哈希槽，所以不再存。
+
+local exact = {}   -- word -> row
+local idx2 = {}    -- 前 2 字母 -> {row...}（表内原顺序）
+local idx3 = {}    -- 前 3 字母 -> {row...}（表内原顺序）
+local loaded = false
+local nrows = 0
+
+local function push(map, key, row)
+  local g = map[key]
+  if not g then
+    g = {}
+    map[key] = g
+  end
+  g[#g + 1] = row
+end
+
+local function loadBuckets()
+  if loaded then return end
+  loaded = true
+  local dirs = dirCandidates()
+  local fn = nil
+  for i = 1, #dirs do
+    local d = dirs[i]
+    fn = io.open(d .. BUCKET_FILE, "r")
+    if fn then break end
+    fn = io.open(d .. "lua/" .. BUCKET_FILE, "r")
+    if fn then break end
+  end
+  if not fn then return end
+  for line in fn:lines() do
+    -- 格式：首字母<TAB>词<TAB>词频<TAB>释义
+    local letter, word, weight, gloss = line:match("^([a-z])\t(%S+)\t(%d+)\t(.*)$")
+    if letter and word then
+      local w = word:lower()
+      local row = {word = w, gloss = gloss or ""}
+      exact[w] = row
+      push(idx2, w:sub(1, 2), row)
+      if #w >= 3 then
+        push(idx3, w:sub(1, 3), row)
+      end
+      nrows = nrows + 1
+    end
+  end
+  fn:close()
+end
+
+-- ------------------------------------------------------------------ translator
+
+local function enWordTranslate(input, seg)
+  -- 快速过滤：非字符串、太短、非纯字母 → 立即返回（不执行任何 API 调用）
+  if type(input) ~= "string" or #input < 2 then return end
+  if not input:match("^[a-zA-Z]+$") then return end
+
+  -- 懒加载桶数据（首次调用才读桶文件，读不到就 return）
+  if not loaded then
+    local okLoad = pcall(loadBuckets)
+    if not okLoad then return end
+  end
+
+  local raw = input:lower()
+  -- 按长度选索引：长度 2 ⇒ idx2（整组都是命中）；长度 ≥3 ⇒ idx3 的前 3 字母小组。
+  -- 组为空 → 立即返回（不执行 API 调用，避免每次按键都跨 Lua-C++ 边界）
+  local group
+  if #raw == 2 then
+    group = idx2[raw]
+  else
+    group = idx3[raw:sub(1, 3)]
+  end
+  if not group then return end
+
+  -- ascii_mode 为真时不出候选（放后面：只在确认有数据时才检查，减少 API 调用开销）
+  local okApi, api = pcall(function() return rime.get_api() end)
+  if okApi and api then
+    local okCtx, ctx = pcall(function() return api.get_context and api:get_context() end)
+    if okCtx and ctx then
+      local okOpt, val = pcall(function() return ctx:get_option("ascii_mode") end)
+      if okOpt and val then return end
+    end
+  end
+
+  local start, stop = seg.start, seg._end
+  local count = 0
+  local n = #raw
+
+  -- 精确匹配优先（输入本身就是英文单词）
+  local hit = exact[raw]
+  if hit then
+    local c = hit.gloss
+    if c and c ~= "" then
+      yield(Candidate("word", start, stop, hit.word, c))
+    else
+      yield(Candidate("word", start, stop, hit.word, ""))
+    end
+    count = count + 1
+    -- Qoder 2026-10-29 14:1x（H-265 鸿蒙半）：紧跟着再补一条「中文译词」候选。
+    -- 主人定的一条口径是「一位二位，是给本义和翻译的」：一位＝英文本词，二位＝它的中文。
+    -- Windows/安卓那边由 enWord_Filter 场景1b 出这两条；鸿蒙这条链（H-260 方向1）
+    -- 不挂滤镜（大 TSV 加载卡顿），所以在本文件里用已经在内存的桶释义现造第二条，
+    -- 不读任何新文件、不多扫一遍表。取法：桶的释义列形如「应用 yiet/yingyong」，
+    -- 第一个空格前就是中文；没有中文（纯 ASCII）就不补，联想条仍然只出英文。
+    local zh = nil
+    if c and c ~= "" then
+      zh = c:match("^([^ ]+)")
+      -- 释义不是中文（以 ASCII 字母开头）就不补，避免把码串当词出
+      if zh and zh:match("^[A-Za-z]") then
+        zh = nil
+      end
+    end
+    if zh and zh ~= hit.word then
+      yield(Candidate("word", start, stop, zh, hit.word))
+    end
+  end
+
+  -- 前缀联想（输入是英文单词的前缀，如 app→apple/application）
+  -- 组内保持表内原顺序 ⇒ 与旧写法逐条一致；旧写法还会在桶里往后扫到别的字母？不会，
+  -- 桶本来就按首字母分，组就是它的子集，且这里跳过本词那条（和旧代码 `~= raw` 同）。
+  for i = 1, #group do
+    if count >= MAX_EN_CANDS then break end
+    local row = group[i]
+    local w = row.word
+    if w ~= raw and (n <= 3 or w:sub(1, n) == raw) then
+      local c = row.gloss
+      if c and c ~= "" then
+        yield(Candidate("word", start, stop, w, c))
+      else
+        yield(Candidate("word", start, stop, w, ""))
+      end
+      count = count + 1
+    end
+  end
+end
+
+return enWordTranslate

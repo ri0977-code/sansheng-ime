@@ -1,0 +1,114 @@
+# 三生输入法 · 智能九键（T9）方案
+# encoding: utf-8
+#
+# 归属：Qoder（引擎侧数据）。对应 H-028 ①「九宫格打不出字」。
+#
+# 思路：九宫格面板的每个键已经把数字发给引擎了（KeyboardIndex.T9Key → onKey('6')），
+# 缺的是「数字 → 拼音」这条路。用 Rime 拼写代数（speller/algebra）做，而不是在 UI 里
+# 硬编码字母表：
+#   1. derive 把每个拼音音节复制一份并转大写；
+#   2. xlit 把大写 A–Z 按 ITU 电话键盘映射成 2–9（2=ABC … 9=WXYZ），小写不动。
+# 于是同一个词条同时有 "ni hao" 和 "64426" 两种拼写：26 键打字母照常，
+# 九宫格打数字也能出拼音候选 —— 这就是「智能九键」而不是「多击输入」。
+#
+# 验收口径（Mate 80 真机）：九宫格依次按 6-4-4-2-6（n-i-h-a-o），
+# 候选里出现「你好」，comment 显示拼音（spelling_hints）。
+#
+# 已知取舍，留给 M4：
+#   - 预编辑区显示的是数字串（64426），不是拼音；靠 spelling_hints 在候选后补拼音。
+#     要显示成「ni hao」得再加一个 lua 滤镜（rime-ice 的 t9_preedit 那一类）。
+#   - 用户词库单独用 t9（不与五笔的 user 混写），避免把「数字码」的学习词条写进
+#     五笔用户词典；M4 再把 T9 学到的词按拼音码回灌。
+#   - '1'/'0' 暂未参与拼写（不在 alphabet 里），按 Rime 默认直出。
+
+schema:
+  schema_id: sansheng_t9
+  name: "三生·智能九键"
+  version: "0.1"
+  author:
+    - 三生输入法
+  description: |
+    九宫格数字智能拼音（T9）：数字入、拼音出。
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+  - name: zh_trad
+    reset: 0
+    states: [ 简体, 繁體 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+  filters:
+    - simplifier@tradition
+    - uniquifier
+
+# 九宫格的数字是「拼写字符」，不是选词键：Rime 默认把 1–9 绑成选第 N 个候选，
+# 那样打 64426 会在第二位就把候选点掉，九键根本拼不出词。
+# 这里把选词键让给不会从键盘送进来的大写字母（桥里大写字母送的是小写 + Shift，
+# 永远不会出现裸的大写字母 keysym），选词统一用点候选 / 左右滑翻页。
+selector:
+  alternative_select_keys: "ABCDEFGHIJ"
+
+speller:
+  # 数字进得来，全靠 alphabet 里有 2–9
+  alphabet: "abcdefghijklmnopqrstuvwxyz23456789"
+  delimiter: " '"
+  algebra:
+    # ↓ 与简体拼音方案一致的容错（简拼、ü、ing/in 之类），保证九键也能吃到这些拼法
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
+    - derive/^([nl])ue$/$1ve/
+    - derive/^([jqxy])u/$1v/
+    - derive/un$/uen/
+    - derive/ui$/uei/
+    - derive/iu$/iou/
+    # ↓ 智能九键核心：先复制成大写，再把大写整体转成 ITU 数字
+    - derive/^([a-z]+)$/\U$1/
+    - xlit/ABCDEFGHIJKLMNOPQRSTUVWXYZ/22233344455566677778889999/
+
+translator:
+  dictionary: pinyin_simp
+  # 数字串天然一位多义，补全提示是「智能」的另一半：打 64 就能看到 ni/hao/ga… 的预测
+  enable_completion: true
+  enable_sentence: true
+  # 关键：把候选命中的拼音写法显示在 comment 上（你 → ni，你好 → ni hao），
+  # 用户打的是一串数字，看得见的是拼音
+  spelling_hints: 16
+  contextual_suggestions: true
+  preedit_format:
+    - xform/([nl])v/$1ü/
+    - xform/([nl])ue/$1üe/
+    - xform/([jqxy])v/$1u/
+
+tradition:
+  opencc_config: s2t.json
+  option_name: zh_trad
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default

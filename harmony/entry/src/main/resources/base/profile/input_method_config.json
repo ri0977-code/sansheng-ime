@@ -1,0 +1,18 @@
+{
+  "subtypes": [
+    {
+      "icon": "$media:app_icon",
+      "id": "InputMethodService",
+      "label": "$string:ime_subtype_chinese",
+      "locale": "zh-CN",
+      "mode": "lower"
+    },
+    {
+      "icon": "$media:app_icon",
+      "id": "InputMethodService1",
+      "label": "$string:ime_subtype_english",
+      "locale": "en-US",
+      "mode": "lower"
+    }
+  ]
+}

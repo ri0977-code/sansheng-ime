@@ -1,0 +1,516 @@
+{
+  "generated_at": "2026-10-21 22:30:55",
+  "tool": "scripts/port_rime_data.py",
+  "dest": "F:/qoderwork/sansheng-ime-harmony/entry/src/main/resources/rawfile/rime",
+  "files": 58,
+  "total_bytes": 20528604,
+  "lua_modules_included": true,
+  "missing": [
+    "eventsList personal.txt"
+  ],
+  "gear_gaps": [],
+  "diverged": [
+    {
+      "file": "wubi_pinyin.schema.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime-config/wubi_pinyin.schema.yaml",
+      "others": [
+        {
+          "path": "C:/Users/Administrator/AppData/Roaming/Rime/wubi_pinyin.schema.yaml",
+          "bytes": 4772
+        },
+        {
+          "path": "F:/workbuddywork/三生输入法/rime/wubi_pinyin.schema.yaml",
+          "bytes": 1706
+        }
+      ]
+    },
+    {
+      "file": "wubi_pinyin.custom.yaml",
+      "chosen": "D:/Program Files/Rime/wubi_pinyin.custom.yaml",
+      "others": [
+        {
+          "path": "C:/Users/Administrator/AppData/Roaming/Rime/wubi_pinyin.custom.yaml",
+          "bytes": 577
+        },
+        {
+          "path": "F:/workbuddywork/三生输入法/rime/wubi_pinyin.custom.yaml",
+          "bytes": 3168
+        }
+      ]
+    },
+    {
+      "file": "wubi86.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/wubi86.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/wubi86.dict.yaml",
+          "bytes": 2426091
+        },
+        {
+          "path": "C:/Users/Administrator/AppData/Roaming/Rime/wubi86.dict.yaml",
+          "bytes": 2426213
+        }
+      ]
+    },
+    {
+      "file": "cn_pinyin_wp.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/cn_pinyin_wp.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/cn_pinyin_wp.dict.yaml",
+          "bytes": 1516010
+        },
+        {
+          "path": "C:/Users/Administrator/AppData/Roaming/Rime/cn_pinyin_wp.dict.yaml",
+          "bytes": 1516167
+        }
+      ]
+    },
+    {
+      "file": "zh2en_pinyin_wp.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/zh2en_pinyin_wp.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/zh2en_pinyin_wp.dict.yaml",
+          "bytes": 2227191
+        },
+        {
+          "path": "C:/Users/Administrator/AppData/Roaming/Rime/zh2en_pinyin_wp.dict.yaml",
+          "bytes": 2435886
+        }
+      ]
+    },
+    {
+      "file": "zh2en_wubi_wp.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/zh2en_wubi_wp.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/zh2en_wubi_wp.dict.yaml",
+          "bytes": 1933964
+        },
+        {
+          "path": "C:/Users/Administrator/AppData/Roaming/Rime/zh2en_wubi_wp.dict.yaml",
+          "bytes": 1907746
+        }
+      ]
+    },
+    {
+      "file": "en2zh_v2_wp.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/en2zh_v2_wp.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/en2zh_v2_wp.dict.yaml",
+          "bytes": 2340486
+        },
+        {
+          "path": "C:/Users/Administrator/AppData/Roaming/Rime/en2zh_v2_wp.dict.yaml",
+          "bytes": 2340486
+        }
+      ]
+    },
+    {
+      "file": "zh2en_wubi.dict.yaml",
+      "chosen": "D:/Program Files/Rime/zh2en_wubi.dict.yaml",
+      "others": [
+        {
+          "path": "C:/Users/Administrator/AppData/Roaming/Rime/zh2en_wubi.dict.yaml",
+          "bytes": 1907740
+        }
+      ]
+    },
+    {
+      "file": "pinyin_simp.dict.yaml",
+      "chosen": "F:/workbuddywork/三生输入法/rime/pinyin_simp.dict.yaml",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/pinyin_simp.dict.yaml",
+          "bytes": 1331241
+        },
+        {
+          "path": "C:/Users/Administrator/AppData/Roaming/Rime/pinyin_simp.dict.yaml",
+          "bytes": 1331274
+        }
+      ]
+    },
+    {
+      "file": "Custom_phrase.txt",
+      "chosen": "F:/workbuddywork/三生输入法/rime/Custom_phrase.txt",
+      "others": [
+        {
+          "path": "D:/Program Files/Rime/Custom_phrase.txt",
+          "bytes": 1636
+        },
+        {
+          "path": "C:/Users/Administrator/AppData/Roaming/Rime/Custom_phrase.txt",
+          "bytes": 331
+        }
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "dest": "rime/Custom_phrase.txt",
+      "source": "F:/workbuddywork/三生输入法/rime/Custom_phrase.txt",
+      "source_mtime": "2026-10-19 15:31:47",
+      "bytes": 1657,
+      "md5_8": "a11524cf"
+    },
+    {
+      "dest": "rime/cn_pinyin_wp.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/cn_pinyin_wp.dict.yaml",
+      "source_mtime": "2026-10-18 11:26:52",
+      "bytes": 1450889,
+      "md5_8": "bd7b3aec"
+    },
+    {
+      "dest": "rime/en2zh_v2.dict.yaml",
+      "source": "D:/Program Files/Rime/en2zh_v2.dict.yaml",
+      "source_mtime": "2026-10-13 03:37:40",
+      "bytes": 475430,
+      "md5_8": "96284f0e"
+    },
+    {
+      "dest": "rime/en2zh_v2_wp.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/en2zh_v2_wp.dict.yaml",
+      "source_mtime": "2026-10-20 22:29:27",
+      "bytes": 2234473,
+      "md5_8": "9463ef07"
+    },
+    {
+      "dest": "rime/opencc/STCharacters.ocd2",
+      "source": "F:/workbuddywork/三生输入法/opencc/STCharacters.ocd2",
+      "source_mtime": "2026-10-16 11:11:54",
+      "bytes": 45310,
+      "md5_8": "cb009d72"
+    },
+    {
+      "dest": "rime/opencc/STPhrases.ocd2",
+      "source": "F:/workbuddywork/三生输入法/opencc/STPhrases.ocd2",
+      "source_mtime": "2026-10-16 11:11:54",
+      "bytes": 925143,
+      "md5_8": "f97081a6"
+    },
+    {
+      "dest": "rime/opencc/s2t.json",
+      "source": "F:/workbuddywork/三生输入法/opencc/s2t.json",
+      "source_mtime": "2026-10-16 11:11:53",
+      "bytes": 428,
+      "md5_8": "ab8511f4"
+    },
+    {
+      "dest": "rime/pinyin_simp.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/pinyin_simp.dict.yaml",
+      "source_mtime": "2026-10-20 21:51:02",
+      "bytes": 1266106,
+      "md5_8": "2ca4eeef"
+    },
+    {
+      "dest": "rime/pinyin_simp.schema.yaml",
+      "source": "D:/Program Files/Rime/pinyin_simp.schema.yaml",
+      "source_mtime": "2025-11-19 16:09:42",
+      "bytes": 1840,
+      "md5_8": "b0d79485"
+    },
+    {
+      "dest": "rime/wubi86.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/wubi86.dict.yaml",
+      "source_mtime": "2026-10-20 21:51:02",
+      "bytes": 2289631,
+      "md5_8": "449bbe2a"
+    },
+    {
+      "dest": "rime/wubi_pinyin.custom.yaml",
+      "source": "D:/Program Files/Rime/wubi_pinyin.custom.yaml",
+      "source_mtime": "2026-10-21 14:38:19",
+      "bytes": 5332,
+      "md5_8": "bfd1940c"
+    },
+    {
+      "dest": "rime/wubi_pinyin.schema.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime-config/wubi_pinyin.schema.yaml",
+      "source_mtime": "2026-10-16 14:38:49",
+      "bytes": 4187,
+      "md5_8": "33b20bf3"
+    },
+    {
+      "dest": "rime/zh2en_pinyin.dict.yaml",
+      "source": "D:/Program Files/Rime/zh2en_pinyin.dict.yaml",
+      "source_mtime": "2026-10-20 22:29:27",
+      "bytes": 2253148,
+      "md5_8": "909a47bf"
+    },
+    {
+      "dest": "rime/zh2en_pinyin_wp.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/zh2en_pinyin_wp.dict.yaml",
+      "source_mtime": "2026-10-20 22:29:27",
+      "bytes": 2346140,
+      "md5_8": "12dcdcec"
+    },
+    {
+      "dest": "rime/zh2en_wubi.dict.yaml",
+      "source": "D:/Program Files/Rime/zh2en_wubi.dict.yaml",
+      "source_mtime": "2026-10-20 22:29:27",
+      "bytes": 1907702,
+      "md5_8": "c616960c"
+    },
+    {
+      "dest": "rime/zh2en_wubi_wp.dict.yaml",
+      "source": "F:/workbuddywork/三生输入法/rime/zh2en_wubi_wp.dict.yaml",
+      "source_mtime": "2026-10-20 22:29:27",
+      "bytes": 2046267,
+      "md5_8": "be8f6a98"
+    },
+    {
+      "dest": "rime.lua",
+      "source": "generated by port_rime_data.py",
+      "bytes": 6770,
+      "md5_8": "9532a997"
+    },
+    {
+      "dest": "lua/GUID.lua",
+      "source": "D:/Program Files/Rime/lua/GUID.lua",
+      "bytes": 1468,
+      "md5_8": "0131a155"
+    },
+    {
+      "dest": "lua/Upper_Filter.lua",
+      "source": "D:/Program Files/Rime/lua/Upper_Filter.lua",
+      "bytes": 1875,
+      "md5_8": "a0f58a5e"
+    },
+    {
+      "dest": "lua/abbrGloss_Filter.lua",
+      "source": "D:/Program Files/Rime/lua/abbrGloss_Filter.lua",
+      "bytes": 7495,
+      "md5_8": "f10f12b3"
+    },
+    {
+      "dest": "lua/codeLookup_Filter.lua",
+      "source": "D:/Program Files/Rime/lua/codeLookup_Filter.lua",
+      "bytes": 21408,
+      "md5_8": "d098a3fe"
+    },
+    {
+      "dest": "lua/dateTimeModule.lua",
+      "source": "D:/Program Files/Rime/lua/dateTimeModule.lua",
+      "bytes": 16151,
+      "md5_8": "cbf4dda9"
+    },
+    {
+      "dest": "lua/dateTime_filter.lua",
+      "source": "D:/Program Files/Rime/lua/dateTime_filter.lua",
+      "bytes": 20353,
+      "md5_8": "ed9e108e"
+    },
+    {
+      "dest": "lua/dic_4w.lua",
+      "source": "D:/Program Files/Rime/lua/dic_4w.lua",
+      "bytes": 1812,
+      "md5_8": "91139a71"
+    },
+    {
+      "dest": "lua/dic_4w_Filter.lua",
+      "source": "D:/Program Files/Rime/lua/dic_4w_Filter.lua",
+      "bytes": 2842,
+      "md5_8": "007142ba"
+    },
+    {
+      "dest": "lua/dynamicPhrase_Filter.lua",
+      "source": "D:/Program Files/Rime/lua/dynamicPhrase_Filter.lua",
+      "bytes": 6522,
+      "md5_8": "ba83389c"
+    },
+    {
+      "dest": "lua/eventsListModule.lua",
+      "source": "D:/Program Files/Rime/lua/eventsListModule.lua",
+      "bytes": 31592,
+      "md5_8": "e4290148"
+    },
+    {
+      "dest": "lua/help.lua",
+      "source": "D:/Program Files/Rime/lua/help.lua",
+      "bytes": 1868,
+      "md5_8": "af5aa74c"
+    },
+    {
+      "dest": "lua/inputShow.lua",
+      "source": "D:/Program Files/Rime/lua/inputShow.lua",
+      "bytes": 2919,
+      "md5_8": "f762a3e4"
+    },
+    {
+      "dest": "lua/inputShow_Filter.lua",
+      "source": "D:/Program Files/Rime/lua/inputShow_Filter.lua",
+      "bytes": 7813,
+      "md5_8": "0b493515"
+    },
+    {
+      "dest": "lua/laneChangeAndSpace_Filter.lua",
+      "source": "D:/Program Files/Rime/lua/laneChangeAndSpace_Filter.lua",
+      "bytes": 3946,
+      "md5_8": "e0a92e25"
+    },
+    {
+      "dest": "lua/lunarModule.lua",
+      "source": "D:/Program Files/Rime/lua/lunarModule.lua",
+      "bytes": 18127,
+      "md5_8": "70872856"
+    },
+    {
+      "dest": "lua/lunarjieQiModule.lua",
+      "source": "D:/Program Files/Rime/lua/lunarjieQiModule.lua",
+      "bytes": 44399,
+      "md5_8": "1f28f48d"
+    },
+    {
+      "dest": "lua/phraseComment_Filter.lua",
+      "source": "D:/Program Files/Rime/lua/phraseComment_Filter.lua",
+      "bytes": 1529,
+      "md5_8": "1e7d1650"
+    },
+    {
+      "dest": "lua/phraseComment_Module.lua",
+      "source": "D:/Program Files/Rime/lua/phraseComment_Module.lua",
+      "bytes": 2599,
+      "md5_8": "829ada84"
+    },
+    {
+      "dest": "lua/phraseExt_Filter.lua",
+      "source": "D:/Program Files/Rime/lua/phraseExt_Filter.lua",
+      "bytes": 5171,
+      "md5_8": "e9ad1826"
+    },
+    {
+      "dest": "lua/phraseExt_Module.lua",
+      "source": "D:/Program Files/Rime/lua/phraseExt_Module.lua",
+      "bytes": 3446,
+      "md5_8": "101d5881"
+    },
+    {
+      "dest": "lua/phraseReplaceModule.lua",
+      "source": "D:/Program Files/Rime/lua/phraseReplaceModule.lua",
+      "bytes": 2402,
+      "md5_8": "a60a87a4"
+    },
+    {
+      "dest": "lua/phraseReplace_Filter.lua",
+      "source": "D:/Program Files/Rime/lua/phraseReplace_Filter.lua",
+      "bytes": 2144,
+      "md5_8": "4b3af3d0"
+    },
+    {
+      "dest": "lua/pinyinAddingModule.lua",
+      "source": "D:/Program Files/Rime/lua/pinyinAddingModule.lua",
+      "bytes": 3462,
+      "md5_8": "b01e6953"
+    },
+    {
+      "dest": "lua/pinyinAdding_Filter.lua",
+      "source": "D:/Program Files/Rime/lua/pinyinAdding_Filter.lua",
+      "bytes": 2096,
+      "md5_8": "d231f124"
+    },
+    {
+      "dest": "lua/rawEcho_translator.lua",
+      "source": "D:/Program Files/Rime/lua/rawEcho_translator.lua",
+      "bytes": 5395,
+      "md5_8": "c0cf6412"
+    },
+    {
+      "dest": "lua/utf8String.lua",
+      "source": "D:/Program Files/Rime/lua/utf8String.lua",
+      "bytes": 8121,
+      "md5_8": "18bfe003"
+    },
+    {
+      "dest": "lua/abbr_en.txt",
+      "source": "D:/Program Files/Rime/lua/abbr_en.txt",
+      "bytes": 17146,
+      "md5_8": "25009364"
+    },
+    {
+      "dest": "lua/dic_4w_cn.txt",
+      "source": "D:/Program Files/Rime/lua/dic_4w_cn.txt",
+      "bytes": 888075,
+      "md5_8": "76bde539"
+    },
+    {
+      "dest": "lua/dic_4w_en.txt",
+      "source": "D:/Program Files/Rime/lua/dic_4w_en.txt",
+      "bytes": 2022029,
+      "md5_8": "b4d234a2"
+    },
+    {
+      "dest": "lua/eventsList.txt",
+      "source": "D:/Program Files/Rime/lua/eventsList.txt",
+      "bytes": 12440,
+      "md5_8": "f8fcf39c"
+    },
+    {
+      "dest": "lua/phraseComment commonPhrase.txt",
+      "source": "D:/Program Files/Rime/lua/phraseComment commonPhrase.txt",
+      "bytes": 20537,
+      "md5_8": "1b30b788"
+    },
+    {
+      "dest": "lua/phraseComment chemicalElement.txt",
+      "source": "D:/Program Files/Rime/lua/phraseComment chemicalElement.txt",
+      "bytes": 35279,
+      "md5_8": "f2dba39a"
+    },
+    {
+      "dest": "lua/phraseComment personal.txt",
+      "source": "D:/Program Files/Rime/lua/phraseComment personal.txt",
+      "bytes": 98,
+      "md5_8": "66d306c3"
+    },
+    {
+      "dest": "lua/phraseExt commonPhrase.txt",
+      "source": "D:/Program Files/Rime/lua/phraseExt commonPhrase.txt",
+      "bytes": 7277,
+      "md5_8": "6a40fa05"
+    },
+    {
+      "dest": "lua/phraseExt esAppEmoji.txt",
+      "source": "D:/Program Files/Rime/lua/phraseExt esAppEmoji.txt",
+      "bytes": 12802,
+      "md5_8": "f6403751"
+    },
+    {
+      "dest": "lua/phraseExt esUnicode.txt",
+      "source": "D:/Program Files/Rime/lua/phraseExt esUnicode.txt",
+      "bytes": 16276,
+      "md5_8": "7d55f13a"
+    },
+    {
+      "dest": "lua/phraseExt personal.txt",
+      "source": "D:/Program Files/Rime/lua/phraseExt personal.txt",
+      "bytes": 121,
+      "md5_8": "dbfa85ac"
+    },
+    {
+      "dest": "lua/phraseReplace.txt",
+      "source": "D:/Program Files/Rime/lua/phraseReplace.txt",
+      "bytes": 949,
+      "md5_8": "75d64241"
+    },
+    {
+      "dest": "lua/pinyinAdding.txt",
+      "source": "D:/Program Files/Rime/lua/pinyinAdding.txt",
+      "bytes": 4531,
+      "md5_8": "9eee4745"
+    },
+    {
+      "dest": "lua/abbr_num.txt",
+      "source": "D:/Program Files/Rime/lua/abbr_num.txt",
+      "bytes": 3636,
+      "md5_8": "6adbdfb7"
+    },
+    {
+      "dest": "lua-files.txt",
+      "source": "generated by port_rime_data.py",
+      "bytes": 43,
+      "md5_8": "-"
+    }
+  ]
+}

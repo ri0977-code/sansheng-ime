@@ -1,0 +1,8 @@
+# 公开副本的文本/二进制口径（Qoder 2026-10-30）
+*.bat binary
+*.ocd2 binary
+*.db binary
+*.o binary
+*.so binary
+*.a binary
+*.zip binary

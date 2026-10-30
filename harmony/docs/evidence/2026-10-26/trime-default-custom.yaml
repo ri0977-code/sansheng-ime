@@ -1,0 +1,11 @@
+customization:
+  distribution_code_name: trime
+  distribution_version: "v3.3.12-0-ge09ac711"
+  generator: "Rime::SwitcherSettings"
+  modified_time: "Mon Oct 26 17:33:16 2026"
+  rime_version: 1.17.0
+patch:
+  schema_list:
+    - {schema: luna_pinyin_simp}
+    - {schema: wubi_pinyin}
+    - {schema: luna_pinyin}

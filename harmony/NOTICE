@@ -1,0 +1,308 @@
+三生输入法（HarmonyOS 版）/ Sansheng Input Method
+Copyright 2026 Lucas Y.C. Wang
+
+本产品在鸿蒙（HarmonyOS NEXT）上实现「五笔 · 拼音 · 英文三向混输 + 三向反查 +
+自造词 + 自调频」输入法。本文件是 Apache License 2.0 第 4(d) 条要求的
+NOTICE，说明随包分发的第三方软件与数据、各自适用的许可，以及本仓库对上游
+代码所做的改动。许可全文见同目录 `LICENSES/`；
+在 HarmonyOS 应用内，同一份内容已合成为「关于 → 完整许可声明」页面
+（`rawfile/legal/notice.html`，由 `scripts/build_notice_html.py` 从本文件与
+`LICENSES/*.txt` 生成），用户无需访问安装目录即可阅读。
+
+================================================================
+一、本仓库自研部分（Apache License 2.0）
+================================================================
+根目录 `LICENSE` 为 Apache License 2.0，版权人 "Copyright 2026 Lucas Y.C. Wang"；
+同一文本副本见 `LICENSES/Apache-2.0.txt`。以下内容由本项目编写：
+
+  entry/src/main/ets/**            ArkTS 输入法面板、控制器、引擎封装
+  entry/src/main/cpp/fanxing_napi.cpp  NAPI 引擎桥（本项目重写，接口见 docs/INTERFACE.md）
+  entry/src/main/cpp/CMakeLists.txt    静态库链接与裁剪配置
+  fanxing_rime_har/**              librime 的鸿蒙 HAR 封装（本项目改造）
+  entry/src/main/resources/rawfile/rime/default.yaml
+                                    （自写为主体；1.0.0 起内含 dyy 斜杠符号表的派生片段：
+                                     `punctuator/symbols` 9 组 / 117 项 + `half_shape` 10 个多义标点键 / 28 项
+                                     ＝ 合计 145 项，见第三节「授权申请中」条目与 H-094，不主张该片段原创）
+  entry/src/main/resources/rawfile/rime/sansheng_t9.schema.yaml
+  scripts/**                       构建 / 签名 / 装机 / 真机自动化
+  docs/**                          设计与验收文档
+
+注意：第一节的自研许可 **不覆盖** 第二节的第三方代码，也 **不覆盖** 第三节的
+数据。词库数据按其自身许可分发，不并入 Apache-2.0。
+
+================================================================
+二、第三方软件（随包二进制 / 代码）
+================================================================
+
+[MIT]  chuanis/harmonyos-next-rime-har —— 鸿蒙版 Rime 引擎工程
+    仓库：https://github.com/chuanis/harmonyos-next-rime-har
+    许可：MIT，"Copyright (c) 2026 Lucas Y.C. Wang"（`LICENSES/MIT-harmonyos-next-rime-har.txt`）
+    用途：本项目 `fanxing_rime_har` 模块与 `entry/src/main/cpp/lib/**` 下随包
+          预编译静态库/动态库的来源。
+    改动：本项目**重写**了 NAPI 桥（上游 demo 桥 → `entry/src/main/cpp/fanxing_napi.cpp`，
+          新增 initEngine/processKey/selectCandidate/deleteBackward/flipPage/
+          clear/getContext/setOption/setPageSize，并改写分页切片与数字/标点直出语义）；
+          `fanxing_rime_har/**` 的包配置、构建脚本与 `oh-package.json5` 由本项目改写。
+          上游 MIT 版权与许可声明按 MIT 要求原样保留。
+
+    该工程内含的第三方库（随同一个 .so/.a 一并进包）：
+
+    ┌ 随包二进制        │ 上游项目              │ 许可         │ 许可文本
+    ├───────────────────┼──────────────────────┼─────────────┼────────────────────────
+    │ librime.a         │ rime/librime          │ BSD-3-Clause│ LICENSES/BSD-3-Clause-librime.txt
+    │ libleveldb.a      │ google/leveldb        │ BSD-3-Clause│ LICENSES/BSD-3-Clause-Google.txt
+    │ libglog.a         │ google/glog           │ BSD-3-Clause│ LICENSES/BSD-3-Clause-Google.txt
+    │ libmarisa.a       │ s-yata/marisa-trie    │ BSD-2-Clause│ LICENSES/BSD-2-Clause-marisa.txt
+    │ libyaml-cpp.a     │ jbeder/yaml-cpp       │ MIT         │ LICENSES/MIT-yaml-cpp.txt
+    │ liblua.a          │ Lua 5.4 (lua.org)     │ MIT         │ LICENSES/MIT-Lua.txt
+    │ libopencc.a       │ BYVoid/OpenCC         │ Apache-2.0  │ LICENSES/Apache-2.0.txt
+
+    说明：librime 上游声明为 "Copyright RIME Developers / Distributed under the
+    BSD License"，未写年份，故许可文本中不臆造年份。
+
+    随包动态库的实际清单（2026-10-23 按 entry-default-unsigned.hap 逐字节核对）：
+
+    包内 `libs/arm64-v8a/` 只有下面 2 个 `.so`；上表的 `.a` **不单独进包**，它们在构建时
+    被静态链接进 `libfanxing_rime.so`。静态链接不改变各库的许可，仍须逐个保留声明，
+    所以上表逐项列明（BSD-3-Clause / BSD-2-Clause / MIT / Apache-2.0 均允许此用法）。
+
+    - `libs/arm64-v8a/libfanxing_rime.so`（入包 5,549,616 B，sha256 前缀 `ac47e80ccdc6f8f8`）
+        本项目的构建产物：`entry/src/main/cpp/fanxing_napi.cpp` 与上表 7 个静态库由 CMake
+        现场链接（librime / liblua 走 `--whole-archive` + `--start-group`，其余普通链接；
+        另链系统库 `libace_napi.z.so` / `libhilog_ndk.z.so` / `libc++.a`），剥离符号后进包。
+        许可：自研部分随本项目 Apache-2.0（根 `LICENSE`），第三方部分按上表各自许可。
+        易混淆点（已实测）：**仓库里的 `entry/src/main/cpp/lib/libfanxing_rime.so`
+        （4,870,448 B，sha256 前缀 `385cbef5e988532f`）不是入包的那一份** —— 它是上游工程
+        带来的预编译件，`CMakeLists.txt` 没有引用它；本机构建产物未剥离时 13,190,344 B，
+        剥离后才是入包的 5,549,616 B。该冗余文件已记入 `docs/ISSUES.md` 待清理。
+
+    - `libs/arm64-v8a/libc++_shared.so`（1,262,504 B，sha256 前缀 `965803c3fe53e024`）
+        LLVM libc++ —— C++ 标准库运行时，由 DevEco / OHOS NDK 工具链在原生构建时注入 HAP。
+        依据：它**不在源码树里**（`entry/src/main/cpp/lib/**` 没有它），只出现在构建中间产物
+        `entry/build/default/intermediates/cmake/default/obj/arm64-v8a/`，与入包那份逐字节相同。
+        上游：https://github.com/llvm/llvm-project （libc++ 组件）
+        许可：**Apache-2.0 WITH LLVM-exception**。该例外明确允许分发「与 LLVM 库链接得到的
+        编译产物」时不附带许可文本，故本项目不把它的许可抄本放进 `LICENSES/`，
+        只在此如实点名上游与适用许可。
+
+[Apache-2.0]  nanaseyuu/hMixedKeyboard —— 鸿蒙输入法面板参考实现
+    仓库：https://github.com/nanaseyuu/hMixedKeyboard （本机 `_ref_hMixedKeyboard`）
+    用途：M1 阶段参考其 IME Kit 面板生命周期与 `setUiContent → resize` 顺序，
+          并移植其键盘壳结构。
+    许可：Apache-2.0（`LICENSES/Apache-2.0.txt`）
+    改动：`entry/src/main/ets/inputmethod/InputMethodService.ets`、
+          `entry/src/main/ets/inputmethod/KeyboardController.ets`、
+          `entry/src/main/ets/pages/KeyboardIndex.ets` 按其结构改写为本项目的
+          键盘壳（引擎替换为 `EngineProvider` / Rime），文件头已注明借鉴来源
+          与改动点；未带入其自带字典引擎（`.ms2` 格式）。
+
+[MIT]         ysk0518/kanonIME —— HarmonyOS NEXT 原生输入法（日语）
+    仓库：https://github.com/ysk0518/kanonIME （本机 `_ref_kanon`，
+          commit f5cfca9110b0793a2d08205f01b78d0e6fafb2b0）
+    用途：候选栏 UI 布局参考 —— 单行候选条、▼ 展开网格（`Scroll` + `Flex(wrap)`）、
+          行高自适应与降级、选中项自动跟随。
+    许可：MIT，"Copyright (c) 2026 ysk0518 and kanonIME contributors"
+          （`LICENSES/MIT-kanonIME.txt`）
+    改动：`entry/src/main/ets/pages/KeyboardIndex.ets` 的 `CandidateBar` /
+          `ExpandedPanel` Builder 按上述布局改写；字段名与状态源换成本项目的
+          `keyboardController` / `RimeCandidate`；**预编辑独立成 L1 整宽行、
+          反查 comment 行、弹性 `setPageSize`、展开态整页翻页按钮** 为本项目
+          新增，非 kanonIME 内容。
+
+[Apache-2.0]  OpenHarmony KikaInputMethod 官方示例
+    用途：kanonIME 的上游来源；本项目经 kanonIME 间接沿用其候选栏布局思路。
+    许可：Apache-2.0（`LICENSES/Apache-2.0.txt`）
+
+[仅参考交互设计，未复制源码]
+    fcitx5-android（LGPL-2.1）、Trime（GPL-3.0）、fcitx5-harmony（GPL-3.0）：
+    只借「辅助信息行不吃候选宽度」「comment 置于词上方」等**设计**，
+    未复制任何源码；详见 `docs/DECISIONS.md` D-002 / D-004。
+    yuetyam/jyutping-harmony（CC0-1.0）：键帽尺寸模型来源，CC0 无署名义务，
+    此处致谢。
+
+================================================================
+三、第三方数据与随包脚本（词库 / Lua 滤镜 / 符号表）—— 许可独立于代码，请勿混同
+================================================================
+[CC BY-SA 4.0]  CC-CEDICT 派生词库
+    文件：entry/src/main/resources/rawfile/rime/
+          zh2en_pinyin.dict.yaml、zh2en_pinyin_wp.dict.yaml、
+          zh2en_wubi.dict.yaml、zh2en_wubi_wp.dict.yaml
+    来源：CC-CEDICT（https://cc-cedict.org），© CC-CEDICT project。
+    许可：CC BY-SA 4.0（`LICENSES/CC-BY-SA-4.0.txt`）。
+          上述文件均由 CC-CEDICT 数据转换/加权生成，属**改编作品**，
+          依 SA 条款继续以 CC BY-SA 4.0 分发；署名同时写在这四个文件的
+          头部注释里。
+          （2026-10-22 14:2x 更正：`cn_pinyin_wp.dict.yaml` 原先被误列入本组，
+          实测证据见下文的 [Apache-2.0] 条目，已移出。）
+    范围声明：该传染性**只覆盖词库数据本身**，不覆盖调用它的
+          ArkTS / C++ 代码。
+
+[MIT]  ECDICT 派生词库
+    文件：en2zh_v2.dict.yaml、en2zh_v2_wp.dict.yaml
+    来源：ECDICT（https://github.com/skywind3000/ECDICT），© Linwei (skywind3000)。
+    许可：MIT（`LICENSES/MIT-ECDICT.txt`）；本表为按行筛选后的子集。
+
+[Apache-2.0]  rime 官方 `pinyin_simp` 方案
+    文件：pinyin_simp.dict.yaml、pinyin_simp.schema.yaml
+    来源：rime/rime-pinyin-simp（上游为 Android PinyinIME，Apache-2.0）。
+
+[Apache-2.0（派生）]  `cn_pinyin_wp.dict.yaml` —— 2026-10-22 14:2x 由 CC BY-SA 组移入
+    文件：entry/src/main/resources/rawfile/rime/cn_pinyin_wp.dict.yaml
+    实测依据（`docs/evidence/2026-10-22/cn-pinyin-wp-provenance.json`）：
+          本表 65,114 行、65,114 个去重（词, 拼音）对，与 `pinyin_simp.dict.yaml`
+          的 65,114 对**逐一相同**（交集 65,114 / 覆盖率 100.0%）；
+          与 CC-CEDICT 派生的 `zh2en_pinyin.dict.yaml`（88,553 对）交集为 **0**（0.0%）。
+          文件头部只有 `# Generated by DSH · 2026-10-13`，无 CC-CEDICT 署名行。
+    结论：它是 `pinyin_simp` 的重新切片/改名，**不含 CC-CEDICT 内容**，
+          因此不受 CC BY-SA 4.0 传染，许可随上游 `pinyin_simp` = Apache-2.0；
+          署名义务按 Apache-2.0 处理（本 NOTICE + `LICENSES/Apache-2.0.txt`）。
+    备注：先前把它记成 CC-CEDICT 派生，是因为文件名带 `_wp` 就归进了 `zh2en_*_wp` 一组，
+          属分组时的想当然，已由数据比对推翻。
+
+[LGPL-3.0]  86 五笔码表
+    文件：wubi86.dict.yaml
+    来源与许可（2026-10-22 实测更正，见 `docs/release/legal/third-party-audit-2026-10-22.md` F3）：
+          本文件属 **rime/rime-wubi**（https://github.com/rime/rime-wubi）一脉，
+          该仓库 LICENSE = **GNU LGPL-3.0**（`LICENSES/LGPL-3.0.txt`）；
+          本机与 `D:/IDM/rime-wubi-master/rime-wubi-master/wubi86.dict.yaml`
+          尺寸/结构最接近（2,289,631 B vs 上游 2,289,545 B，差异为三生追加的词条）。
+          `KyleBing/rime-wubi86-jidian`（Apache-2.0）只贡献极点权重与补充词条，
+          其码表源头 `wubi-jidan-dict` 本身未附许可证，**故不能把整份文件记成 Apache-2.0**。
+    署名：文件头保留贡献者 changelog（Gong Chen、Yu Yuwei、Chen Xing，原始码表作者 Wozy）。
+    义务范围：LGPL 对本文件的义务 = 保留许可与署名、随包提供许可原文；
+          不要求公开调用它的 ArkTS / C++ 代码。
+
+[Apache-2.0]  OpenCC 简繁转换数据
+    文件：entry/src/main/resources/rawfile/rime/opencc/STCharacters.ocd2、
+          STPhrases.ocd2、s2t.json
+    用途：支撑「简繁」开关（`zh_trad`）。
+    许可：Apache-2.0（`LICENSES/Apache-2.0.txt`）；仅取预编译数据文件，未修改。
+
+[授权申请中 · 上游未附许可证]  happyDom/dyyRime 的 Lua 滤镜与数据表
+    文件：`entry/src/main/resources/rawfile/rime/lua/**` 中的 29 个原样文件
+          （GUID / dateTime* / dic_4w* / dynamicPhrase_Filter / eventsList* / help /
+          laneChangeAndSpace_Filter / lunar* / phraseComment* / phraseExt* /
+          phraseReplace* / pinyinAdding* / utf8String 等 `.lua` 及配套 `.txt` 表，
+          合计 3,197,403 B）。另有 13 个与上游同名但内容不同的文件，按逐行实测相似度分两类：
+          ① 由上游文件改写（保留上游代码片段，主体版权归上游）——7 个：
+          `lua/Upper_Filter.lua` 97%、`lua/inputShow.lua` 98%、`lua/inputShow_Filter.lua` 95%、
+          `lua/dic_4w_Filter.lua` 79%、`Custom_phrase.txt` 46%、`wubi_pinyin.custom.yaml` 42%、
+          `lua/sysInfo.lua` 38%（`currentDir()` 等函数原样保留）；
+          ② 同名的鸿蒙端独立重写（沿用模块名/文件名与调用契约，无逐行复制，按 Apache-2.0 归本项目）——6 个：
+          `rime.lua` 0%、`README.md` 0%（本项目数据说明）、`lua/runLog.lua`、`lua/socket.lua`（安全桩）、
+          `lua/phraseComment personal.txt`、`lua/phraseExt personal.txt`（本项目模板）。
+          （此列原含 `symbols.custom.yaml`，该文件已不随包，见下一条。）
+    上游：https://github.com/happyDom/dyyRime —— **仓库无 LICENSE 文件，法律上等于保留所有权利**。
+    现状：授权**已申请、待回复**。2026-10-22 14:22 主人同时做了两件事：邮件 `douyaoyuan@126.com`
+          （逐文件清单 + 鸿蒙端范围）与上游 Issue #9 追评（#8 已说明并关闭）。此前本条写的
+          「issue 因误操作被关闭，待重开」是过期描述，已更正。
+          本项目对第 ① 类文件只主张自己那部分改动的著作权，文件主体版权仍归上游；
+          第 ② 类是本项目独立实现，不含上游代码。
+    处置：见 `docs/release/legal/third-party-audit-2026-10-22.md` 第五节 O-1~O-3；
+          在取得书面许可之前，本条目即为对该部分的如实披露。
+          1.0.0 的既定路线是「保留 + 如实署名」（D-016/D-020），不因等待回复而卡住上架。
+
+[许可敞口已于 1.0.0 移除]  rime 官方斜杠符号表（不再随包）
+    文件：`rawfile/rime/symbols.yaml`（28,473 B，md5 前缀 `b4fe9b1fb5419b6c`）
+          （该文件与同目录的 `symbols.custom.yaml` **从未进入 git 跟踪**，只存在于早期工作区与
+           早前构建出的包里；三个已签名旧包（m066 / m067-cr01 / release）仍含它们，**那三个包不得提审**）
+    来源：与安卓 1.10.1 发布插件 APK 内 `assets/usr/share/rime-data/symbols.yaml` **字节相同**，
+          属 rime 官方数据（`Rime's punctuation and symbols`，weasel/brise 一脉）的部署副本，
+          上游未附可指认的许可证文本 ⇒ D-020 由主人拍板选 A：**1.0.0 不打包这份文件**。
+    实测（2026-10-22 16:1x 更正，`docs/evidence/2026-10-22/d-020-merge-recheck.md` §一）：
+          该文件此前未进入释放清单 `SHARED_FILES`，但**功能不是死的**——包内
+          `wubi_pinyin.custom.yaml` 一直写 `punctuator: import_preset: symbols`，
+          引擎正是从 `rawfile` 里的这份 `symbols.yaml` 取符号表（m066 / m067-cr01 / 13:25 release
+          三个签名包均解出 28,473 B 与 `import_preset: symbols`；13:35 Mate 80 真机
+          `/szd` 出 ⒈⒉⒊ 候选即该路径）。我 15:5x 写「引擎取不到、功能一直是死的」是错的，已撤回。
+          ⇒ 所以 D-020 选 A 的代价是真的少了一项功能（不是零代价）；删除仍是真实减少敞口，
+          且**要重新构建签名包才落到包里**，旧 `.app` 不能提审。
+    说明：本机另有 `iDvel/rime-ice`·`oh-my-rime` 等改版（仓库 LICENSE = GPL-3.0），
+          **本项目未使用其文件**（逐字节比对不命中，行级相似仅 0.74），
+          不要为「补齐符号」把 GPL-3.0 血脉的文件换进来。
+    文件：`rawfile/rime/symbols.custom.yaml`（11,696 B，md5 `b1e28d38ede993a7403b8087c55bc194`）
+          —— dyyRime 同名文件的改版（105 组 /xx，与 dyy 原件仅差 15 行，全是删掉 `None` 占位项）。
+          许可归入上面「授权申请中」条目。功能状态（16:1x 更正）：它的根键是 `patch:`，
+          只给名为 `symbols` 的配置打补丁 ⇒ 在旧包里它叠加在同一文件 `symbols.yaml` 上，
+          与 `import_preset: symbols` 一起生效；**只有当 `symbols.yaml` 被删掉之后**，
+          它才变成无对象的补丁（既没有 `symbols` 预设基文件，也没有任何东西 import 它）。
+          CodeArts 15:3x 一度把它加进 `SHARED_FILES`（无效且方向相反，H-092），
+          16:04 前已撤回条目并把文件本身也从 `rawfile` 删除。
+          **注意（H-094 / H-095）**：该表的 9 组 `/xx`（117 项）与 10 个多义标点键（28 项）
+          已被逐字符并入自有 `default.yaml`（合计 145 项），**故第三方派生内容并未随文件删除而消失，
+          只是换了位置** ⇒ `default.yaml` 不再主张 100% 原创，见第一节与该文件行内加注。
+          并入时保留了两处上游怪值（`/` 键写成 map、`` ` `` 键第二档是三个反引号）与一处行为差异
+          （半角反斜杠由 `\` 改为 `、`），逐行比对证据见 `docs/evidence/2026-10-22/d-020-merge-recheck.md` §八。
+    文件：`rawfile/symbols/symbols.json`（34,984 B，116 组 / 2,093 项）—— 由本项目脚本
+          `scripts/build_symbol_data.py` 生成，仅供键盘 UI 的符号面板取数，不进入 Rime 引擎。
+          来源按实测更正为**派生**：该脚本文件头写明输入含桌面 `symbols.custom.yaml`；逐组比对
+          结果是 105 个 `r_` 前缀组（1,236 项，占全包 2,093 项的 59%）里 **104 组与该表成员集合完全相同**。
+          ⇒ 本条此前写「本项目整理 / 上游同名文件未命中 / 来源待确认」属**低估**（无同名文件只证明
+          没有字节相同的副本，不证明没有派生），现归入上面「授权申请中」的 dyy 血脉条目一并披露。
+          这 1,236 项是 Unicode 码位枚举，独创性有限，但署名以诚实为先。
+
+[本项目自写]  其余 Lua 滤镜与配置
+    文件：`abbrGloss_Filter.lua`、`codeLookup_Filter.lua`、`phoneComment_Filter.lua`、
+          `rawEcho_translator.lua`、`sansheng_t9.schema.yaml`、
+          `wubi_pinyin.schema.yaml`（结构源自 rime-wubi，改动见文件内 DSH 注释）、
+          `lua-files.txt`、`legal/privacy.html`、`legal/terms.html`、`rime/README.md`
+    许可：随本项目许可（**Apache-2.0**，见根 `LICENSE`；安卓版同源实现按 MIT 发布，两份独立）；
+          三向反查/释义/注释截断等能力为本项目原创实现。
+    已判定（2026-10-22 14:0x，Qoder 复测，原「待确认」撤销）：
+          `lua/abbr_en.txt`（17,146 B，md5 `2500936430cdd59636340766e301a116`）与
+          `lua/abbr_num.txt`（3,636 B，md5 `6adbdfb79c3c48051ac698330bc53b0a`）
+          与主人安卓产品数据根 `F:/dshdesktopwork/sansheng-ime-android/rime/lua/` 下同名文件
+          **逐字节相同**（本项目审计表第 44–45 行早已记为「安卓命中」，此前误写成本条目「无同名命中」，现更正）；
+          在 `D:/IDM/dyyRime-master`、`D:/IDM/oh-my-rime-main`、`F:/dshdesktopwork/rime-zh-en-dict`
+          三组参照中**均无同名文件**。判定为**本项目自有整理数据**，随本项目许可，无需第三方署名。
+          整理尺子见安卓仓自留记录 `_probe/abbr_candidates_20261021.md`（422 条，收录四条尺子），
+          其中提到的种子表 `rime-config/dicts/abbr-en-seed.txt` 在当前工作副本内未定位到，
+          仅作为整理过程佐证，不作为许可依据。
+
+[用户数据]  Custom_phrase.txt
+    自造词/自定义短语模板，运行期写入应用沙箱，不属第三方许可范围。
+
+================================================================
+四、获取方式与联系方式
+================================================================
+上述 CC BY-SA 4.0 词库的完整分发文本随本应用安装包一同提供
+（`LICENSES/CC-BY-SA-4.0.txt` + 第三节列出的 `.dict.yaml` 源文件）。
+第三方源码与许可原文的获取地址已逐条列在第二、三节。
+
+许可与署名相关联系方式（软件著作权人 [机主姓名已脱敏]）：`ri0977@qq.com`（备用 `ri0977@gmail.com`）。
+CC BY-SA 4.0 词库的署名与再分发请求、Apache-2.0 / BSD 组件的许可问题，均可发该邮箱；
+本联系方式为公开信息，与隐私政策、用户协议、AGC 后台所填一致（H-053 已闭环 2026-10-22）。
+
+================================================================
+五、核查记录（2026-10-21）
+================================================================
+本文件的每条许可结论均经下列方式核实，未凭印象填写：
+  - 第三方仓库许可标识：GitHub API `repos/{owner}/{repo}.license.spdx_id` 实测；
+  - 许可正文：SPDX license-list-data（Apache-2.0 / BSD-3-Clause / BSD-2-Clause /
+    MIT / CC-BY-SA-4.0）与各上游仓库 LICENSE 原文；
+  - 本机参考副本：`_ref_hMixedKeyboard`（README 自述 Apache-2.0）、
+    `_ref_kanon`（LICENSE 实测 MIT）、`_ref_harmonyos-rime`（LICENSE 实测 MIT）；
+  - 词库文件头：逐个 `head` 实测哪些文件已带署名、哪些缺失。
+
+第二轮核查（2026-10-22，Qoder，逐文件字节级）
+  - 复现：`python scripts/license_gap.py 2026-10-22`、`python scripts/apk_parity.py 2026-10-22`、
+    `python scripts/third_party_audit.py 2026-10-22`；结论与逐文件表见
+    `docs/release/legal/third-party-audit-2026-10-22.md`。
+  - 摘要一律用 **md5 前 16 位**（此前记录里的 `6d089695…` 等为 sha256 前 16 位，不可互比）。
+  - 更正：`wubi86.dict.yaml` 由「Apache-2.0 / KyleBing」改为 **LGPL-3.0 / rime-wubi**（F3）。
+  - 新增：`happyDom/dyyRime`（无 LICENSE，29 个原样 + 12 个改写；此数已被第三轮更正，见下）、
+    `symbols.yaml` / `symbols.custom.yaml` / `symbols/symbols.json`、本项目自写 Lua 与两处「来源待确认」。
+  - 补 `LICENSES/LGPL-3.0.txt`（与安卓仓库 `LICENSES/` 同源文本）。
+  - 仍开放：应用内「关于 / 第三方声明」页（M-043）需按本节渲染；
+    `happyDom/dyyRime` 书面授权待主人推进（O-1）。
+
+第三轮核查（2026-10-24，Qoder，随包数据变动后重跑）
+  - 复现：`python scripts/third_party_audit.py`（全量 65 文件，逐文件 md5 对四组参照）；
+    逐文件表见 `docs/evidence/2026-10-24/third-party-audit-data.md`；行级比对见
+    `docs/evidence/2026-10-24/dyy-same-name-recheck.md`。
+  - 结论：与安卓数据根相同 17 / dyy 原样 29 / 与 dyy 同名 13 / 四组均无 16。
+  - 变动：`symbols.custom.yaml` 已不在包内，从同名枚举中移除；新增 `Custom_phrase.txt`、
+    `README.md`。29 个原样文件与合计 3,197,403 B 经重算不变。
+  - 口径：脚本的「dyy同名已改」是按**文件名**判的启发式，不等于衍生。本轮对 13 个同名文件
+    逐个做行级比对（`difflib` 实测），拆成「改写 7 / 同名独立重写 6」两级披露（见上方条目），
+    避免把本项目自写的 `rime.lua`、`README.md` 等错记成上游衍生（D-025）。

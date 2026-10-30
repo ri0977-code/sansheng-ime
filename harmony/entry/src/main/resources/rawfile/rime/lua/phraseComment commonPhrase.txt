@@ -1,0 +1,741 @@
+#在注释中：支持使用 &nbsp 来定义空格，支持使用 <br> 来定义换行，而正常的空格被用于分词
+
+# 一般词汇
+匹夫	皓首匹夫，苍髯老贼。
+韶华	看看又是残冬过，满眼韶华一片春。
+黄河	九曲黄河万里沙，浪淘风簸自天涯
+风 浪 风浪	夫风生于地，起于青苹之末--《风赋》・宋玉
+风 浪 风浪	风起于青萍之末,浪成于微澜之间。--今人仿写
+龙吟 虎啸	尔乃龙吟方泽，虎啸山丘。--《归田赋》・张衡
+病历	汉初著名的内科医生淳于意，是我国最早发明和使用病历的医生
+风炮	呜～～～～哒哒哒
+小男孩	1.5万吨TNT
+一丝	0.01mm
+≈28.35g	常衡盎司
+≈31.10g	金衡盎司
+≈28.41mL	英制液量盎司
+≈29.57mL	美制液量盎司
+30mL	美制食品标签盎司
+34.8㎛	电路板铜箔厚度
+℃	摄氏度<br>=(℉-32)*5/9
+℉	华氏度<br>=32+℃*9/5
+㏄	ml
+
+# 常用链接
+https://wantwords.net	汉语反向词典
+https://blog.csdn.net/weixin_42148809/article/details/135594098	rime教程(CSDN)
+https://zhuanlan.zhihu.com/p/677852323	rime教程(知乎)
+https://webgeo-8gn07v0t78c4ca57-1308819187.tcloudbaseapp.com	几何画板
+https://zhuanlan.zhihu.com/p/675553523	知乎[rime100种效果]
+https://c.runoob.com/compile/66/	lua语法检察
+https://www.speedtest.cn	网络测速
+https://pypi.org/project	pypi源
+https://pypi.tuna.tsinghua.edu.cn/simple	清华源
+https://ihateregex.io	常用正则表达式
+https://regex101.com	正则表达式测试
+
+# 常用pip命令
+pip&nbspinstall&nbsp-i&nbsphttps://pypi.org/project&nbspxxx	pypi源
+pip&nbspinstall&nbsp--index-url&nbsphttps://test.pypi.org/simple	pypi测试源
+pip&nbspinstall&nbsp-i&nbsphttps://pypi.tuna.tsinghua.edu.cn/simple&nbspxxx	清华源
+pip&nbspinstall&nbsp-i&nbsphttps://pypi.org/project&nbsp-U&nbspxxx	pypi源
+pip&nbspinstall&nbsp-i&nbsphttps://test.pypi.org/simple&nbsp-U&nbspxxx	pypi测试源
+pip&nbspinstall&nbsp-i&nbsphttps://pypi.tuna.tsinghua.edu.cn/simple&nbsp-U&nbspxxx	清华源
+twine&nbspupload&nbspdist/*	发布pypi包
+twine&nbspupload&nbsp--repository&nbsptestpypi&nbspdist/*	发布pypi包到测试服务器
+# 24节气相关
+节气	春雨惊春清谷天，夏满芒夏暑相连。<br>秋处露秋寒霜降，冬雪雪冬小大寒。
+气候	二十四节气，立春始，奇为节，偶为气，为之节气；约15日一节/气，又为5日为一候，3候一节/气，共72候；以上，合曰气候
+冬至	冬至之日蚯蚓结，又五日麋角解，又五日水泉动。
+小寒	小寒之日雁北乡，又五日鹊始巢，又五日雉始鸲。
+大寒	大寒之日鸡使乳，又五日鹫鸟厉疾，又五日水泽腹坚。
+立春	立春之日东风解冻，又五日蛰虫始振，又五日鱼上冰（鱼陟负冰）。
+雨水	雨水之日獭祭鱼，又五日鸿雁来（候雁北），又五日草木萌动。
+惊蛰	惊蛰之日桃始华，又五日仓庚鸣，又五日鹰化为鸠。
+春分	春分之日玄鸟至，又五日雷乃发声，又五日始电。
+清明	清明之日桐始华，又五日田鼠化为鴽，又五日虹始见。
+谷雨	榖雨之日萍始生，又五日鸣鸠拂其羽，又五日戴胜降于桑。
+立夏	立夏之日蝼蝈鸣，又五日蚯蚓出，又五日王瓜生。
+小满	小满之日苦菜秀，又五日靡草死，又五日小暑至（麦秋生）。
+芒种	芒种之日螳螂生，又五日鵙始鸣，又五日反舌无声。
+夏至	夏至之日鹿角解，又五日蜩始鸣，又五日半夏生。
+小暑	小暑之日温风至，又五日蟋蟀居辟，又五日鹰乃学习（鹰始鸷）。
+大暑	大暑之日腐草为蠲，又五日土润溽暑，又五日大雨时行。
+立秋	立秋之日凉风至，又五日白露降，又五日寒蝉鸣。
+处暑	处暑之日鹰乃祭鸟，又五日天地始肃，又五日禾乃登。
+白露	白露之日鸿雁来，又五日玄鸟归，又五日群鸟养羞。
+秋分	秋分之日雷始收声，又五日蛰虫培户，又五日水始涸。
+寒露	寒露之日鸿雁来宾，又五日雀入大水为蛤，又五日菊有黄华。
+霜降	霜降之日豺乃祭兽，又五日草木黄落，又五日蛰虫咸俯。
+立冬	立冬之日水始冰，又五日地始冻，又五日雉入大水为蜃。
+小雪	小雪之日虹藏不见，又五日天气上腾地气下降，又五日闭塞而成冬。
+大雪	大雪之日鹖旦不鸣，又五日虎始交，又五日荔挺生。
+
+# 五笔输入法相关
+g	王旁青头戋五一🖊
+f	土士二干(干甘)十寸雨，一二还有革字底🖊
+d	大犬石厂套羊底🖊
+s	木丁西🖊
+a	工戈草头右框七🖊
+h	目具上止卜虎皮🖊
+j	日早两竖与虫依🖊
+k	口与川，字根稀🖊
+l	田甲方框四车力🖊
+m	山由贝骨下框几🖊
+t	禾竹一撇双人立，反文条头共三一🖊
+r	白手看头三二斤🖊
+e	月彡(衫)乃用家衣底，豹左爱头象舟体🖊
+w	人八登祭单人立🖊
+q	金夕鸟儿犭边鱼，氏无七🖊
+y	言文方广在四一，高头一捺谁人去🖊
+u	立辛两点六门病🖊
+i	水旁兴头小倒立🖊
+o	火业头，四点米🖊
+p	之字军盖道建底，摘示(礻)衣(衤)🖊
+n	巳满已半不出己，左框折尸心(忄㣺)和羽🖊
+b	子耳(阝卩)了也凶乃皮🖊
+v	女刀九臼山朝西🖊
+c	又(マス)巴马，矣丢失(厶)🖊
+x	母衣贯头弓和匕，幼无力🖊
+
+# 希腊字母读音
+Α α	alpha
+Β β	beta
+Γ γ	gamma
+Δ δ	delta
+Ε ε	epsilon
+Ζ ζ	zeta
+Η η	eta
+Θ θ	theta
+Ι ι	iota
+Κ κ	kappa
+Λ λ	lambda
+Μ μ	mu
+Ν ν	nu
+Ξ ξ	xi
+Ο ο	omicron
+Π π	pi
+Ρ ρ	rho
+Σ σ ς	sigma
+Τ τ	tau
+Υ υ	upsilon
+Φ φ	phi
+Χ χ	chi
+Ψ ψ	psi
+Ω ω	omega
+
+# 汉字注音
+ㄅ ㆴ	b
+ㄆ	p
+ㄇ	m
+ㄈ	f
+ㄉ ㆵ	d
+ㄊ	t
+ㄋ	n
+ㄌ	l
+ㄍ	g
+ㄎ ㆶ	k
+ㄏ ㆷ	h
+ㄐ	j
+ㄑ	q
+ㄒ	x
+ㄓ	zh
+ㄔ	ch
+ㄕ	sh
+ㄖ	ri
+ㄗ	zi
+ㄘ	ci
+ㄙ	si
+ㄧ	i
+ㄨ	u
+ㄩ	ü
+ㄚ	a
+ㄛ	o
+ㄜ	e
+ㄝ	ê
+ㄞ	ai
+ㄟ	ei
+ㄠ	ao
+ㄡ	ou
+ㄢ	an
+ㄣ	en
+ㄤ	ang
+ㄥ	eng
+ㄦ	er
+ㄪ	v
+ㄫ	ng
+ㄬ	gn
+
+# 时钟符号
+🕛	12:00
+🕧	12:30
+🕐	1:00
+🕜	1:30
+🕑	2:00
+🕝	2:30
+🕒	3:00
+🕞	3:30
+🕓	4:00
+🕟	4:30
+🕔	5:00
+🕠	5:30
+🕕	6:00
+🕡	6:30
+🕖	7:00
+🕢	7:30
+🕗	8:00
+🕣	8:30
+🕘	9:00
+🕤	9:30
+🕙	10:00
+🕥	10:30
+🕚	11:00
+🕦	11：30
+
+# git命令说明
+git&nbspacm	git&nbspadd&nbsp.&nbsp&&nbspgit&nbspcommit
+git&nbspcm	git&nbspcommit
+git&nbsppo	git&nbsppush&nbsp--all&nbsp&&nbspgit&nbsppush&nbsp--tags&nbsp-f&nbsp&&nbspgit&nbsplpp&nbsp-5
+git&nbsppall	切到到每一个分支并拉取同步其远程变更
+git&nbspbs&nbsp	git&nbsppush&nbsp--set-upstream&nbsporigin
+git&nbspmr&nbsp	git&nbspmerge&nbsp&&nbspgit&nbsplpp&nbsp-5
+git&nbspst	git&nbspstatus&nbsp&&nbspgit&nbsplpp&nbsp-5
+git&nbsplp	python&nbsppublish.py&nbsp--showLog&nbsp--logsCount=15&nbsp兴趣文档
+git&nbsplpp	python&nbsppublish.py&nbsp--showLog&nbsp兴趣文档
+git&nbspcheckout	git&nbspcheckout&nbspdev&nbspobject:从指定分支捡出指定的文档<br>git&nbspcheckout&nbspcommit&nbsp--&nbspobject:从指定commit捡出指定的文档
+git&nbspdiff&nbsp--staged	比较暂存区
+git&nbspbr	git&nbspbranch
+git&nbspbrs	git&nbspbranch&nbsp-a
+git&nbspbranch&nbsp-d&nbspxxx	删除本地分支
+git&nbsppush&nbsporigin&nbsp-d&nbspxxx	删除远程分支
+git&nbsptag&nbsp-d&nbsprxx	删除本地tag
+git&nbsppush&nbsp--delete&nbsporigin&nbsprxx	删除远程tag
+
+# cmd命令说明
+convmv&nbsp-f&nbspGBK&nbsp-t&nbspUTF8&nbsp*.*&nbsp--notest	文档名从GBK转为UTF8
+
+# 其它分类
+扭捏	小媳妇进洞房——扭扭捏捏
+仗义	仗义每多屠狗辈，负心多是读书人
+负心	仗义每多屠狗辈，负心多是读书人
+读书	为天地立心，为生民立命，为万世开太平，为往对继绝学。【北宋・张载】
+少年	引刀成一快，不负少年头
+礼	礼下于人，必有所求
+宇	上下四方谓之宇
+宙	古往今来谓之宙
+大旱 干旱	骄阳似火大旱年，<br>禾苗干枯百姓难。<br>龙王可有悯农意？<br>快叫好雨落农田。
+一字	受人一字便为师
+财富 富 利	富在术数，不在劳身；<br>利在势局，不在力耕
+追求 飞腾 贤良	鸟随鸾凤飞腾远，人伴贤良品自高
+马上 河里	马上摔死英雄汉，河里淹死会水人
+武艺 帝王	学会文武艺，货卖帝王家
+善恶 报应	善恶到头终有报，只争来早与来迟
+美食 美味	山中走兽云中燕,陆地牛羊海底鲜;<br>猴头燕窝鲨鱼翅,熊掌干贝鹿尾尖
+困难 阻拦 欺压	山阻石拦，大江必定东流去;<br>雪辱霜欺，梅花依旧向阳红
+文武 提笔	文能提笔安天下，武能上马定乾坤。
+穷途	美人卖笑千金易，壮士穷途一饭难
+窃	窃钩者诛，窃国者候
+故乡 思乡	他乡纵有当头月，不及故乡一盏灯
+抱薪 风雪 开路 荆棘	为众人抱薪者，不可使其冻毙于风雪；<br>为自由开路者，不可使其困顿于荆棘；<br>为生民立命者，不可使其殒殁于无声。
+杨朱 一毛 不拨	拔一毛而利天下，不为也【杨朱】
+文章 苍生	文章写尽太平世，不肯俯首见苍生
+好事 前程	但知行好事，莫要问前程。
+认命 出嫁 夫唱	嫁给农夫撒化肥，嫁给铁匠抡大锤；<br>嫁给木匠拉大锯，嫁给瓦工和泥灰。
+弥勒 秧苗 退步 向前 前进	手拿青秧插满地，低头便见水中天；<br>六根清净方为道，原来退步是向前。
+关羽 缪	汉寿亭候，壮缪(mù)候
+吝啬 扣门	夺泥燕口，削铁针头，刮金佛面细搜求，无中生有。<br>鹌鹑嗉内寻豌豆，鹭鸶腿上剔精肉，蚊子腹内刮脂油，亏老先生下得手！
+
+# 音符
+♩	四分音符
+♪	八分音符
+♫	八分音符₂
+♬	十六分音符
+𝄞	g谱号
+𝄡	c谱号
+𝄢	f谱号
+♮	还原
+♭	降音
+♯	升音
+
+# 天气
+☀	晴
+☁	阴天
+⛅	多云
+⛈	雷雨
+🌧	雨
+❄	雪
+🌫	雾
+
+# 邮箱信件
+📨	来信
+📩	收邮件
+📤	发件箱
+📥	收件箱
+📫	有待收信件
+📪	无待收信件
+📬	有新邮件
+📭	无新邮件
+
+# 冷知识
+妈祖	林默娘
+阎王	蒋子文
+月老	柴道煌
+济公	李修缘
+无常	范无救(黑无常)<br>谢必安(白无常)
+财神	赵公明(文)<br>关羽(武)
+土地	张福德
+灶王	张奎(灶王爷)<br>高兰英(灶王奶)
+玉皇	张百忍
+王母	杨回
+观音	庄妙善
+太白	李长庚
+
+# 春江花月夜
+春江 潮水 海上 明月	春江潮水连海平，海上明月共潮生。
+春江	滟滟随波千万里，何处春江无月明！
+宛转 芳甸 花林	江流宛转绕芳甸，月照花林皆似霰；
+流霜 白沙	空里流霜不觉飞，汀上白沙看不见。
+江天 一色 纤尘	江天一色无纤尘，皎皎空中孤月轮。
+江畔 江月	江畔何人初见月？江月何年初照人？
+人生 江月	人生代代无穷已，江月年年望相似。
+江月 长江 流水	不知江月待何人，但见长江送流水。
+白云 青枫	白云一片去悠悠，青枫浦上不胜愁。
+谁家 今夜 相思 明月	谁家今夜扁舟子？何处相思明月楼？
+可怜 徘徊 离人	可怜楼上月裴回，应照离人妆镜台。
+玉户	玉户帘中卷不去，捣衣砧上拂还来。
+相望 相闻 月华	此时相望不相闻，愿逐月华流照君。
+鸿雁 鱼龙	鸿雁长飞光不度，鱼龙潜跃水成文。
+昨夜 落花 春半	昨夜闲潭梦落花，可怜春半不还家。
+江水 江潭 落月	江水流春去欲尽，江潭落月复西斜。
+斜月 海雾 碣石 潇湘	斜月沉沉藏海雾，碣石潇湘无限路。
+不知 落月	不知乘月几人归，落月摇情满江树。
+
+# 《天道》语录
+悟 悟道 修行	悟道休言天命；修行勿取真经。一悲一喜一枯荣，哪个前生注定。<br>袈裟本无清静，红尘不染性空，幽幽古刹千年钟，都是痴人说梦。
+功名	本是后山人，偶坐前堂客；醉舞经阁半卷书，坐井说天阔。<br>大志戏功名，海斗量福祸。论到囊中羞涩时，怒指乾坤错。
+
+# 车牌提示
+临沧	云S
+丽江	云P
+保山	云M
+昆明	云A
+昭通	云C
+曲靖	云D
+玉溪	云F
+吉林	吉B
+四平	吉C
+松原	吉J
+白城	吉G
+白山	吉F
+辽源	吉D
+通化	吉E
+长春	吉A
+乐山	川L
+内江	川K
+南充	川R
+宜宾	川Q
+巴中	川Y
+广元	川H
+广安	川X
+德阳	川F
+成都	川A
+泸州	川E
+眉山	川Z
+绵阳	川B
+自贡	川C
+资阳	川M
+达州	川S
+遂宁	川J
+雅安	川T
+中卫	宁E
+固原	宁D
+银南	宁C
+银川	宁A
+亳州	皖S
+六安	皖N
+合肥	皖A
+安庆	皖H
+宣城	皖P
+宿州	皖L
+池州	皖R
+淮北	皖F
+淮南	皖D
+滁州	皖M
+芜湖	皖B
+蚌埠	皖C
+铜陵	皖G
+阜阳	皖K
+黄山	皖J
+临汾	晋L
+吕梁	晋J
+大同	晋B
+太原	晋A
+忻州	晋H
+晋中	晋K
+晋城	晋E
+朔州	晋F
+运城	晋M
+长治	晋D
+阳泉	晋C
+东莞	粤S
+中山	粤T
+云浮	粤W
+佛山	粤E
+广州	粤A
+惠州	粤L
+揭阳	粤V
+梅州	粤M
+汕头	粤D
+汕尾	粤N
+江门	粤J
+河源	粤P
+深圳	粤B
+清远	粤R
+湛江	粤G
+潮州	粤U
+珠海	粤C
+肇庆	粤H
+茂名	粤K
+阳江	粤Q
+韶关	粤F
+北海	桂E
+南宁	桂A
+崇左	桂F
+来宾	桂G
+柳州	桂B
+桂林	桂C
+桂林	桂H
+梧州	桂D
+河池	桂M
+玉林	桂K
+百色	桂L
+贵港	桂R
+贺州	桂J
+钦州	桂N
+哈密	新L
+奎屯	新D
+南京	苏A
+南通	苏F
+宿迁	苏N
+常州	苏D
+徐州	苏C
+扬州	苏K
+无锡	苏B
+泰州	苏M
+淮安	苏H
+盐城	苏J
+苏州	苏E
+镇江	苏L
+上饶	赣E
+九江	赣G
+南昌	赣A
+南昌	赣M
+吉安	赣D
+宜春	赣C
+抚州	赣F
+新余	赣K
+萍乡	赣J
+赣州	赣B
+鹰潭	赣L
+保定	冀F
+唐山	冀B
+廊坊	冀R
+承德	冀H
+沧州	冀J
+沧州	冀S
+衡水	冀T
+邢台	冀E
+邯郸	冀D
+信阳	豫S
+南阳	豫R
+周口	豫P
+商丘	豫N
+安阳	豫E
+开封	豫B
+新乡	豫G
+洛阳	豫C
+济源	豫U
+漯河	豫L
+濮阳	豫J
+焦作	豫H
+许昌	豫K
+郑州	豫A/V
+鹤壁	豫F
+东营	鲁E
+临沂	鲁Q
+威海	鲁K
+德州	鲁N
+日照	鲁L
+枣庄	鲁D
+泰安	鲁J
+济南	鲁A
+济宁	鲁H
+淄博	鲁C
+滨州	鲁M
+潍坊	鲁G
+潍坊	鲁V
+烟台	鲁F
+烟台	鲁Y
+聊城	鲁P
+莱芜	鲁S
+菏泽	鲁R
+青岛	鲁B
+青岛	鲁U
+丽水	浙K
+台州	浙J
+嘉兴	浙F
+宁波	浙B
+杭州	浙A
+温州	浙C
+湖州	浙E
+绍兴	浙D
+舟山	浙L
+衢州	浙H
+金华	浙G
+三亚	琼B
+海口	琼A
+琼海	琼C
+仙桃	鄂M
+十堰	鄂C
+咸宁	鄂L
+天门	鄂R
+孝感	鄂K
+宜昌	鄂E
+武汉	鄂A
+潜江	鄂N
+荆州	鄂D
+荆门	鄂H
+襄樊	鄂F
+鄂州	鄂G
+随州	鄂S
+黄冈	鄂J
+黄石	鄂B
+娄底	湘K
+岳阳	湘F
+常德	湘J
+怀化	湘N
+株洲	湘B
+永州	湘M
+湘潭	湘C
+益阳	湘H
+衡阳	湘D
+邵阳	湘E
+郴州	湘L
+长沙	湘A
+兰州	甘A
+天水	甘E
+定西	甘J
+平凉	甘L
+庆阳	甘M
+张掖	甘G
+武威	甘H
+白银	甘D
+酒泉	甘F
+金昌	甘C
+陇南	甘K
+三明	闽G
+南平	闽H
+厦门	闽D
+宁德	闽J
+泉州	闽C
+漳州	闽E
+福州	闽A
+莆田	闽B
+龙岩	闽F
+山南	藏C
+拉萨	藏A
+林芝	藏G
+安顺	贵G
+贵阳	贵A
+遵义	贵C
+丹东	辽F
+大连	辽B
+抚顺	辽D
+朝阳	辽N
+本溪	辽E
+沈阳	辽A
+盘锦	辽L
+营口	辽H
+辽阳	辽K
+铁岭	辽M
+锦州	辽G
+阜新	辽J
+鞍山	辽C
+咸阳	陕D
+商洛	陕H
+安康	陕G
+宝鸡	陕C
+延安	陕J
+榆林	陕K
+汉中	陕F
+渭南	陕E
+西安	陕A
+西安	陕U
+铜川	陕B
+西宁	青A
+崇明	沪R
+思茅	云J
+乌海	蒙C
+包头	蒙B
+赤峰	蒙D
+通辽	蒙G
+攀枝花	川D
+石嘴山	宁B
+马鞍山	皖E
+南海区	粤Y
+顺德区	粤X
+防城港	桂P
+吐鲁番	新K
+石河子	新C
+连云港	苏G
+景德镇	赣H
+张家口	冀G
+石家庄	冀A
+秦皇岛	冀C
+三门峡	豫M
+平顶山	豫D
+驻马店	豫Q
+五指山	琼D
+张家界	湘G
+嘉峪关	甘B
+日喀则	藏D
+六盘水	贵B
+葫芦岛	辽P
+万州	渝F
+永川	渝C
+涪陵	渝G
+黔江	渝H
+杨凌	陕V
+伊春	黑F
+大庆	黑E
+绥化	黑M
+鸡西	黑G
+鹤岗	黑H
+黑河	黑N
+东川	云B
+兴安盟	蒙F
+乌鲁木齐	新A
+克拉玛依	新J
+和田地区	新R
+喀什地区	新Q
+塔城地区	新G
+昌都	藏B
+那曲	藏E
+阿里	藏F
+毕节	贵F
+铜仁	贵D
+海东	青B
+七台河	黑K
+佳木斯	黑D
+双鸭山	黑J
+哈尔滨	黑A
+牡丹江	黑C
+乌兰察布	蒙J
+呼伦贝尔	蒙E
+呼和浩特	蒙A
+巴彦淖尔	蒙L
+鄂尔多斯	蒙K
+阿拉善盟	蒙M
+阿克苏	新N
+阿勒泰	新H
+洋浦开	琼E
+神农架	鄂P
+齐齐哈尔	黑B
+锡林郭勒盟	蒙H
+松花江	黑L
+大理	云L
+楚雄	云E
+迪庆	云R
+凉山	川W
+甘孜	川V
+昌吉	新B
+临夏	甘N
+甘南	甘P
+果洛	青F
+海北	青C
+海南	青E
+玉树	青G
+黄南	青D
+大兴安岭	黑P
+怒江	云Q
+延边	吉H
+长白	吉K
+伊犁	新F
+文山	云H
+西双版纳	云K
+阿坝	川U
+博尔塔拉	新E
+巴音郭愣	新M
+德宏	云N
+红河	云G
+恩施	鄂Q
+湘西	湘U
+黔东南	贵H
+黔南	贵J
+海西	青H
+克孜勒苏柯尔克孜	新P
+黔西南	贵E
+
+# 星座
+♒	宝(水)瓶座
+水瓶座	♒
+宝瓶座	♒
+♓	双鱼座
+双鱼座	♓
+♈	白羊座
+白羊座	♈
+♉	金牛座
+金牛座	♉
+♊	双子座
+双子座	♊
+♋	巨蟹座
+巨蟹座	♋
+♌	狮子座
+狮子座	♌
+♍	室(处)女座
+处女座	♍
+室女座	♍
+♎	天秤座
+天秤座	♎
+♏	天蝎座
+天蝎座	♏
+♐	射手座
+射手座	♐
+♑	摩羯座
+摩羯座	♑
+
+# 八卦
+☰	乾
+乾	☰
+☱	兑
+兑	☱
+☲	离
+离	☲
+☳	震
+震	☳
+☴	巽
+巽	☴
+☵	坎
+坎	☵
+☶	艮
+艮	☶
+☷	坤
+坤	☷
+
+# md语法提示
+md甘特图	```mermaid<br>gantt<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspdateFormat&nbsp&nbspYYYY-MM-DD<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsptitle&nbspAdding&nbspGANTT&nbspdiagram&nbspfunctionality&nbspto&nbspmermaid<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspsection&nbsp现有任务<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp已完成&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:done,&nbsp&nbsp&nbsp&nbspdes1,&nbsp2014-01-06,2014-01-08<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp进行中&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:active,&nbsp&nbspdes2,&nbsp2014-01-09,&nbsp3d<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp计划中&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspdes3,&nbspafter&nbspdes2,&nbsp5d<br>```
+mdUML图	```mermaid<br>sequenceDiagram<br>张三&nbsp->>&nbsp李四:&nbsp你好！李四,&nbsp最近怎么样?<br>李四-->>王五:&nbsp你最近怎么样，王五？<br>李四--x&nbsp张三:&nbsp我很好，谢谢!<br>李四-x&nbsp王五:&nbsp我很好，谢谢!<br>Note&nbspright&nbspof&nbsp王五:&nbsp李四想了很长时间,&nbsp文字太长了<br/>不适合放在一行.<br>李四-->>张三:&nbsp打量着王五...<br>张三->>王五:&nbsp很好...&nbsp王五,&nbsp你怎么样?<br>```
+mermaid流程图	```mermaid<br>graph&nbspLR<br>A[长方形]&nbsp--&nbsp链接&nbsp-->&nbspB((圆))<br>A&nbsp-->&nbspC(圆角长方形)<br>B&nbsp-->&nbspD{菱形}<br>C&nbsp-->&nbspD<br>```
+flowchat流程图	```mermaid<br>flowchat<br>st=>start:&nbsp开始<br>e=>end:&nbsp结束<br>op=>operation:&nbsp我的操作<br>cond=>condition:&nbsp确认？<br>st->op->cond<br>cond(yes)->e<br>cond(no)->op<br>```
+classDiagram图	```mermaid<br>classDiagram<br>&nbsp&nbsp&nbsp&nbspClass01&nbsp<|--&nbspAveryLongClass&nbsp:&nbspCool<br>&nbsp&nbsp&nbsp&nbsp<<interface>>&nbspClass01<br>&nbsp&nbsp&nbsp&nbspClass09&nbsp-->&nbspC2&nbsp:&nbspWhere&nbspam&nbspi?<br>&nbsp&nbsp&nbsp&nbspClass09&nbsp--*&nbspC3<br>&nbsp&nbsp&nbsp&nbspClass09&nbsp--|>&nbspClass07<br>&nbsp&nbsp&nbsp&nbspClass07&nbsp:&nbspequals()<br>&nbsp&nbsp&nbsp&nbspClass07&nbsp:&nbspObject[]&nbspelementData<br>&nbsp&nbsp&nbsp&nbspClass01&nbsp:&nbspsize()<br>&nbsp&nbsp&nbsp&nbspClass01&nbsp:&nbspint&nbspchimp<br>&nbsp&nbsp&nbsp&nbspClass01&nbsp:&nbspint&nbspgorilla<br>&nbsp&nbsp&nbsp&nbspclass&nbspClass10&nbsp{<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp>>service>><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspint&nbspid<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspsize()<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspsize()<br>&nbsp&nbsp&nbsp&nbsp}<br>```
+md表格	默认左对齐&nbsp|&nbsp居中对齐&nbsp|&nbsp右对齐<br>-|:-:|-:<br>1|a|3
+
+# 特殊符号
+ű	ȕ
+
+# git命令注释
+git&nbspswitch&nbsp	切换分支
+git&nbspswitch&nbsp-c&nbsp	创建指定名称的分支
+
+# 其它
+奰唗	扇巴掌

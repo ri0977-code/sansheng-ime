@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三生输入法 · 完整许可声明</title>
+<style>:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: #f6f8fa; color: #1f2328;
+  font-family: -apple-system, BlinkMacSystemFont, "HarmonyOS Sans SC",
+    "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  line-height: 1.75;
+}
+main { max-width: none; margin: 0; padding: 24px 18px 40px; background: #fff; }
+h1 { font-size: 24px; line-height: 1.35; margin: 0 0 10px; }
+h2 { font-size: 18px; margin: 28px 0 10px; padding-bottom: 6px; border-bottom: 1px solid #eaeef2; }
+p { margin: 9px 0; }
+hr { border: 0; border-top: 1px solid #d8dee4; margin: 26px 0; }
+pre {
+  margin: 0; padding: 12px 14px; background: #f6f8fa; border: 1px solid #e1e4e8;
+  border-radius: 8px; font-size: 12px; line-height: 1.6; white-space: pre-wrap;
+  word-break: break-word; overflow-wrap: anywhere;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+.toc { font-size: 14px; margin: 12px 0 24px; }
+.toc a { color: #0a59f7; text-decoration: none; display: block; margin: 4px 0; }
+.summary { padding: 10px 14px; background: #f0f6ff; border: 1px solid #c8dcff; border-radius: 8px; font-size: 14px; }
+footer { margin-top: 32px; color: #6e7781; font-size: 12px; }</style>
+</head>
+<body>
+<main>
+<h1>完整许可声明</h1>
+<p class="summary">本页是 <code>NOTICE</code> 的完整正文，以及随包分发的全部第三方许可全文（共 11 份）。本应用基于 Apache License 2.0 发布；页面内容与应用安装包内的一致。</p>
+<div class="toc">
+<a href="#notice">NOTICE 正文</a>
+<a href="#lic-apache-2-0-txt">Apache-2.0.txt</a>
+<a href="#lic-bsd-2-clause-marisa-txt">BSD-2-Clause-marisa.txt</a>
+<a href="#lic-bsd-3-clause-google-txt">BSD-3-Clause-Google.txt</a>
+<a href="#lic-bsd-3-clause-librime-txt">BSD-3-Clause-librime.txt</a>
+<a href="#lic-cc-by-sa-4-0-txt">CC-BY-SA-4.0.txt</a>
+<a href="#lic-lgpl-3-0-txt">LGPL-3.0.txt</a>
+<a href="#lic-mit-ecdict-txt">MIT-ECDICT.txt</a>
+<a href="#lic-mit-lua-txt">MIT-Lua.txt</a>
+<a href="#lic-mit-harmonyos-next-rime-har-txt">MIT-harmonyos-next-rime-har.txt</a>
+<a href="#lic-mit-kanonime-txt">MIT-kanonIME.txt</a>
+<a href="#lic-mit-yaml-cpp-txt">MIT-yaml-cpp.txt</a>
+</div>
+<h2 id="notice">NOTICE</h2>
+<pre>三生输入法（HarmonyOS 版）/ Sansheng Input Method
+Copyright 2026 Lucas Y.C. Wang
+
+本产品在鸿蒙（HarmonyOS NEXT）上实现「五笔 · 拼音 · 英文三向混输 + 三向反查 +
+自造词 + 自调频」输入法。本文件是 Apache License 2.0 第 4(d) 条要求的
+NOTICE，说明随包分发的第三方软件与数据、各自适用的许可，以及本仓库对上游
+代码所做的改动。许可全文见同目录 `LICENSES/`；
+在 HarmonyOS 应用内，同一份内容已合成为「关于 → 完整许可声明」页面
+（`rawfile/legal/notice.html`，由 `scripts/build_notice_html.py` 从本文件与
+`LICENSES/*.txt` 生成），用户无需访问安装目录即可阅读。
+
+================================================================
+一、本仓库自研部分（Apache License 2.0）
+================================================================
+根目录 `LICENSE` 为 Apache License 2.0，版权人 &quot;Copyright 2026 Lucas Y.C. Wang&quot;；
+同一文本副本见 `LICENSES/Apache-2.0.txt`。以下内容由本项目编写：
+
+  entry/src/main/ets/**            ArkTS 输入法面板、控制器、引擎封装
+  entry/src/main/cpp/fanxing_napi.cpp  NAPI 引擎桥（本项目重写，接口见 docs/INTERFACE.md）
+  entry/src/main/cpp/CMakeLists.txt    静态库链接与裁剪配置
+  fanxing_rime_har/**              librime 的鸿蒙 HAR 封装（本项目改造）
+  entry/src/main/resources/rawfile/rime/default.yaml
+                                    （自写为主体；1.0.0 起内含 dyy 斜杠符号表的派生片段：
+                                     `punctuator/symbols` 9 组 / 117 项 + `half_shape` 10 个多义标点键 / 28 项
+                                     ＝ 合计 145 项，见第三节「授权申请中」条目与 H-094，不主张该片段原创）
+  entry/src/main/resources/rawfile/rime/sansheng_t9.schema.yaml
+  scripts/**                       构建 / 签名 / 装机 / 真机自动化
+  docs/**                          设计与验收文档
+
+注意：第一节的自研许可 **不覆盖** 第二节的第三方代码，也 **不覆盖** 第三节的
+数据。词库数据按其自身许可分发，不并入 Apache-2.0。
+
+================================================================
+二、第三方软件（随包二进制 / 代码）
+================================================================
+
+[MIT]  chuanis/harmonyos-next-rime-har —— 鸿蒙版 Rime 引擎工程
+    仓库：https://github.com/chuanis/harmonyos-next-rime-har
+    许可：MIT，&quot;Copyright (c) 2026 Lucas Y.C. Wang&quot;（`LICENSES/MIT-harmonyos-next-rime-har.txt`）
+    用途：本项目 `fanxing_rime_har` 模块与 `entry/src/main/cpp/lib/**` 下随包
+          预编译静态库/动态库的来源。
+    改动：本项目**重写**了 NAPI 桥（上游 demo 桥 → `entry/src/main/cpp/fanxing_napi.cpp`，
+          新增 initEngine/processKey/selectCandidate/deleteBackward/flipPage/
+          clear/getContext/setOption/setPageSize，并改写分页切片与数字/标点直出语义）；
+          `fanxing_rime_har/**` 的包配置、构建脚本与 `oh-package.json5` 由本项目改写。
+          上游 MIT 版权与许可声明按 MIT 要求原样保留。
+
+    该工程内含的第三方库（随同一个 .so/.a 一并进包）：
+
+    ┌ 随包二进制        │ 上游项目              │ 许可         │ 许可文本
+    ├───────────────────┼──────────────────────┼─────────────┼────────────────────────
+    │ librime.a         │ rime/librime          │ BSD-3-Clause│ LICENSES/BSD-3-Clause-librime.txt
+    │ libleveldb.a      │ google/leveldb        │ BSD-3-Clause│ LICENSES/BSD-3-Clause-Google.txt
+    │ libglog.a         │ google/glog           │ BSD-3-Clause│ LICENSES/BSD-3-Clause-Google.txt
+    │ libmarisa.a       │ s-yata/marisa-trie    │ BSD-2-Clause│ LICENSES/BSD-2-Clause-marisa.txt
+    │ libyaml-cpp.a     │ jbeder/yaml-cpp       │ MIT         │ LICENSES/MIT-yaml-cpp.txt
+    │ liblua.a          │ Lua 5.4 (lua.org)     │ MIT         │ LICENSES/MIT-Lua.txt
+    │ libopencc.a       │ BYVoid/OpenCC         │ Apache-2.0  │ LICENSES/Apache-2.0.txt
+
+    说明：librime 上游声明为 &quot;Copyright RIME Developers / Distributed under the
+    BSD License&quot;，未写年份，故许可文本中不臆造年份。
+
+    随包动态库的实际清单（2026-10-23 按 entry-default-unsigned.hap 逐字节核对）：
+
+    包内 `libs/arm64-v8a/` 只有下面 2 个 `.so`；上表的 `.a` **不单独进包**，它们在构建时
+    被静态链接进 `libfanxing_rime.so`。静态链接不改变各库的许可，仍须逐个保留声明，
+    所以上表逐项列明（BSD-3-Clause / BSD-2-Clause / MIT / Apache-2.0 均允许此用法）。
+
+    - `libs/arm64-v8a/libfanxing_rime.so`（入包 5,549,616 B，sha256 前缀 `ac47e80ccdc6f8f8`）
+        本项目的构建产物：`entry/src/main/cpp/fanxing_napi.cpp` 与上表 7 个静态库由 CMake
+        现场链接（librime / liblua 走 `--whole-archive` + `--start-group`，其余普通链接；
+        另链系统库 `libace_napi.z.so` / `libhilog_ndk.z.so` / `libc++.a`），剥离符号后进包。
+        许可：自研部分随本项目 Apache-2.0（根 `LICENSE`），第三方部分按上表各自许可。
+        易混淆点（已实测）：**仓库里的 `entry/src/main/cpp/lib/libfanxing_rime.so`
+        （4,870,448 B，sha256 前缀 `385cbef5e988532f`）不是入包的那一份** —— 它是上游工程
+        带来的预编译件，`CMakeLists.txt` 没有引用它；本机构建产物未剥离时 13,190,344 B，
+        剥离后才是入包的 5,549,616 B。该冗余文件已记入 `docs/ISSUES.md` 待清理。
+
+    - `libs/arm64-v8a/libc++_shared.so`（1,262,504 B，sha256 前缀 `965803c3fe53e024`）
+        LLVM libc++ —— C++ 标准库运行时，由 DevEco / OHOS NDK 工具链在原生构建时注入 HAP。
+        依据：它**不在源码树里**（`entry/src/main/cpp/lib/**` 没有它），只出现在构建中间产物
+        `entry/build/default/intermediates/cmake/default/obj/arm64-v8a/`，与入包那份逐字节相同。
+        上游：https://github.com/llvm/llvm-project （libc++ 组件）
+        许可：**Apache-2.0 WITH LLVM-exception**。该例外明确允许分发「与 LLVM 库链接得到的
+        编译产物」时不附带许可文本，故本项目不把它的许可抄本放进 `LICENSES/`，
+        只在此如实点名上游与适用许可。
+
+[Apache-2.0]  nanaseyuu/hMixedKeyboard —— 鸿蒙输入法面板参考实现
+    仓库：https://github.com/nanaseyuu/hMixedKeyboard （本机 `_ref_hMixedKeyboard`）
+    用途：M1 阶段参考其 IME Kit 面板生命周期与 `setUiContent → resize` 顺序，
+          并移植其键盘壳结构。
+    许可：Apache-2.0（`LICENSES/Apache-2.0.txt`）
+    改动：`entry/src/main/ets/inputmethod/InputMethodService.ets`、
+          `entry/src/main/ets/inputmethod/KeyboardController.ets`、
+          `entry/src/main/ets/pages/KeyboardIndex.ets` 按其结构改写为本项目的
+          键盘壳（引擎替换为 `EngineProvider` / Rime），文件头已注明借鉴来源
+          与改动点；未带入其自带字典引擎（`.ms2` 格式）。
+
+[MIT]         ysk0518/kanonIME —— HarmonyOS NEXT 原生输入法（日语）
+    仓库：https://github.com/ysk0518/kanonIME （本机 `_ref_kanon`，
+          commit f5cfca9110b0793a2d08205f01b78d0e6fafb2b0）
+    用途：候选栏 UI 布局参考 —— 单行候选条、▼ 展开网格（`Scroll` + `Flex(wrap)`）、
+          行高自适应与降级、选中项自动跟随。
+    许可：MIT，&quot;Copyright (c) 2026 ysk0518 and kanonIME contributors&quot;
+          （`LICENSES/MIT-kanonIME.txt`）
+    改动：`entry/src/main/ets/pages/KeyboardIndex.ets` 的 `CandidateBar` /
+          `ExpandedPanel` Builder 按上述布局改写；字段名与状态源换成本项目的
+          `keyboardController` / `RimeCandidate`；**预编辑独立成 L1 整宽行、
+          反查 comment 行、弹性 `setPageSize`、展开态整页翻页按钮** 为本项目
+          新增，非 kanonIME 内容。
+
+[Apache-2.0]  OpenHarmony KikaInputMethod 官方示例
+    用途：kanonIME 的上游来源；本项目经 kanonIME 间接沿用其候选栏布局思路。
+    许可：Apache-2.0（`LICENSES/Apache-2.0.txt`）
+
+[仅参考交互设计，未复制源码]
+    fcitx5-android（LGPL-2.1）、Trime（GPL-3.0）、fcitx5-harmony（GPL-3.0）：
+    只借「辅助信息行不吃候选宽度」「comment 置于词上方」等**设计**，
+    未复制任何源码；详见 `docs/DECISIONS.md` D-002 / D-004。
+    yuetyam/jyutping-harmony（CC0-1.0）：键帽尺寸模型来源，CC0 无署名义务，
+    此处致谢。
+
+================================================================
+三、第三方数据与随包脚本（词库 / Lua 滤镜 / 符号表）—— 许可独立于代码，请勿混同
+================================================================
+[CC BY-SA 4.0]  CC-CEDICT 派生词库
+    文件：entry/src/main/resources/rawfile/rime/
+          zh2en_pinyin.dict.yaml、zh2en_pinyin_wp.dict.yaml、
+          zh2en_wubi.dict.yaml、zh2en_wubi_wp.dict.yaml
+    来源：CC-CEDICT（https://cc-cedict.org），© CC-CEDICT project。
+    许可：CC BY-SA 4.0（`LICENSES/CC-BY-SA-4.0.txt`）。
+          上述文件均由 CC-CEDICT 数据转换/加权生成，属**改编作品**，
+          依 SA 条款继续以 CC BY-SA 4.0 分发；署名同时写在这四个文件的
+          头部注释里。
+          （2026-10-22 14:2x 更正：`cn_pinyin_wp.dict.yaml` 原先被误列入本组，
+          实测证据见下文的 [Apache-2.0] 条目，已移出。）
+    范围声明：该传染性**只覆盖词库数据本身**，不覆盖调用它的
+          ArkTS / C++ 代码。
+
+[MIT]  ECDICT 派生词库
+    文件：en2zh_v2.dict.yaml、en2zh_v2_wp.dict.yaml
+    来源：ECDICT（https://github.com/skywind3000/ECDICT），© Linwei (skywind3000)。
+    许可：MIT（`LICENSES/MIT-ECDICT.txt`）；本表为按行筛选后的子集。
+
+[Apache-2.0]  rime 官方 `pinyin_simp` 方案
+    文件：pinyin_simp.dict.yaml、pinyin_simp.schema.yaml
+    来源：rime/rime-pinyin-simp（上游为 Android PinyinIME，Apache-2.0）。
+
+[Apache-2.0（派生）]  `cn_pinyin_wp.dict.yaml` —— 2026-10-22 14:2x 由 CC BY-SA 组移入
+    文件：entry/src/main/resources/rawfile/rime/cn_pinyin_wp.dict.yaml
+    实测依据（`docs/evidence/2026-10-22/cn-pinyin-wp-provenance.json`）：
+          本表 65,114 行、65,114 个去重（词, 拼音）对，与 `pinyin_simp.dict.yaml`
+          的 65,114 对**逐一相同**（交集 65,114 / 覆盖率 100.0%）；
+          与 CC-CEDICT 派生的 `zh2en_pinyin.dict.yaml`（88,553 对）交集为 **0**（0.0%）。
+          文件头部只有 `# Generated by DSH · 2026-10-13`，无 CC-CEDICT 署名行。
+    结论：它是 `pinyin_simp` 的重新切片/改名，**不含 CC-CEDICT 内容**，
+          因此不受 CC BY-SA 4.0 传染，许可随上游 `pinyin_simp` = Apache-2.0；
+          署名义务按 Apache-2.0 处理（本 NOTICE + `LICENSES/Apache-2.0.txt`）。
+    备注：先前把它记成 CC-CEDICT 派生，是因为文件名带 `_wp` 就归进了 `zh2en_*_wp` 一组，
+          属分组时的想当然，已由数据比对推翻。
+
+[LGPL-3.0]  86 五笔码表
+    文件：wubi86.dict.yaml
+    来源与许可（2026-10-22 实测更正，见 `docs/release/legal/third-party-audit-2026-10-22.md` F3）：
+          本文件属 **rime/rime-wubi**（https://github.com/rime/rime-wubi）一脉，
+          该仓库 LICENSE = **GNU LGPL-3.0**（`LICENSES/LGPL-3.0.txt`）；
+          本机与 `D:/IDM/rime-wubi-master/rime-wubi-master/wubi86.dict.yaml`
+          尺寸/结构最接近（2,289,631 B vs 上游 2,289,545 B，差异为三生追加的词条）。
+          `KyleBing/rime-wubi86-jidian`（Apache-2.0）只贡献极点权重与补充词条，
+          其码表源头 `wubi-jidan-dict` 本身未附许可证，**故不能把整份文件记成 Apache-2.0**。
+    署名：文件头保留贡献者 changelog（Gong Chen、Yu Yuwei、Chen Xing，原始码表作者 Wozy）。
+    义务范围：LGPL 对本文件的义务 = 保留许可与署名、随包提供许可原文；
+          不要求公开调用它的 ArkTS / C++ 代码。
+
+[Apache-2.0]  OpenCC 简繁转换数据
+    文件：entry/src/main/resources/rawfile/rime/opencc/STCharacters.ocd2、
+          STPhrases.ocd2、s2t.json
+    用途：支撑「简繁」开关（`zh_trad`）。
+    许可：Apache-2.0（`LICENSES/Apache-2.0.txt`）；仅取预编译数据文件，未修改。
+
+[授权申请中 · 上游未附许可证]  happyDom/dyyRime 的 Lua 滤镜与数据表
+    文件：`entry/src/main/resources/rawfile/rime/lua/**` 中的 29 个原样文件
+          （GUID / dateTime* / dic_4w* / dynamicPhrase_Filter / eventsList* / help /
+          laneChangeAndSpace_Filter / lunar* / phraseComment* / phraseExt* /
+          phraseReplace* / pinyinAdding* / utf8String 等 `.lua` 及配套 `.txt` 表，
+          合计 3,197,403 B）。另有 13 个与上游同名但内容不同的文件，按逐行实测相似度分两类：
+          ① 由上游文件改写（保留上游代码片段，主体版权归上游）——7 个：
+          `lua/Upper_Filter.lua` 97%、`lua/inputShow.lua` 98%、`lua/inputShow_Filter.lua` 95%、
+          `lua/dic_4w_Filter.lua` 79%、`Custom_phrase.txt` 46%、`wubi_pinyin.custom.yaml` 42%、
+          `lua/sysInfo.lua` 38%（`currentDir()` 等函数原样保留）；
+          ② 同名的鸿蒙端独立重写（沿用模块名/文件名与调用契约，无逐行复制，按 Apache-2.0 归本项目）——6 个：
+          `rime.lua` 0%、`README.md` 0%（本项目数据说明）、`lua/runLog.lua`、`lua/socket.lua`（安全桩）、
+          `lua/phraseComment personal.txt`、`lua/phraseExt personal.txt`（本项目模板）。
+          （此列原含 `symbols.custom.yaml`，该文件已不随包，见下一条。）
+    上游：https://github.com/happyDom/dyyRime —— **仓库无 LICENSE 文件，法律上等于保留所有权利**。
+    现状：授权**已申请、待回复**。2026-10-22 14:22 主人同时做了两件事：邮件 `douyaoyuan@126.com`
+          （逐文件清单 + 鸿蒙端范围）与上游 Issue #9 追评（#8 已说明并关闭）。此前本条写的
+          「issue 因误操作被关闭，待重开」是过期描述，已更正。
+          本项目对第 ① 类文件只主张自己那部分改动的著作权，文件主体版权仍归上游；
+          第 ② 类是本项目独立实现，不含上游代码。
+    处置：见 `docs/release/legal/third-party-audit-2026-10-22.md` 第五节 O-1~O-3；
+          在取得书面许可之前，本条目即为对该部分的如实披露。
+          1.0.0 的既定路线是「保留 + 如实署名」（D-016/D-020），不因等待回复而卡住上架。
+
+[许可敞口已于 1.0.0 移除]  rime 官方斜杠符号表（不再随包）
+    文件：`rawfile/rime/symbols.yaml`（28,473 B，md5 前缀 `b4fe9b1fb5419b6c`）
+          （该文件与同目录的 `symbols.custom.yaml` **从未进入 git 跟踪**，只存在于早期工作区与
+           早前构建出的包里；三个已签名旧包（m066 / m067-cr01 / release）仍含它们，**那三个包不得提审**）
+    来源：与安卓 1.10.1 发布插件 APK 内 `assets/usr/share/rime-data/symbols.yaml` **字节相同**，
+          属 rime 官方数据（`Rime&#x27;s punctuation and symbols`，weasel/brise 一脉）的部署副本，
+          上游未附可指认的许可证文本 ⇒ D-020 由主人拍板选 A：**1.0.0 不打包这份文件**。
+    实测（2026-10-22 16:1x 更正，`docs/evidence/2026-10-22/d-020-merge-recheck.md` §一）：
+          该文件此前未进入释放清单 `SHARED_FILES`，但**功能不是死的**——包内
+          `wubi_pinyin.custom.yaml` 一直写 `punctuator: import_preset: symbols`，
+          引擎正是从 `rawfile` 里的这份 `symbols.yaml` 取符号表（m066 / m067-cr01 / 13:25 release
+          三个签名包均解出 28,473 B 与 `import_preset: symbols`；13:35 Mate 80 真机
+          `/szd` 出 ⒈⒉⒊ 候选即该路径）。我 15:5x 写「引擎取不到、功能一直是死的」是错的，已撤回。
+          ⇒ 所以 D-020 选 A 的代价是真的少了一项功能（不是零代价）；删除仍是真实减少敞口，
+          且**要重新构建签名包才落到包里**，旧 `.app` 不能提审。
+    说明：本机另有 `iDvel/rime-ice`·`oh-my-rime` 等改版（仓库 LICENSE = GPL-3.0），
+          **本项目未使用其文件**（逐字节比对不命中，行级相似仅 0.74），
+          不要为「补齐符号」把 GPL-3.0 血脉的文件换进来。
+    文件：`rawfile/rime/symbols.custom.yaml`（11,696 B，md5 `b1e28d38ede993a7403b8087c55bc194`）
+          —— dyyRime 同名文件的改版（105 组 /xx，与 dyy 原件仅差 15 行，全是删掉 `None` 占位项）。
+          许可归入上面「授权申请中」条目。功能状态（16:1x 更正）：它的根键是 `patch:`，
+          只给名为 `symbols` 的配置打补丁 ⇒ 在旧包里它叠加在同一文件 `symbols.yaml` 上，
+          与 `import_preset: symbols` 一起生效；**只有当 `symbols.yaml` 被删掉之后**，
+          它才变成无对象的补丁（既没有 `symbols` 预设基文件，也没有任何东西 import 它）。
+          CodeArts 15:3x 一度把它加进 `SHARED_FILES`（无效且方向相反，H-092），
+          16:04 前已撤回条目并把文件本身也从 `rawfile` 删除。
+          **注意（H-094 / H-095）**：该表的 9 组 `/xx`（117 项）与 10 个多义标点键（28 项）
+          已被逐字符并入自有 `default.yaml`（合计 145 项），**故第三方派生内容并未随文件删除而消失，
+          只是换了位置** ⇒ `default.yaml` 不再主张 100% 原创，见第一节与该文件行内加注。
+          并入时保留了两处上游怪值（`/` 键写成 map、`` ` `` 键第二档是三个反引号）与一处行为差异
+          （半角反斜杠由 `\` 改为 `、`），逐行比对证据见 `docs/evidence/2026-10-22/d-020-merge-recheck.md` §八。
+    文件：`rawfile/symbols/symbols.json`（34,984 B，116 组 / 2,093 项）—— 由本项目脚本
+          `scripts/build_symbol_data.py` 生成，仅供键盘 UI 的符号面板取数，不进入 Rime 引擎。
+          来源按实测更正为**派生**：该脚本文件头写明输入含桌面 `symbols.custom.yaml`；逐组比对
+          结果是 105 个 `r_` 前缀组（1,236 项，占全包 2,093 项的 59%）里 **104 组与该表成员集合完全相同**。
+          ⇒ 本条此前写「本项目整理 / 上游同名文件未命中 / 来源待确认」属**低估**（无同名文件只证明
+          没有字节相同的副本，不证明没有派生），现归入上面「授权申请中」的 dyy 血脉条目一并披露。
+          这 1,236 项是 Unicode 码位枚举，独创性有限，但署名以诚实为先。
+
+[本项目自写]  其余 Lua 滤镜与配置
+    文件：`abbrGloss_Filter.lua`、`codeLookup_Filter.lua`、`phoneComment_Filter.lua`、
+          `rawEcho_translator.lua`、`sansheng_t9.schema.yaml`、
+          `wubi_pinyin.schema.yaml`（结构源自 rime-wubi，改动见文件内 DSH 注释）、
+          `lua-files.txt`、`legal/privacy.html`、`legal/terms.html`、`rime/README.md`
+    许可：随本项目许可（**Apache-2.0**，见根 `LICENSE`；安卓版同源实现按 MIT 发布，两份独立）；
+          三向反查/释义/注释截断等能力为本项目原创实现。
+    已判定（2026-10-22 14:0x，Qoder 复测，原「待确认」撤销）：
+          `lua/abbr_en.txt`（17,146 B，md5 `2500936430cdd59636340766e301a116`）与
+          `lua/abbr_num.txt`（3,636 B，md5 `6adbdfb79c3c48051ac698330bc53b0a`）
+          与主人安卓产品数据根 `F:/dshdesktopwork/sansheng-ime-android/rime/lua/` 下同名文件
+          **逐字节相同**（本项目审计表第 44–45 行早已记为「安卓命中」，此前误写成本条目「无同名命中」，现更正）；
+          在 `D:/IDM/dyyRime-master`、`D:/IDM/oh-my-rime-main`、`F:/dshdesktopwork/rime-zh-en-dict`
+          三组参照中**均无同名文件**。判定为**本项目自有整理数据**，随本项目许可，无需第三方署名。
+          整理尺子见安卓仓自留记录 `_probe/abbr_candidates_20261021.md`（422 条，收录四条尺子），
+          其中提到的种子表 `rime-config/dicts/abbr-en-seed.txt` 在当前工作副本内未定位到，
+          仅作为整理过程佐证，不作为许可依据。
+
+[用户数据]  Custom_phrase.txt
+    自造词/自定义短语模板，运行期写入应用沙箱，不属第三方许可范围。
+
+================================================================
+四、获取方式与联系方式
+================================================================
+上述 CC BY-SA 4.0 词库的完整分发文本随本应用安装包一同提供
+（`LICENSES/CC-BY-SA-4.0.txt` + 第三节列出的 `.dict.yaml` 源文件）。
+第三方源码与许可原文的获取地址已逐条列在第二、三节。
+
+许可与署名相关联系方式（软件著作权人 [机主姓名已脱敏]）：`ri0977@qq.com`（备用 `ri0977@gmail.com`）。
+CC BY-SA 4.0 词库的署名与再分发请求、Apache-2.0 / BSD 组件的许可问题，均可发该邮箱；
+本联系方式为公开信息，与隐私政策、用户协议、AGC 后台所填一致（H-053 已闭环 2026-10-22）。
+
+================================================================
+五、核查记录（2026-10-21）
+================================================================
+本文件的每条许可结论均经下列方式核实，未凭印象填写：
+  - 第三方仓库许可标识：GitHub API `repos/{owner}/{repo}.license.spdx_id` 实测；
+  - 许可正文：SPDX license-list-data（Apache-2.0 / BSD-3-Clause / BSD-2-Clause /
+    MIT / CC-BY-SA-4.0）与各上游仓库 LICENSE 原文；
+  - 本机参考副本：`_ref_hMixedKeyboard`（README 自述 Apache-2.0）、
+    `_ref_kanon`（LICENSE 实测 MIT）、`_ref_harmonyos-rime`（LICENSE 实测 MIT）；
+  - 词库文件头：逐个 `head` 实测哪些文件已带署名、哪些缺失。
+
+第二轮核查（2026-10-22，Qoder，逐文件字节级）
+  - 复现：`python scripts/license_gap.py 2026-10-22`、`python scripts/apk_parity.py 2026-10-22`、
+    `python scripts/third_party_audit.py 2026-10-22`；结论与逐文件表见
+    `docs/release/legal/third-party-audit-2026-10-22.md`。
+  - 摘要一律用 **md5 前 16 位**（此前记录里的 `6d089695…` 等为 sha256 前 16 位，不可互比）。
+  - 更正：`wubi86.dict.yaml` 由「Apache-2.0 / KyleBing」改为 **LGPL-3.0 / rime-wubi**（F3）。
+  - 新增：`happyDom/dyyRime`（无 LICENSE，29 个原样 + 12 个改写；此数已被第三轮更正，见下）、
+    `symbols.yaml` / `symbols.custom.yaml` / `symbols/symbols.json`、本项目自写 Lua 与两处「来源待确认」。
+  - 补 `LICENSES/LGPL-3.0.txt`（与安卓仓库 `LICENSES/` 同源文本）。
+  - 仍开放：应用内「关于 / 第三方声明」页（M-043）需按本节渲染；
+    `happyDom/dyyRime` 书面授权待主人推进（O-1）。
+
+第三轮核查（2026-10-24，Qoder，随包数据变动后重跑）
+  - 复现：`python scripts/third_party_audit.py`（全量 65 文件，逐文件 md5 对四组参照）；
+    逐文件表见 `docs/evidence/2026-10-24/third-party-audit-data.md`；行级比对见
+    `docs/evidence/2026-10-24/dyy-same-name-recheck.md`。
+  - 结论：与安卓数据根相同 17 / dyy 原样 29 / 与 dyy 同名 13 / 四组均无 16。
+  - 变动：`symbols.custom.yaml` 已不在包内，从同名枚举中移除；新增 `Custom_phrase.txt`、
+    `README.md`。29 个原样文件与合计 3,197,403 B 经重算不变。
+  - 口径：脚本的「dyy同名已改」是按**文件名**判的启发式，不等于衍生。本轮对 13 个同名文件
+    逐个做行级比对（`difflib` 实测），拆成「改写 7 / 同名独立重写 6」两级披露（见上方条目），
+    避免把本项目自写的 `rime.lua`、`README.md` 等错记成上游衍生（D-025）。</pre>
+<hr>
+<h2 id="lic-apache-2-0-txt">Apache-2.0.txt</h2>
+<pre>
+                                 Apache License
+                           Version 2.0, January 2004
+                        https://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      &quot;License&quot; shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      &quot;Licensor&quot; shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      &quot;Legal Entity&quot; shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      &quot;control&quot; means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      &quot;You&quot; (or &quot;Your&quot;) shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      &quot;Source&quot; form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      &quot;Object&quot; form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      &quot;Work&quot; shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      &quot;Derivative Works&quot; shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      &quot;Contribution&quot; shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, &quot;submitted&quot;
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as &quot;Not a Contribution.&quot;
+
+      &quot;Contributor&quot; shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a &quot;NOTICE&quot; text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an &quot;AS IS&quot; BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets &quot;[]&quot;
+      replaced with your own identifying information. (Don&#x27;t include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same &quot;printed page&quot; as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.</pre>
+<hr>
+<h2 id="lic-bsd-2-clause-marisa-txt">BSD-2-Clause-marisa.txt</h2>
+<pre>BSD 2-Clause License
+
+Copyright (c) 2010-2025, Susumu Yata
+All rights reserved.
+
+（本文件对应随包二进制 `libmarisa.a`（s-yata/marisa-trie）。上游为
+BSD-2-Clause OR LGPL-2.1-or-later 双许可，本项目按 BSD-2-Clause 分发。
+上游声明原文见 https://github.com/s-yata/marisa-trie/blob/master/COPYING.md ）
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</pre>
+<hr>
+<h2 id="lic-bsd-3-clause-google-txt">BSD-3-Clause-Google.txt</h2>
+<pre>BSD 3-Clause License
+
+Copyright (c) 2011 The LevelDB Authors. All rights reserved.
+Copyright (c) 2024 Google Inc. All rights reserved.
+
+（本文件对应随包二进制 `libleveldb.a`（google/leveldb）与 `libglog.a`（google/glog），
+两者均为 BSD 3-Clause。上游声明原文见
+  https://github.com/google/leveldb/blob/main/LICENSE
+  https://github.com/google/glog/blob/master/LICENSE.md ）
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</pre>
+<hr>
+<h2 id="lic-bsd-3-clause-librime-txt">BSD-3-Clause-librime.txt</h2>
+<pre>BSD 3-Clause License
+
+Copyright (c) RIME Developers
+All rights reserved.
+
+（本文件对应随包二进制 `librime`（rime/librime，BSD-3-Clause）。上游声明原文见
+  https://github.com/rime/librime/blob/master/LICENSE ；
+  随包头文件 `entry/src/main/cpp/include/rime/**` 顶部注释为
+  「Copyright RIME Developers / Distributed under the BSD License」，
+  未写年份，故此处不臆造年份。）
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</pre>
+<hr>
+<h2 id="lic-cc-by-sa-4-0-txt">CC-BY-SA-4.0.txt</h2>
+<pre>Creative Commons Attribution-ShareAlike 4.0 International
+
+ Creative Commons Corporation (“Creative Commons”) is not a law firm and does not provide legal services or legal advice. Distribution of Creative Commons public licenses does not create a lawyer-client or other relationship. Creative Commons makes its licenses and related information available on an “as-is” basis. Creative Commons gives no warranties regarding its licenses, any material licensed under their terms and conditions, or any related information. Creative Commons disclaims all liability for damages resulting from their use to the fullest extent possible.
+
+Using Creative Commons Public Licenses
+
+Creative Commons public licenses provide a standard set of terms and conditions that creators and other rights holders may use to share original works of authorship and other material subject to copyright and certain other rights specified in the public license below. The following considerations are for informational purposes only, are not exhaustive, and do not form part of our licenses.
+
+Considerations for licensors: Our public licenses are intended for use by those authorized to give the public permission to use material in ways otherwise restricted by copyright and certain other rights. Our licenses are irrevocable. Licensors should read and understand the terms and conditions of the license they choose before applying it. Licensors should also secure all rights necessary before applying our licenses so that the public can reuse the material as expected. Licensors should clearly mark any material not subject to the license. This includes other CC-licensed material, or material used under an exception or limitation to copyright. More considerations for licensors.
+
+Considerations for the public: By using one of our public licenses, a licensor grants the public permission to use the licensed material under specified terms and conditions. If the licensor’s permission is not necessary for any reason–for example, because of any applicable exception or limitation to copyright–then that use is not regulated by the license. Our licenses grant only permissions under copyright and certain other rights that a licensor has authority to grant. Use of the licensed material may still be restricted for other reasons, including because others have copyright or other rights in the material. A licensor may make special requests, such as asking that all changes be marked or described.
+
+Although not required by our licenses, you are encouraged to respect those requests where reasonable. More considerations for the public.
+
+Creative Commons Attribution-ShareAlike 4.0 International Public License
+
+By exercising the Licensed Rights (defined below), You accept and agree to be bound by the terms and conditions of this Creative Commons Attribution-ShareAlike 4.0 International Public License (&quot;Public License&quot;). To the extent this Public License may be interpreted as a contract, You are granted the Licensed Rights in consideration of Your acceptance of these terms and conditions, and the Licensor grants You such rights in consideration of benefits the Licensor receives from making the Licensed Material available under these terms and conditions.
+
+Section 1 – Definitions.
+
+     a.	Adapted Material means material subject to Copyright and Similar Rights that is derived from or based upon the Licensed Material and in which the Licensed Material is translated, altered, arranged, transformed, or otherwise modified in a manner requiring permission under the Copyright and Similar Rights held by the Licensor. For purposes of this Public License, where the Licensed Material is a musical work, performance, or sound recording, Adapted Material is always produced where the Licensed Material is synched in timed relation with a moving image.
+
+     b.	Adapter&#x27;s License means the license You apply to Your Copyright and Similar Rights in Your contributions to Adapted Material in accordance with the terms and conditions of this Public License.
+
+     c.	BY-SA Compatible License means a license listed at creativecommons.org/compatiblelicenses, approved by Creative Commons as essentially the equivalent of this Public License.
+
+     d.	Copyright and Similar Rights means copyright and/or similar rights closely related to copyright including, without limitation, performance, broadcast, sound recording, and Sui Generis Database Rights, without regard to how the rights are labeled or categorized. For purposes of this Public License, the rights specified in Section 2(b)(1)-(2) are not Copyright and Similar Rights.
+
+     e.	Effective Technological Measures means those measures that, in the absence of proper authority, may not be circumvented under laws fulfilling obligations under Article 11 of the WIPO Copyright Treaty adopted on December 20, 1996, and/or similar international agreements.
+
+     f.	Exceptions and Limitations means fair use, fair dealing, and/or any other exception or limitation to Copyright and Similar Rights that applies to Your use of the Licensed Material.
+
+     g.	License Elements means the license attributes listed in the name of a Creative Commons Public License. The License Elements of this Public License are Attribution and ShareAlike.
+
+     h.	Licensed Material means the artistic or literary work, database, or other material to which the Licensor applied this Public License.
+
+     i.	Licensed Rights means the rights granted to You subject to the terms and conditions of this Public License, which are limited to all Copyright and Similar Rights that apply to Your use of the Licensed Material and that the Licensor has authority to license.
+
+     j.	Licensor means the individual(s) or entity(ies) granting rights under this Public License.
+
+     k.	Share means to provide material to the public by any means or process that requires permission under the Licensed Rights, such as reproduction, public display, public performance, distribution, dissemination, communication, or importation, and to make material available to the public including in ways that members of the public may access the material from a place and at a time individually chosen by them.
+
+     l.	Sui Generis Database Rights means rights other than copyright resulting from Directive 96/9/EC of the European Parliament and of the Council of 11 March 1996 on the legal protection of databases, as amended and/or succeeded, as well as other essentially equivalent rights anywhere in the world.
+
+     m.	You means the individual or entity exercising the Licensed Rights under this Public License. Your has a corresponding meaning.
+
+Section 2 – Scope.
+
+     a.	License grant.
+
+          1. Subject to the terms and conditions of this Public License, the Licensor hereby grants You a worldwide, royalty-free, non-sublicensable, non-exclusive, irrevocable license to exercise the Licensed Rights in the Licensed Material to:
+
+               A. reproduce and Share the Licensed Material, in whole or in part; and
+
+               B. produce, reproduce, and Share Adapted Material.
+
+          2. Exceptions and Limitations. For the avoidance of doubt, where Exceptions and Limitations apply to Your use, this Public License does not apply, and You do not need to comply with its terms and conditions.
+
+          3. Term. The term of this Public License is specified in Section 6(a).
+
+          4. Media and formats; technical modifications allowed. The Licensor authorizes You to exercise the Licensed Rights in all media and formats whether now known or hereafter created, and to make technical modifications necessary to do so. The Licensor waives and/or agrees not to assert any right or authority to forbid You from making technical modifications necessary to exercise the Licensed Rights, including technical modifications necessary to circumvent Effective Technological Measures. For purposes of this Public License, simply making modifications authorized by this Section 2(a)(4) never produces Adapted Material.
+
+          5. Downstream recipients.
+
+               A. Offer from the Licensor – Licensed Material. Every recipient of the Licensed Material automatically receives an offer from the Licensor to exercise the Licensed Rights under the terms and conditions of this Public License.
+
+               B. Additional offer from the Licensor – Adapted Material. Every recipient of Adapted Material from You automatically receives an offer from the Licensor to exercise the Licensed Rights in the Adapted Material under the conditions of the Adapter’s License You apply.
+
+               C. No downstream restrictions. You may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, the Licensed Material if doing so restricts exercise of the Licensed Rights by any recipient of the Licensed Material.
+
+          6. No endorsement. Nothing in this Public License constitutes or may be construed as permission to assert or imply that You are, or that Your use of the Licensed Material is, connected with, or sponsored, endorsed, or granted official status by, the Licensor or others designated to receive attribution as provided in Section 3(a)(1)(A)(i).
+
+     b.	Other rights.
+
+          1. Moral rights, such as the right of integrity, are not licensed under this Public License, nor are publicity, privacy, and/or other similar personality rights; however, to the extent possible, the Licensor waives and/or agrees not to assert any such rights held by the Licensor to the limited extent necessary to allow You to exercise the Licensed Rights, but not otherwise.
+
+          2. Patent and trademark rights are not licensed under this Public License.
+
+          3. To the extent possible, the Licensor waives any right to collect royalties from You for the exercise of the Licensed Rights, whether directly or through a collecting society under any voluntary or waivable statutory or compulsory licensing scheme. In all other cases the Licensor expressly reserves any right to collect such royalties.
+
+Section 3 – License Conditions.
+
+Your exercise of the Licensed Rights is expressly made subject to the following conditions.
+
+     a.	Attribution.
+
+          1. If You Share the Licensed Material (including in modified form), You must:
+
+               A. retain the following if it is supplied by the Licensor with the Licensed Material:
+
+                    i.	identification of the creator(s) of the Licensed Material and any others designated to receive attribution, in any reasonable manner requested by the Licensor (including by pseudonym if designated);
+
+                    ii.	a copyright notice;
+
+                    iii. a notice that refers to this Public License;
+
+                    iv.	a notice that refers to the disclaimer of warranties;
+
+                    v.	a URI or hyperlink to the Licensed Material to the extent reasonably practicable;
+
+               B. indicate if You modified the Licensed Material and retain an indication of any previous modifications; and
+
+               C. indicate the Licensed Material is licensed under this Public License, and include the text of, or the URI or hyperlink to, this Public License.
+
+          2. You may satisfy the conditions in Section 3(a)(1) in any reasonable manner based on the medium, means, and context in which You Share the Licensed Material. For example, it may be reasonable to satisfy the conditions by providing a URI or hyperlink to a resource that includes the required information.
+
+          3. If requested by the Licensor, You must remove any of the information required by Section 3(a)(1)(A) to the extent reasonably practicable.
+
+     b.	ShareAlike.In addition to the conditions in Section 3(a), if You Share Adapted Material You produce, the following conditions also apply.
+
+          1. The Adapter’s License You apply must be a Creative Commons license with the same License Elements, this version or later, or a BY-SA Compatible License.
+
+          2. You must include the text of, or the URI or hyperlink to, the Adapter&#x27;s License You apply. You may satisfy this condition in any reasonable manner based on the medium, means, and context in which You Share Adapted Material.
+
+          3. You may not offer or impose any additional or different terms or conditions on, or apply any Effective Technological Measures to, Adapted Material that restrict exercise of the rights granted under the Adapter&#x27;s License You apply.
+
+Section 4 – Sui Generis Database Rights.
+
+Where the Licensed Rights include Sui Generis Database Rights that apply to Your use of the Licensed Material:
+
+     a.	for the avoidance of doubt, Section 2(a)(1) grants You the right to extract, reuse, reproduce, and Share all or a substantial portion of the contents of the database;
+
+     b.	if You include all or a substantial portion of the database contents in a database in which You have Sui Generis Database Rights, then the database in which You have Sui Generis Database Rights (but not its individual contents) is Adapted Material, including for purposes of Section 3(b); and
+
+     c.	You must comply with the conditions in Section 3(a) if You Share all or a substantial portion of the contents of the database.
+For the avoidance of doubt, this Section 4 supplements and does not replace Your obligations under this Public License where the Licensed Rights include other Copyright and Similar Rights.
+
+Section 5 – Disclaimer of Warranties and Limitation of Liability.
+
+     a.	Unless otherwise separately undertaken by the Licensor, to the extent possible, the Licensor offers the Licensed Material as-is and as-available, and makes no representations or warranties of any kind concerning the Licensed Material, whether express, implied, statutory, or other. This includes, without limitation, warranties of title, merchantability, fitness for a particular purpose, non-infringement, absence of latent or other defects, accuracy, or the presence or absence of errors, whether or not known or discoverable. Where disclaimers of warranties are not allowed in full or in part, this disclaimer may not apply to You.
+
+     b.	To the extent possible, in no event will the Licensor be liable to You on any legal theory (including, without limitation, negligence) or otherwise for any direct, special, indirect, incidental, consequential, punitive, exemplary, or other losses, costs, expenses, or damages arising out of this Public License or use of the Licensed Material, even if the Licensor has been advised of the possibility of such losses, costs, expenses, or damages. Where a limitation of liability is not allowed in full or in part, this limitation may not apply to You.
+
+     c.	The disclaimer of warranties and limitation of liability provided above shall be interpreted in a manner that, to the extent possible, most closely approximates an absolute disclaimer and waiver of all liability.
+
+Section 6 – Term and Termination.
+
+     a.	This Public License applies for the term of the Copyright and Similar Rights licensed here. However, if You fail to comply with this Public License, then Your rights under this Public License terminate automatically.
+
+     b.	Where Your right to use the Licensed Material has terminated under Section 6(a), it reinstates:
+
+          1. automatically as of the date the violation is cured, provided it is cured within 30 days of Your discovery of the violation; or
+
+          2. upon express reinstatement by the Licensor.
+
+     c.	For the avoidance of doubt, this Section 6(b) does not affect any right the Licensor may have to seek remedies for Your violations of this Public License.
+
+     d.	For the avoidance of doubt, the Licensor may also offer the Licensed Material under separate terms or conditions or stop distributing the Licensed Material at any time; however, doing so will not terminate this Public License.
+
+     e.	Sections 1, 5, 6, 7, and 8 survive termination of this Public License.
+
+Section 7 – Other Terms and Conditions.
+
+     a.	The Licensor shall not be bound by any additional or different terms or conditions communicated by You unless expressly agreed.
+
+     b.	Any arrangements, understandings, or agreements regarding the Licensed Material not stated herein are separate from and independent of the terms and conditions of this Public License.
+
+Section 8 – Interpretation.
+
+     a.	For the avoidance of doubt, this Public License does not, and shall not be interpreted to, reduce, limit, restrict, or impose conditions on any use of the Licensed Material that could lawfully be made without permission under this Public License.
+
+     b.	To the extent possible, if any provision of this Public License is deemed unenforceable, it shall be automatically reformed to the minimum extent necessary to make it enforceable. If the provision cannot be reformed, it shall be severed from this Public License without affecting the enforceability of the remaining terms and conditions.
+
+     c.	No term or condition of this Public License will be waived and no failure to comply consented to unless expressly agreed to by the Licensor.
+
+     d.	Nothing in this Public License constitutes or may be interpreted as a limitation upon, or waiver of, any privileges and immunities that apply to the Licensor or You, including from the legal processes of any jurisdiction or authority.
+
+Creative Commons is not a party to its public licenses. Notwithstanding, Creative Commons may elect to apply one of its public licenses to material it publishes and in those instances will be considered the “Licensor.” Except for the limited purpose of indicating that material is shared under a Creative Commons public license or as otherwise permitted by the Creative Commons policies published at creativecommons.org/policies, Creative Commons does not authorize the use of the trademark “Creative Commons” or any other trademark or logo of Creative Commons without its prior written consent including, without limitation, in connection with any unauthorized modifications to any of its public licenses or any other arrangements, understandings, or agreements concerning use of licensed material. For the avoidance of doubt, this paragraph does not form part of the public licenses.
+
+Creative Commons may be contacted at creativecommons.org.</pre>
+<hr>
+<h2 id="lic-lgpl-3-0-txt">LGPL-3.0.txt</h2>
+<pre>                   GNU LESSER GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+ Copyright (C) 2007 Free Software Foundation, Inc. &lt;http://fsf.org/&gt;
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+
+  This version of the GNU Lesser General Public License incorporates
+the terms and conditions of version 3 of the GNU General Public
+License, supplemented by the additional permissions listed below.
+
+  0. Additional Definitions.
+
+  As used herein, &quot;this License&quot; refers to version 3 of the GNU Lesser
+General Public License, and the &quot;GNU GPL&quot; refers to version 3 of the GNU
+General Public License.
+
+  &quot;The Library&quot; refers to a covered work governed by this License,
+other than an Application or a Combined Work as defined below.
+
+  An &quot;Application&quot; is any work that makes use of an interface provided
+by the Library, but which is not otherwise based on the Library.
+Defining a subclass of a class defined by the Library is deemed a mode
+of using an interface provided by the Library.
+
+  A &quot;Combined Work&quot; is a work produced by combining or linking an
+Application with the Library.  The particular version of the Library
+with which the Combined Work was made is also called the &quot;Linked
+Version&quot;.
+
+  The &quot;Minimal Corresponding Source&quot; for a Combined Work means the
+Corresponding Source for the Combined Work, excluding any source code
+for portions of the Combined Work that, considered in isolation, are
+based on the Application, and not on the Linked Version.
+
+  The &quot;Corresponding Application Code&quot; for a Combined Work means the
+object code and/or source code for the Application, including any data
+and utility programs needed for reproducing the Combined Work from the
+Application, but excluding the System Libraries of the Combined Work.
+
+  1. Exception to Section 3 of the GNU GPL.
+
+  You may convey a covered work under sections 3 and 4 of this License
+without being bound by section 3 of the GNU GPL.
+
+  2. Conveying Modified Versions.
+
+  If you modify a copy of the Library, and, in your modifications, a
+facility refers to a function or data to be supplied by an Application
+that uses the facility (other than as an argument passed when the
+facility is invoked), then you may convey a copy of the modified
+version:
+
+   a) under this License, provided that you make a good faith effort to
+   ensure that, in the event an Application does not supply the
+   function or data, the facility still operates, and performs
+   whatever part of its purpose remains meaningful, or
+
+   b) under the GNU GPL, with none of the additional permissions of
+   this License applicable to that copy.
+
+  3. Object Code Incorporating Material from Library Header Files.
+
+  The object code form of an Application may incorporate material from
+a header file that is part of the Library.  You may convey such object
+code under terms of your choice, provided that, if the incorporated
+material is not limited to numerical parameters, data structure
+layouts and accessors, or small macros, inline functions and templates
+(ten or fewer lines in length), you do both of the following:
+
+   a) Give prominent notice with each copy of the object code that the
+   Library is used in it and that the Library and its use are
+   covered by this License.
+
+   b) Accompany the object code with a copy of the GNU GPL and this license
+   document.
+
+  4. Combined Works.
+
+  You may convey a Combined Work under terms of your choice that,
+taken together, effectively do not restrict modification of the
+portions of the Library contained in the Combined Work and reverse
+engineering for debugging such modifications, if you also do each of
+the following:
+
+   a) Give prominent notice with each copy of the Combined Work that
+   the Library is used in it and that the Library and its use are
+   covered by this License.
+
+   b) Accompany the Combined Work with a copy of the GNU GPL and this license
+   document.
+
+   c) For a Combined Work that displays copyright notices during
+   execution, include the copyright notice for the Library among
+   these notices, as well as a reference directing the user to the
+   copies of the GNU GPL and this license document.
+
+   d) Do one of the following:
+
+       0) Convey the Minimal Corresponding Source under the terms of this
+       License, and the Corresponding Application Code in a form
+       suitable for, and under terms that permit, the user to
+       recombine or relink the Application with a modified version of
+       the Linked Version to produce a modified Combined Work, in the
+       manner specified by section 6 of the GNU GPL for conveying
+       Corresponding Source.
+
+       1) Use a suitable shared library mechanism for linking with the
+       Library.  A suitable mechanism is one that (a) uses at run time
+       a copy of the Library already present on the user&#x27;s computer
+       system, and (b) will operate properly with a modified version
+       of the Library that is interface-compatible with the Linked
+       Version.
+
+   e) Provide Installation Information, but only if you would otherwise
+   be required to provide such information under section 6 of the
+   GNU GPL, and only to the extent that such information is
+   necessary to install and execute a modified version of the
+   Combined Work produced by recombining or relinking the
+   Application with a modified version of the Linked Version. (If
+   you use option 4d0, the Installation Information must accompany
+   the Minimal Corresponding Source and Corresponding Application
+   Code. If you use option 4d1, you must provide the Installation
+   Information in the manner specified by section 6 of the GNU GPL
+   for conveying Corresponding Source.)
+
+  5. Combined Libraries.
+
+  You may place library facilities that are a work based on the
+Library side by side in a single library together with other library
+facilities that are not Applications and are not covered by this
+License, and convey such a combined library under terms of your
+choice, if you do both of the following:
+
+   a) Accompany the combined library with a copy of the same work based
+   on the Library, uncombined with any other library facilities,
+   conveyed under the terms of this License.
+
+   b) Give prominent notice with the combined library that part of it
+   is a work based on the Library, and explaining where to find the
+   accompanying uncombined form of the same work.
+
+  6. Revised Versions of the GNU Lesser General Public License.
+
+  The Free Software Foundation may publish revised and/or new versions
+of the GNU Lesser General Public License from time to time. Such new
+versions will be similar in spirit to the present version, but may
+differ in detail to address new problems or concerns.
+
+  Each version is given a distinguishing version number. If the
+Library as you received it specifies that a certain numbered version
+of the GNU Lesser General Public License &quot;or any later version&quot;
+applies to it, you have the option of following the terms and
+conditions either of that published version or of any later version
+published by the Free Software Foundation. If the Library as you
+received it does not specify a version number of the GNU Lesser
+General Public License, you may choose any version of the GNU Lesser
+General Public License ever published by the Free Software Foundation.
+
+  If the Library as you received it specifies that a proxy can decide
+whether future versions of the GNU Lesser General Public License shall
+apply, that proxy&#x27;s public statement of acceptance of any version is
+permanent authorization for you to choose that version for the
+Library.</pre>
+<hr>
+<h2 id="lic-mit-ecdict-txt">MIT-ECDICT.txt</h2>
+<pre>MIT License
+
+Copyright (c) 2025 Linwei
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+<hr>
+<h2 id="lic-mit-lua-txt">MIT-Lua.txt</h2>
+<pre>MIT License
+
+Copyright (c) 1994-2024 Lua.org, PUC-Rio.
+
+（本文件对应随包二进制 `liblua.a`（Lua 5.4 官方发行版）。
+上游声明原文见 https://www.lua.org/manual/5.4/manual.html#license ）
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+<hr>
+<h2 id="lic-mit-harmonyos-next-rime-har-txt">MIT-harmonyos-next-rime-har.txt</h2>
+<pre>MIT License
+
+Copyright (c) 2026 Lucas Y.C. Wang
+
+（本文件对应随包 `fanxing_rime_har` 预编译引擎工程
+  chuanis/harmonyos-next-rime-har（MIT）。
+上游声明原文见 https://github.com/chuanis/harmonyos-next-rime-har/blob/main/LICENSE ）
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+<hr>
+<h2 id="lic-mit-kanonime-txt">MIT-kanonIME.txt</h2>
+<pre>MIT License
+
+Copyright (c) 2026 ysk0518 and kanonIME contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+<hr>
+<h2 id="lic-mit-yaml-cpp-txt">MIT-yaml-cpp.txt</h2>
+<pre>MIT License
+
+Copyright (c) 2008-2015 Jesse Beder.
+
+（本文件对应随包二进制 `libyaml-cpp.a`（jbeder/yaml-cpp）。
+上游声明原文见 https://github.com/jbeder/yaml-cpp/blob/master/LICENSE ）
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre>
+<footer>三生输入法 V1.0 · 本页内容随应用版本更新 · 由 scripts/build_notice_html.py 生成</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,47 @@
+lua/GUID.lua
+lua/Upper_Filter.lua
+lua/abbrGloss_Filter.lua
+lua/abbr_en.txt
+lua/abbr_num.txt
+lua/codeLookup_Filter.lua
+lua/dateTimeModule.lua
+lua/dateTime_filter.lua
+lua/dic_4w.lua
+lua/dic_4w_Filter.lua
+lua/enWord_Filter.lua
+lua/enWord_translator.lua
+lua/en_word_bucket.txt
+lua/dic_4w_cn.txt
+lua/dic_4w_en.txt
+lua/dynamicPhrase_Filter.lua
+lua/eventsList.txt
+lua/eventsListModule.lua
+lua/help.lua
+lua/inputShow.lua
+lua/inputShow_Filter.lua
+lua/laneChangeAndSpace_Filter.lua
+lua/phoneComment_Filter.lua
+lua/lunarModule.lua
+lua/lunarjieQiModule.lua
+lua/phraseComment chemicalElement.txt
+lua/phraseComment commonPhrase.txt
+lua/phraseComment personal.txt
+lua/phraseComment_Filter.lua
+lua/phraseComment_Module.lua
+lua/phraseExt commonPhrase.txt
+lua/phraseExt esAppEmoji.txt
+lua/phraseExt esUnicode.txt
+lua/phraseExt personal.txt
+lua/phraseExt_Filter.lua
+lua/phraseExt_Module.lua
+lua/phraseReplace.txt
+lua/phraseReplaceModule.lua
+lua/phraseReplace_Filter.lua
+lua/pinyinAdding.txt
+lua/pinyinAddingModule.lua
+lua/pinyinAdding_Filter.lua
+lua/rawEcho_translator.lua
+lua/runLog.lua
+lua/socket.lua
+lua/sysInfo.lua
+lua/utf8String.lua

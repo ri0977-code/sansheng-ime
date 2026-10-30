@@ -1,0 +1,95 @@
+# 构建产物
+**/build
+**/.cxx
+/.hvigor
+**/.hvigor
+/oh_modules
+**/oh_modules
+/node_modules
+**/node_modules
+local.properties
+/.idea
+/.clangd
+/.clang-format
+/.clang-tidy
+**/.test
+/.appanalyzer
+
+# 本地密钥与签名（绝不提交）
+/sign/
+*.p12
+
+# Python 工具缓存
+__pycache__/
+*.pyc
+*.p7b
+*.cer
+*.csr
+agconnect-services.json
+*.local.md
+*.local.json
+*.env
+
+# 设备 / 构建临时文件
+hdc_list.txt
+*.hap
+*.log
+
+# Agent 缓存
+/.codeartsdoer/
+/.arts/
+/.merkle-snapshot.json
+
+# 夜间值守状态（本地，不提交）
+/.night-watch.json
+
+# WIP 机制的本地已读状态（每人一份，不提交；docs/WIP.md 本身要提交）
+/docs/.wip-state-*.json
+
+# 真机自动化的临时截图/布局 dump（本地草稿，不入库；正式证据在 docs/evidence/<date>/ 根下）
+# 2026-10-30(Qoder, H-282) 补 `**`：老规则只匹配 `docs/evidence/<date>/tmp/` 一层，
+# 而 H-279 真机复验的草稿落在 `docs/evidence/<date>/h279-device/tmp/`，`git status` 实测仍显示未跟踪
+# ⇒ 裁剪图与 keymap 会被 `git add -A` 带进 GitHub。实测 0 个已跟踪文件位于任何 evidence `tmp/` 下，
+# 加这条不会让任何已入库文件消失。
+/docs/evidence/**/tmp/
+
+# 真机截屏中转文件（scripts/dev_env.sh dshot 产生）
+cap_recv.png
+docs/evidence/**/tmp/
+
+# 仓库根目录的量测草稿（值守/布局脚本直接落在根下的截图与 layout dump）。
+# 规矩：草稿只留本地，正式证据一律放 docs/evidence/<date>/ 根下（那层是要入库的）。
+# 2026-10-23 实测：根下有 88 个这类文件 / 全仓库未跟踪 13.3 MB，而根目录没有任何已跟踪的 .png/.json ⇒ 下面这些根锚定规则不会碰到已入库文件。
+/*.png
+/*.jpg
+/*.jpeg
+/*.raw
+/*.json
+/tmp-*/
+/tmp-*.txt
+
+# 临时克隆目录（我做行尾 A/B 实测时留下的）。2026-10-23 04:2x 实测：一次 `git clone` 参数写错，
+# 292 MB 的克隆直接落在仓库根下、`git status` 显示为未跟踪目录 —— 嵌套仓库被 `git add -A`
+# 收进去会变成 gitlink（假 submodule），比 88 个草稿严重。规矩：克隆只放
+# F:/qoderwork/_audit_tmp/<date>/，下面这条是兜底，不是许可证。
+/eol_*/
+/eol-*/
+/*clone*/
+/_tmp_clone*/
+
+# 2026-10-30 (Qoder) 入库 GitHub 前的出包口径（决策见 docs/DECISIONS.md D-034）。
+# 三条规矩，逐条都有实测依据：
+# 1) 本地备份不入库：`git ls-files '*.bak-*'` 实测 0 个已跟踪 ⇒ 下面这条不会让任何已入库文件消失。
+#    台账里 *.bak-qoder-* / KeyboardIndex.ets.bak-h278-* 是「改前原样」，本体仍留在磁盘，
+#    需要时按 AGENTS.md 规则 3 直接取用；它们进 git 只会让公开仓库多出一份可反改的旧代码。
+*.bak-*
+# 2) 调研草稿目录不入库：_probe/ 实测 28 MB、.kanban/ 252 KB，历史上 0 个已跟踪。
+#    台账里 133 处 `_probe/xxx` 引用不能变死链，处理办法（H-282）：
+#    `python scripts/import_probe_cited_evidence_qoder.py` 把被点名的原件**复制**进
+#    docs/evidence/_probe-cited/（23 份／2.1 MB，逐条比字节＋sha256，附 MANIFEST.md），
+#    `_probe/` 本体原样留本地，不移动、不删除。
+/_probe/
+/.kanban/
+# 3) 版权签章页不入库：文件里有申请人姓名/证照信息，公开仓库＝把身份信息挂网上。
+#    生成件（operation-manual.pdf / source-code.pdf）照常入库，只挡这一类官方扫描件。
+/docs/release/copyright/*签章页*

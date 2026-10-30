@@ -1,0 +1,28 @@
+# 【构建用方案 · Qoder 2026-10-28】en_word.schema.yaml
+#
+# 为什么存在：与 en2zh_v2.schema.yaml 同一套路（见 #A11）。
+# librime 的 Workspace::BuildSchema 只编译 translator/dictionary 指向的「主字典」；
+# 挂在 @instance 翻译器（table_translator@en_word）上的字典不会被自动编译 →
+# build 目录没有 en_word.table.bin → 引擎启动报 "Error loading table for dictionary 'en_word'"。
+# 把 en_word 做成一个「只供构建」的方案主字典，prebuild_all_schemas 就会编出
+# table.bin + prism + reverse。本方案不进 schema_list，用户在方案菜单里看不到。
+---
+schema:
+  schema_id: en_word
+  name: "英文单词词库·构建用"
+  version: "1.0"
+  author: 三生输入法（数据源 ECDICT，MIT）
+  description: >
+    仅供部署时编译 en_word 字典；实际取词由 wubi_pinyin 方案里的
+    table_translator@en_word 完成（enable_completion 前缀联想）。
+
+translator:
+  dictionary: en_word
+  enable_completion: true
+  enable_sentence: false
+  enable_user_dict: false
+  initial_quality: -4
+
+speller:
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " ;'"

@@ -1,0 +1,59 @@
+{
+ "panel": [
+  0,
+  1849,
+  1280,
+  983
+ ],
+ "scale": 3.5,
+ "space": [
+  712.0,
+  2542
+ ],
+ "enter": [
+  1194.3484761357101,
+  2585.5451408855665
+ ],
+ "probe_shot": "F:\\qoderwork\\sansheng-ime-harmony\\docs\\evidence\\2026-10-28\\h239-settings\\_driver\\PROBE-card-state.jpeg",
+ "content_bottom": 2674,
+ "entry_fired": true,
+ "entry_opened": true,
+ "entry_suppress": true,
+ "entry_shot": "F:\\qoderwork\\sansheng-ime-harmony\\docs\\evidence\\2026-10-28\\h239-settings\\_driver\\entry-settings-open.jpeg",
+ "card": [
+  0,
+  1849,
+  1126,
+  2675
+ ],
+ "card_open": false,
+ "content_h_px": 825,
+ "rows_y": [
+  2086,
+  2254,
+  2422,
+  2590
+ ],
+ "last_tap": {
+  "key": "show_preedit",
+  "n": 1,
+  "mine": [
+   "10-28 04:32:12.342 33656 33656 I A03D00/com.sansheng.ime:inputMethod/JSAPP: SSKeyboard SettingsStore: set show_preedit=true rev=180"
+  ],
+  "wrong": [],
+  "synced": "10-28 04:32:12.342 33656 33656 I A03D00/com.sansheng.ime:inputMethod/JSAPP: SSKeyboardIndex H-241 settings synced: keyFs=24 candFs=22 lpp=300 popup=true haptic=false preedit=true grid=20 step=5 pageSize=9 h=100% rev=180",
+  "shot": "F:\\qoderwork\\sansheng-ime-harmony\\docs\\evidence\\2026-10-28\\h239-settings\\_driver\\after-tap-show_preedit.jpeg"
+ },
+ "card_buttons_top": [
+  2024,
+  2136,
+  2248,
+  2360,
+  2584
+ ],
+ "card_buttons_bottom": [
+  2150,
+  2262,
+  2374
+ ]
+}

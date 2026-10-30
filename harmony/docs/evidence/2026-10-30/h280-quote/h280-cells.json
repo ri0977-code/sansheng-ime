@@ -1,0 +1,65 @@
+{
+  "baseline": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行",
+  "steps": [
+    {
+      "i": 0,
+      "xy": [
+        103,
+        2298
+      ],
+      "before": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行",
+      "after": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行“",
+      "added": "“"
+    },
+    {
+      "i": 1,
+      "xy": [
+        322,
+        2298
+      ],
+      "before": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行“",
+      "after": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行“”",
+      "added": "”"
+    },
+    {
+      "i": 2,
+      "xy": [
+        533,
+        2298
+      ],
+      "before": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行“”",
+      "after": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行“”‘",
+      "added": "‘"
+    },
+    {
+      "i": 3,
+      "xy": [
+        746,
+        2298
+      ],
+      "before": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行“”‘",
+      "after": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行“”‘’",
+      "added": "’"
+    },
+    {
+      "i": 4,
+      "xy": [
+        842,
+        2438
+      ],
+      "before": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行“”‘’",
+      "after": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行“”‘’「",
+      "added": "「"
+    },
+    {
+      "i": 5,
+      "xy": [
+        984,
+        2438
+      ],
+      "before": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行“”‘’「",
+      "after": "rigid demand稍等称王称霸行不行称王称霸行不不行行不行“”‘’「」",
+      "added": "」"
+    }
+  ]
+}

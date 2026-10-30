@@ -1,0 +1,1304 @@
+__build_info:
+  rime_version: 1.17.0
+  timestamps:
+    trime: 1792760297
+    trime.custom: 0
+android_keys:
+  action:
+    command: "命令"
+    commit: "上屏"
+    option: "參數"
+    select: "選擇"
+    send: "按鍵"
+    text: "文字"
+    toggle: "狀態"
+  property:
+    functional: "功能鍵"
+    gap: "間隔"
+    height: "高度"
+    hint: "提示"
+    label: "標籤"
+    preview: "預覽"
+    repeatable: "連續按鍵"
+    shift_lock: "Shift鎖定"
+    states: "狀態標籤"
+    width: "寬度"
+  when:
+    ascii: "西文標籤"
+    click: "單按"
+    combo: "並擊"
+    composing: "輸入狀態標籤"
+    has_menu: "選單標籤"
+    long_click: "長按"
+    paging: "翻頁標籤"
+    swipe_down: "下滑"
+    swipe_left: "左滑"
+    swipe_right: "右滑"
+    swipe_up: "上滑"
+author: osfans
+config_version: 3.0
+fallback_colors:
+  candidate_text_color: text_color
+liquid_keyboard:
+  ascii:
+    keys: ",.?!:;/\\|*-+=$`'\"^~@#%&()[]{}_"
+    name: "英文"
+    type: SINGLE
+  author: tumuyan
+  cn:
+    keys: ["，", "。", "？", "！", "：", "、", "“", "”", "‘", "···", "……", {click: "-"}, {click: "——", label: "破折"}, {click: ""}, "（", "）", "【", "】", "《", "》", "［", "］", "｛", "｝", "「", "」", "『", "』", "～"]
+    name: "中文"
+    type: SINGLE
+  combing:
+    keys: ["⃢", "꯭", "̣", "̲"]
+    name: "组合"
+    type: SINGLE
+  emoji:
+    keys: "🙂😂🤣😆🙃😅🥺😎👀🙈🙉🙊☹😑😄🤐😨😱🌚🌝🤔❤💔🌹💣👌👍😣😥😮🙄😏😕😯😪😫😴😌🤑😉😋😎😍😘😚😛😜😝😒😓😔😲😷🤒😇🤓🤗🤕🙁😖😞😟😤😢😭😦😧😨😩😬😰😳😵😡😠☝✌🖕👎🙏🤘👏💪💋☘🍀🌸☕🍵🍺🍻🍦🍬🍚🍜🍲🍖🎂💤"
+    type: SINGLE
+  emoji_full:
+    keys: "😀😃😄😁😆😅🤣😂🙂🙃🫠😉😊😇🥰😍🤩😘😗☺😚😙🥲😋😛😜🤪😝🤑🤗🤭🫢🫣🤫🤔🫡🤐🤨😐😑😶🫥😏😒🙄😬🤥😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😎🤓🧐😕🫤😟🙁☹😮😯😲😳🥺🥹😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠💩🤡👹👺👻👽👾🤖😺😸😹😻😼😽🙀😿😾🙈🙉🙊💌💘💝💖💗💓💞💕💟❣💔❤🧡💛💚💙💜🤎🖤🤍💋💯💢💥💫💦💨🕳💬🗨🗯💭💤👋🤚🖐✋🖖🫱🫲🫳🫴👌🤌🤏✌🤞🫰🤟🤘🤙👈👉👆🖕👇☝🫵👍👎✊👊🤛🤜👏🙌🫶👐🤲🤝🙏✍💅🤳💪🦾🦿🦵🦶👂🦻👃🧠🫀🫁🦷🦴👀👁👅👄🫦👶🧒👦👧🧑👱👨🧔👩🧓👴👵🙍🙎🙅🙆💁🙋🧏🙇🤦🤷👮🕵💂🥷👷🫅🤴👸👳👲🧕🤵👰🤰🫃🫄🤱👼🎅🤶🦸🦹🧙🧚🧛🧜🧝🧞🧟🧌💆💇🚶🧍🧎🏃💃🕺🕴👯🧖🧗🤺🏇⛷🏂🏌🏄🚣🏊⛹🏋🚴🚵🤸🤼🤽🤾🤹🧘🛀🛌👭👫👬💏💑👪🗣👤👥🫂👣🏻🏼🏽🏾🏿🦰🦱🦳🦲🐵🐒🦍🦧🐶🐕🦮🐩🐺🦊🦝🐱🐈🦁🐯🐅🐆🐴🐎🦄🦓🦌🦬🐮🐂🐃🐄🐷🐖🐗🐽🐏🐑🐐🐪🐫🦙🦒🐘🦣🦏🦛🐭🐁🐀🐹🐰🐇🐿🦫🦔🦇🐻🐨🐼🦥🦦🦨🦘🦡🐾🦃🐔🐓🐣🐤🐥🐦🐧🕊🦅🦆🦢🦉🦤🪶🦩🦚🦜🐸🐊🐢🦎🐍🐲🐉🦕🦖🐳🐋🐬🦭🐟🐠🐡🦈🐙🐚🪸🐌🦋🐛🐜🐝🪲🐞🦗🪳🕷🕸🦂🦟🪰🪱🦠💐🌸💮🪷🏵🌹🥀🌺🌻🌼🌷🌱🪴🌲🌳🌴🌵🌾🌿☘🍀🍁🍂🍃🪹🪺🍄🍇🍈🍉🍊🍋🍌🍍🥭🍎🍏🍐🍑🍒🍓🫐🥝🍅🫒🥥🥑🍆🥔🥕🌽🌶🫑🥒🥬🥦🧄🧅🥜🫘🌰🍞🥐🥖🫓🥨🥯🥞🧇🧀🍖🍗🥩🥓🍔🍟🍕🌭🥪🌮🌯🫔🥙🧆🥚🍳🥘🍲🫕🥣🥗🍿🧈🧂🥫🍱🍘🍙🍚🍛🍜🍝🍠🍢🍣🍤🍥🥮🍡🥟🥠🥡🦀🦞🦐🦑🦪🍦🍧🍨🍩🍪🎂🍰🧁🥧🍫🍬🍭🍮🍯🍼🥛☕🫖🍵🍶🍾🍷🍸🍹🍺🍻🥂🥃🫗🥤🧋🧃🧉🧊🥢🍽🍴🥄🔪🫙🏺🌍🌎🌏🌐🗺🗾🧭🏔⛰🌋🗻🏕🏖🏜🏝🏞🏟🏛🏗🧱🪨🪵🛖🏘🏚🏠🏡🏢🏣🏤🏥🏦🏨🏩🏪🏫🏬🏭🏯🏰💒🗼🗽⛪🕌🛕🕍⛩🕋⛲⛺🌁🌃🏙🌄🌅🌆🌇🌉♨🎠🛝🎡🎢💈🎪🚂🚃🚄🚅🚆🚇🚈🚉🚊🚝🚞🚋🚌🚍🚎🚐🚑🚒🚓🚔🚕🚖🚗🚘🚙🛻🚚🚛🚜🏎🏍🛵🦽🦼🛺🚲🛴🛹🛼🚏🛣🛤🛢⛽🛞🚨🚥🚦🛑🚧⚓🛟⛵🛶🚤🛳⛴🛥🚢✈🛩🛫🛬🪂💺🚁🚟🚠🚡🛰🚀🛸🛎🧳⌛⏳⌚⏰⏱⏲🕰🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦🌑🌒🌓🌔🌕🌖🌗🌘🌙🌚🌛🌜🌡☀🌝🌞🪐⭐🌟🌠🌌☁⛅⛈🌤🌥🌦🌧🌨🌩🌪🌫🌬🌀🌈🌂☂☔⛱⚡❄☃⛄☄🔥💧🌊🎃🎄🎆🎇🧨✨🎈🎉🎊🎋🎍🎎🎏🎐🎑🧧🎀🎁🎗🎟🎫🎖🏆🏅🥇🥈🥉⚽⚾🥎🏀🏐🏈🏉🎾🥏🎳🏏🏑🏒🥍🏓🏸🥊🥋🥅⛳⛸🎣🤿🎽🎿🛷🥌🎯🪀🪁🎱🔮🪄🎮🕹🎰🎲🧩🧸🪅🪩🪆♠♥♦♣♟🃏🀄🎴🔫🎭🖼🎨🧵🪡🧶🪢👓🕶🥽🥼🦺👔👕👖🧣🧤🧥🧦👗👘🥻🩱🩲🩳👙👚👛👜👝🛍🎒🩴👞👟🥾🥿👠👡🩰👢👑👒🎩🎓🧢🪖⛑📿💄💍💎🔇🔈🔉🔊📢📣📯🔔🔕🎼🎵🎶🎙🎚🎛🎤🎧📻🎷🪗🎸🎹🎺🎻🪕🥁🪘📱📲☎📞📟📠🔋🪫🔌💻🖥🖨⌨🖱🖲💽💾💿📀🧮🎥🎞📽🎬📺📷📸📹📼🔍🔎🕯💡🔦🏮🪔📔📕📖📗📘📙📚📓📒📃📜📄📰🗞📑🔖🏷💰🪙💴💵💶💷💸💳🧾💹✉📧📨📩📤📥📦📫📪📬📭📮🗳✏✒🖋🖊🖌🖍📝💼📁📂🗂📅📆🗒🗓📇📈📉📊📋📌📍📎🖇📏📐✂🗃🗄🗑🔒🔓🔏🔐🔑🗝💣🔨🪓⛏⚒🛠🗡⚔🪃🏹🛡🪚🔧🪛🔩⚙🗜⚖🦯🔗⛓🪝🧰🧲🪜⚗🧪🧫🧬🔬🔭📡💉🩸💊🩹🩼🩺🩻🚪🛗🪞🪟🛏🛋🪑🚽🪠🚿🛁🪤🪒🧴🧷🧹🧺🧻🪣🧼🫧🪥🧽🧯🛒🧿🪬🚬⚰🪦⚱🗿🪧🪪🏧🚮🚰♿🚹🚺🚻🚼🚾🛂🛃🛄🛅⚠🚸⛔🚫🚳🚭🚯🚱🚷📵🔞☢☣⬆↗➡↘⬇↙⬅↖↕↔↩↪⤴⤵🔃🔄🔙🔚🔛🔜🔝🛐⚛🕉✡☸☯✝☦☪☮🕎🔯♈♉♊♋♌♍♎♏♐♑♒♓⛎🔀🔁🔂▶⏩⏭⏯◀⏪⏮🔼⏫🔽⏬⏸⏹⏺⏏🎦🔅🔆📶📳📴♀♂⚧✖➕➖➗🟰♾‼⁉❓❔❕❗〰💱💲⚕♻⚜🔱📛🔰⭕✅☑✔❌❎➰➿〽✳✴❇©®™🔟🔠🔡🔢🔣🔤🅰🆎🅱🆑🆒🆓ℹ🆔Ⓜ🆕🆖🅾🆗🅿🆘🆙🆚🈁🈂🈷🈶🈯🉐🈹🈚🈲🉑🈸🈴🈳㊗㊙🈺🈵🔴🟠🟡🟢🔵🟣🟤⚫⚪🟥🟧🟨🟩🟦🟪🟫⬛⬜◼◻◾◽▪▫🔶🔷🔸🔹🔺🔻💠🔘🔳🔲🏁🚩🎌🏴🏳"
+    name: "全emoji"
+    type: SINGLE
+  fixed_key_bar:
+    keys: [liquid_keyboard_exit, space1, BackSpace, Return2, clipboard_window, liquid_keyboard_switch]
+    position: bottom
+  grease:
+    keys: "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω"
+    name: "希腊"
+    type: SINGLE
+  history:
+    name: "常用"
+    type: HISTORY
+  ids:
+    keys: "⿰⿱⿲⿳⿴⿵⿶⿷⿸⿹⿺⿻↷↔"
+    name: IDS
+    type: SINGLE
+  jp:
+    keys: "あいうえおかがきぎくぐけげこごさざしじすずせぜそぞただちぢつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろわをんアィイウェエオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロワヲン"
+    name: "假名"
+    type: SINGLE
+  key_height: 40
+  key_height_land: 40
+  keyboards:
+    - emoji
+    - math
+    - ascii
+    - cn
+    - history
+    - symbollist
+    - list
+    - ids
+    - symbol
+    - tabs
+    - pinyin
+    - script_symbols
+    - jp
+    - grease
+    - rusa
+    - korea
+    - lation
+    - yinbiao
+    - unit
+    - yanwenzi
+    - combing
+    - emoji_full
+  korea:
+    keys: "dㅏㅑㅓㅕㅗㅛㅜㅠㅡㅣㅐㅒㅔㅖㅘㅙㅚㅝㅞㅟㅢㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎㄲㄸㅚㅆㅉ㉠㉡㉢㉣㉤㉥㉦㉧㉨㉩㉪㉫㉬㉭㉮㉯㉰㉱㉲㉳㉴㉵㉶㉷㉸㉹㉺㉻㈀㈁㈂㈃㈄㈅㈆㈇㈈㈉㈊㈋㈌㈍㈎㈏㈐㈑㈒㈓㈔㈕㈖㈗㈘㈙㈚㈛"
+    name: "韩文"
+    type: SINGLE
+  lation:
+    keys: "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞŠŸŒàáâãäåæçèéêëìíîïðñòóõôöøùúûüýþšÿœ"
+    name: "拉丁"
+    type: SINGLE
+  list:
+    keys: "①②③④⑤⑥⑦⑧⑨⑩⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩➊➋➌➍➎➏➐➑➒➓㊀㊁㊂㊃㊄㊅㊆㊇㊈㊉ⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ"
+    name: "列表"
+    type: SINGLE
+  margin_x: 5
+  math:
+    keys: "≈＝≠≌<>≤≥≡()[]{}-+±×*/÷&∥%‰‱°′″∫∮∯∬∭∰∞∑∧∏∈∵∴⊥∝∨∪•√〒∝∽∈∩∧⊙⌒∥∟∣∂∆∞≌∉∪∨⊕⊿⊥∠∫∬∭"
+    name: "数学"
+    type: SINGLE
+  pinyin:
+    keys: "āáǎàōóēéěèǒòīíǐìūúǖǘǚǜǔùêüńňㄚㄛㄜㄧㄨㄩㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙ"
+    name: "拼音"
+    type: SINGLE
+  row: 6
+  row_land: 5
+  rusa:
+    keys: "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+    name: "俄语"
+    type: SINGLE
+  script_symbols:
+    keys: "𝒶𝒷𝒸𝒹ℯ𝒻ℊ𝒽𝒾𝒿𝓀𝓁𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵"
+    name: "𝒶𝒜"
+    type: SINGLE
+  single_width: 60
+  symbol:
+    keys: "△▽○◇□☆▲▼●◆■★▷◁▶◀♻♲†⚝✡⚹✦✸✹￼�×⌫☑☒✅❎✔✘✓✗☀☼☽☾◑◐㏂㏘☭♀♂☹☻☠☜☝☞☚☟☛▪•‥…∷※♩♪♫♬§°♭♯♮‖¶№◎¤۞℗®©卍卐℡™㏇Φ⇦⇧⇨⇩⇪↖↑↗←↔→↙↓↘⇄⇅⇆⇤↩⇥▸◂▴▾◤◥◣◢㊤㊧㊥㊨㊦❏❐◲〼▢▣↶✁↷✍⏍ϟ📝✎✆☱☰☴⚿⛮⚙☲☯☵⛶☩☐☳☷☶💬🗨⟲ღ✈☂🎤🌐🔍"
+    name: "特殊"
+    type: SINGLE
+  symbollist:
+    keys: [{"符号": "/fh"}, {"电脑": "/dn"}, {"象棋": "/xq"}, {"麻将": "/mj"}, {"骰子": "/sz"}, {"扑克": "/pk"}, {"天气": "/tq"}, {"音乐": "/yy"}, {"八卦": "/bg"}, {"易经": "/lssg"}, {"天体": "/tt"}, {"星座": "/xz"}, {"星号": "/xh"}, {"方块": "/fk"}, {"几何": "/jh"}, {"箭头": "/jt"}, {"数学": "/sx"}, {"上标": "/sb"}, {"下标": "/xb"}, {"单位": "/dw"}, {"货币": "/hb"}, {"拼音": "/py"}, {"注音": "/zy"}, {"假名": "/jm"}, {"片假": "/pjm"}, {"韩文": "/hw"}, {"希腊": "/xl"}, {"希大": "/xld"}, {"罗马": "/lm"}, {"罗大": "/lmd"}, {"俄语": "/ey"}, {"俄大": "/eyd"}, {"表情": "/bq"}, {"一": "/1"}, {"二": "/2"}, {"三": "/3"}, {"四": "/4"}, {"五": "/5"}, {"六": "/6"}, {"七": "/7"}, {"八": "/8"}, {"九": "/9"}, {"零": "/0"}, {"十": "/10"}, {"分数": "/fs"}, {"标点": "/bd"}, {"偏旁": "/pp"}, {"竖标": "/bdz"}]
+    name: "符号表"
+    type: SYMBOL
+  tabs:
+    name: "更多"
+    type: TABS
+  unit:
+    keys: "℃¥$€฿￡㎡m³℉￥£￠₠¹²³⁴⁵ⁿ⁶⁷⁸⁹⁰ˣ⁺⁻⁼⁽⁾½⅓¼⅔¾₁₂₃₄₅ₙ₆₇₈₉₀ₓ₊₋₌₍₎℅"
+    name: "单位"
+    type: SINGLE
+  vertical_gap: 1
+  yanwenzi:
+    keys: ["⎛⎝≥⏝⏝≤⎠⎞", "^_^", "^ω^", "^o^", "~\\(≧▽≦)/~", "*^_^*", "↖(^ω^)↗", "(^o^)／", "(=^▽^=)", "=^_^=", "(*^ω^*)", "٩(๑^o^๑)۶", "o(￣▽￣)o", "Y(^_^)Y", "٩( 'ω' )و", "╰(*´︶`*)╯", "*罒▽罒*", "ヾ ^_^♪", "=￣ω￣=", "︿(￣︶￣)︿", "(´▽｀)ノ♪", "乁( ˙ ω˙乁)", "✧*｡٩(ˊωˋ*)و✧*｡", "～(￣▽￣～)(～￣▽￣)～", QwQ, "(●—●)", "(๑• . •๑)", "ヾ(≧O≦)〃嗷~", "罒ω罒", "(｡ì _ í｡)", "(๑•ี_เ•ี๑)", "ㄟ(≧◇≦)ㄏ", "(*/ω＼*)", "●▽●", "٩(๑òωó๑)۶", "✺◟(∗❛ัᴗ❛ั∗)◞✺", "( σ'ω')σ", "♡＾▽＾♡", "(๑•̀ㅂ•́)و✧", "(ง •̀_•́)ง", "(｡･ω･｡)ﾉ♡", "(☆_☆)", "(๑°3°๑)", "_(•̀ω•́ 」∠)_", "♪～(´ε｀　)", "～(^з^)-☆", "(´∀｀)♡", "ლ(´ڡ`ლ)", "(＞﹏＜)", T_T, "⊙︿⊙", "〒▽〒", "⊙﹏⊙", "π_π", "(｡•́︿•̀｡)", "(ToT)/~~~", "╯﹏╰", "ಥ_ಥ", "(╥╯^╰╥)", "(〃′o`)", "●﹏●", "( •̥́ ˍ •̀ू )", "(つд⊂)", "心塞(´-ωก`)", "(╥﹏╥)", "┭┮﹏┭┮", "（；´д｀）ゞ", "(´;︵;`)", "(。﹏。)", "┗( T﹏T )┛", QAQ, "ヘ(_ _ヘ)", "╰（‵□′）╯", "(*￣︿￣)", ">o<", "(-`ェ´-怒)", "ヽ(‘⌒´メ)ノ", "(*｀Ω´*)v", "(｡•ˇ‸ˇ•｡)", "(怒｀Д´怒)", "٩(๑`^´๑)۶", "(;｀O´)o", "╰_╯", "(#｀皿´)<怒怒怒!!!", "<(｀^´)>", "（｀Δ´）！", "ψ(｀∇´)ψ", "(；′⌒`)", "s(・｀ヘ´・;)ゞ", "(▼皿▼#)", "￣へ￣", "←_←", "（╯‵□′）╯︵┴─┴", "（▼へ▼メ）", "☄ฺ(◣д◢)☄ฺ", "→_→", "⊙_⊙", "d(ŐдŐ๑)", "Σ( ° △ °|||)︴", "(((φ(◎ロ◎;)φ)))", "⊙▽⊙", "(๑ŐдŐ)b", "╭(°A°`)╮", "(๑òᆺó๑)", "⊙ω⊙", "Σ(っ °Д °;)っ", " (ﾟДﾟ≡ﾟдﾟ)!?", "( *・ω・)✄╰ひ╯", "(⊙x⊙;)", "┌(。Д。)┐", "(°ー°〃)", "︽⊙_⊙︽", "!!!∑(°Д°ノ)ノ", "(๑ŐдŐ)b☆d(ŐдŐ๑)", "Σ⊙▃⊙川", "ヽ(*。>Д<)o゜", "━((*′д｀)爻(′д｀*))━!!!!", "=_=", "╮(╯_╰)╭", "（︶︿︶）", "_(:з」∠)_", "@_@", "╮(╯▽╰)╭", "(＠￣ー￣＠)", "_(:3」∠❀)_", "눈_눈", "╭(╯ε╰)╮", "(ー_ー)!!", "_(:D)∠)_", o_O, "╭(╯^╰)╮", "(；一_一)", "´_>`", "-_-#", "┑(￣Д ￣)┍", "≡￣﹏￣≡", "○|￣|_", "-_-||", "ㄟ( ▔, ▔ )ㄏ", "( ＿ ＿)ノ｜壁", "▄█▀█●"]
+    name: "颜文字"
+    type: SINGLE
+  yinbiao:
+    keys: ["a:", "ɔ:", "ɜː", "i:", "u:", "ʌ", "ɒ", "ə", "ɪ", "ʊ", e, "æ", "eɪ", "aɪ", "ɔɪ", "ɪə", "eə", "ʊə", "əʊ", "aʊ", p, t, k, f, "θ", s, b, d, g, v, "ð", z, "ʃ", h, ts, "tʃ", j, tr, "ʒ", r, dz, "dʒ", dr, w, m, n, "ŋ", l]
+    name: "音标"
+    type: SINGLE
+name: "預設"
+preedit:
+  foreground:
+    font_size: 16
+  horizontal_padding: 8
+  top_end_radius: 4
+  top_start_radius: 4
+preset_color_schemes:
+  android:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0x1c7399
+    border_color: 0x1c7399
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0x1c7399
+    hilited_candidate_back_color: 0xa8c450
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xa8c450
+    label_color: 0x3588c1
+    name: "安卓／Android"
+    text_color: 0xffffff
+  aqua:
+    author: "佛振 <chen.sst@gmail.com>"
+    back_color: 0xeeeeec
+    border_color: 0xe0e0e0
+    hilited_back_color: 0xd4d4d4
+    hilited_candidate_back_color: 0x0a3afa
+    hilited_candidate_text_color: 0xffffff
+    hilited_text_color: 0x000000
+    name: "碧水／Aqua"
+    text_color: 0x000000
+  azure:
+    author: "佛振 <chen.sst@gmail.com>"
+    back_color: 0x014e8b
+    border_color: 0x014e8b
+    candidate_text_color: 0xeef8ff
+    comment_text_color: 0x6496c6
+    hilited_back_color: 0x014e8b
+    hilited_candidate_back_color: 0x015ea9
+    hilited_candidate_text_color: 0xfffe7f
+    hilited_text_color: 0xeef8ff
+    name: "青天／Azure"
+    text_color: 0xcae8ff
+  brasil:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0x119355
+    border_color: 0x119355
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0x17367d
+    hilited_candidate_back_color: 0xf7c716
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xffffff
+    label_color: 0xffffff
+    name: "笆悉／Brasil"
+    text_color: 0xffffff
+  brisk:
+    author: "skoj <skoj@qq.com>"
+    back_color: 0xffffff
+    border_color: 0x333333
+    candidate_text_color: 0x575757
+    hilited_back_color: 0xffffff
+    hilited_candidate_back_color: 0xffffff
+    hilited_candidate_text_color: 0xdc3822
+    hilited_text_color: 0xdc3822
+    name: "輕盈／Brisk"
+    text_color: 0xdc3822
+  cool_breeze:
+    author: "skoj <skoj@qq.com>"
+    back_color: 0xFBFBFF
+    border_color: 0xAAAAFF
+    candidate_text_color: 0x009100
+    hilited_back_color: 0xFBFBFF
+    hilited_candidate_back_color: 0xACD6FF
+    hilited_candidate_text_color: 0x3A006F
+    hilited_text_color: 0xCE0000
+    name: "清風／Cool Breeze"
+    text_color: 0xFF0000
+  dark_temple:
+    author: "佛振 <chen.sst@gmail.com>, based on ir_black"
+    back_color: 0x222222
+    border_color: 0x222222
+    candidate_text_color: 0xe6e3d8
+    comment_text_color: 0xff6c60
+    hilited_back_color: 0x222222
+    hilited_candidate_back_color: 0x333333
+    hilited_candidate_text_color: 0xdaf692
+    hilited_text_color: 0x9acfff
+    name: "暗堂／Dark Temple"
+    text_color: 0xdaf692
+  default:
+    author: Sansheng
+    back_color: 0xff0a0e18
+    border_color: 0xff2a3549
+    candidate_separator_color: 0xff2a3549
+    candidate_text_color: 0xfff5f6f8
+    comment_text_color: 0xff9aa3b2
+    hilited_back_color: 0xff2a3549
+    hilited_candidate_back_color: 0xff2a3549
+    hilited_candidate_text_color: 0xfff5bc5c
+    hilited_comment_text_color: 0xfff5bc5c
+    hilited_key_back_color: 0xff2a3549
+    hilited_key_symbol_color: 0xfff5bc5c
+    hilited_key_text_color: 0xfff5f6f8
+    hilited_off_key_back_color: 0xff2a3549
+    hilited_off_key_text_color: 0xfff5f6f8
+    hilited_on_key_back_color: 0xfff5bc5c
+    hilited_on_key_text_color: 0xff131a28
+    hilited_text_color: 0xfff5bc5c
+    key_back_color: 0xff1e283c
+    key_symbol_color: 0xff9aa3b2
+    key_text_color: 0xffe9ecf2
+    keyboard_back_color: 0xff0c111c
+    label_color: 0xfff5bc5c
+    light_scheme: ss_day
+    name: "三生·夜"
+    off_key_back_color: 0xff131a28
+    off_key_text_color: 0xffc8cfda
+    on_key_back_color: 0xfff5bc5c
+    on_key_text_color: 0xff131a28
+    preview_back_color: 0xff2a3549
+    preview_text_color: 0xfff5bc5c
+    shadow_color: 0xff060a12
+    text_back_color: 0xff131a28
+    text_color: 0xfff5bc5c
+  doraemon:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0xffffff
+    border_color: 0x009fe8
+    candidate_text_color: 0x009fe8
+    comment_text_color: 0x009fe8
+    hilited_back_color: 0xe50012
+    hilited_candidate_back_color: 0x009fe8
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xffffff
+    label_color: 0x009fe8
+    name: "銅鑼衛門／Doraemon"
+    text_color: 0xe50012
+  dota_2:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0x100f12
+    border_color: 0x100f12
+    candidate_text_color: 0x8f755c
+    comment_text_color: 0x8f755c
+    hilited_back_color: 0x100f12
+    hilited_candidate_back_color: 0xdd4118
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xdd4118
+    label_color: 0x8f755c
+    name: "DOTA 2"
+    text_color: 0xffffff
+  espagna:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0xc30d23
+    border_color: 0xc30d23
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0xf7b52c
+    hilited_candidate_back_color: 0xf7b52c
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xffffff
+    label_color: 0xffffff
+    name: "埃斯巴尼亞／España"
+    text_color: 0xffffff
+  flypy:
+    author: "Pal.lxk <Pal.lxk@gmail.com>"
+    back_color: 0xffffff
+    border_color: 0xc6c6c6
+    candidate_text_color: 0x0080ff
+    comment_text_color: 0x0080ff
+    hilited_back_color: 0xffffff
+    hilited_candidate_back_color: 0xffffff
+    hilited_candidate_text_color: 0xb00000
+    hilited_comment_text_color: 0xb00000
+    hilited_text_color: 0x0080ff
+    label_color: 0x0080ff
+    name: "小鶴飛揚／flypy"
+    text_color: 0x000000
+  gholabok:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0xe83929
+    border_color: 0xe83929
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0x007b43
+    hilited_candidate_back_color: 0xed6d3d
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xffffff
+    label_color: 0xffffff
+    name: "胡蘿菔／Gholabok"
+    text_color: 0xffffff
+  google:
+    author: "skoj <skoj@qq.com>"
+    back_color: 0xFFFFFF
+    border_color: 0xE2E2E2
+    candidate_text_color: 0x000000
+    hilited_back_color: 0xFFFFFF
+    hilited_candidate_back_color: 0x3975CE
+    hilited_candidate_text_color: 0xFFFFFF
+    hilited_text_color: 0x000000
+    name: "谷歌／Google"
+    text_color: 0x666666
+  google_plus:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0xffffff
+    border_color: 0xdd4b39
+    candidate_text_color: 0xdd4b39
+    comment_text_color: 0xc8c9ca
+    hilited_back_color: 0xffffff
+    hilited_candidate_back_color: 0xdd4b39
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xdd4b39
+    label_color: 0xc8c9ca
+    name: "Google+"
+    text_color: 0xc8c9ca
+  ink:
+    author: "佛振 <chen.sst@gmail.com>"
+    back_color: 0xffffff
+    border_color: 0x000000
+    hilited_back_color: 0xdddddd
+    hilited_candidate_back_color: 0x000000
+    hilited_candidate_text_color: 0xffffff
+    hilited_text_color: 0x000000
+    name: "墨池／Ink"
+    text_color: 0x000000
+  kuma_shuzboz:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0xf8b62d
+    border_color: 0xf8b62d
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0xffffff
+    hilited_candidate_back_color: 0x000000
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xf8b62d
+    label_color: 0xffffff
+    name: "熊出沒／Kuma Shuzboz"
+    text_color: 0x000000
+  kuon:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0x3eb370
+    border_color: 0x3eb370
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0xffffff
+    hilited_candidate_back_color: 0xffffff
+    hilited_candidate_text_color: 0x3eb370
+    hilited_comment_text_color: 0x3eb370
+    hilited_text_color: 0x3eb370
+    label_color: 0xffffff
+    name: "琨／Kuon"
+    text_color: 0xffffff
+  lost_temple:
+    author: "佛振 <chen.sst@gmail.com>, based on ir_black"
+    back_color: 0x444444
+    border_color: 0x444444
+    hilited_back_color: 0x222222
+    hilited_candidate_back_color: 0xcae682
+    hilited_candidate_text_color: 0x000000
+    hilited_text_color: 0xcae682
+    name: "孤寺／Lost Temple"
+    text_color: 0xf6f3e8
+  luna:
+    author: "佛振 <chen.sst@gmail.com>"
+    back_color: 0xffffff
+    border_color: 0xcccccc
+    hilited_back_color: 0xffff7f
+    hilited_candidate_back_color: 0x000000
+    hilited_candidate_text_color: 0xffffff
+    hilited_text_color: 0x000000
+    name: "明月／Luna"
+    text_color: 0x000000
+  macau:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0x00a381
+    border_color: 0x00a381
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0xffd900
+    hilited_candidate_back_color: 0xffffff
+    hilited_candidate_text_color: 0xffd900
+    hilited_comment_text_color: 0xffd900
+    hilited_text_color: 0xffffff
+    label_color: 0xffffff
+    name: "澳門／Macau"
+    text_color: 0xffd900
+  modern_warfare:
+    author: P1461
+    back_color: 0x0d1b0a
+    border_color: 0x83ad4b
+    candidate_text_color: 0xdcfeab
+    comment_text_color: 0xfbfdfc
+    hilited_back_color: 0x060e03
+    hilited_candidate_back_color: 0x636f67
+    hilited_candidate_text_color: 0xdcfeab
+    hilited_text_color: 0xfcfdfb
+    name: "現代戰爭／Modern Warfare"
+    text_color: 0x70bc14
+  nba:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0x006ab7
+    border_color: 0x006ab7
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0xffffff
+    hilited_candidate_back_color: 0xd71e54
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xd71e54
+    label_color: 0xffffff
+    name: NBA
+    text_color: 0xffffff
+  ps4:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0x000000
+    border_color: 0x000000
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0x595757
+    hilited_candidate_back_color: 0x009fe8
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xffffff
+    label_color: 0xffffff
+    name: "遊驛四／PS4"
+    text_color: 0xffffff
+  skype:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0x00adef
+    border_color: 0x00adef
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0xffffff
+    hilited_candidate_back_color: 0xffffff
+    hilited_candidate_text_color: 0x00adef
+    hilited_comment_text_color: 0x00adef
+    hilited_text_color: 0x00adef
+    label_color: 0xffffff
+    name: "斯蓋普／Skype"
+    text_color: 0xffffff
+  smurfs:
+    author: "skoj <skoj@qq.com>"
+    back_color: 0x1778bf
+    border_color: 0xe0edf5
+    candidate_text_color: 0xf6f6f6
+    comment_text_color: 0xf6f6f6
+    hilited_back_color: 0x1778bf
+    hilited_candidate_back_color: 0x6dbcdb
+    hilited_candidate_text_color: 0xf6f6f6
+    hilited_comment_text_color: 0xf6f6f6
+    hilited_text_color: 0x6dbcdb
+    label_color: 0x1778bf
+    name: "藍精靈／Smurfs"
+    text_color: 0xffffff
+  so_young:
+    author: "五磅兔 <zcunlin@foxmail.com>"
+    back_color: 0xfdf6e3
+    border_color: 0xeee8d5
+    candidate_text_color: 0x657b83
+    comment_text_color: 0x268bd2
+    hilited_back_color: 0xeee8d5
+    hilited_candidate_back_color: 0x2aa198
+    hilited_candidate_text_color: 0xeee8d5
+    hilited_comment_text_color: 0xeee8d5
+    hilited_text_color: 0x839496
+    label_color: 0x93a1a1
+    name: "致青春／So Young"
+    text_color: 0xd33682
+  solarized_rock:
+    author: "Aben <tntaben@gmail.com>, based on Ethan Schoonover's Solarized color scheme"
+    back_color: 0x002b36
+    border_color: 0x002b36
+    candidate_text_color: 0x839496
+    hilited_candidate_back_color: 0xd33682
+    hilited_candidate_text_color: 0xffffff
+    hilited_text_color: 0x2aa198
+    name: "曬經石／Solarized Rock"
+    text_color: 0x859900
+  ss_day:
+    author: Sansheng
+    back_color: 0xffe7e1d3
+    border_color: 0xffd6cfbe
+    candidate_separator_color: 0xffd6cfbe
+    candidate_text_color: 0xff17203a
+    comment_text_color: 0xff6b7280
+    hilited_back_color: 0xffe7e1d3
+    hilited_candidate_back_color: 0xffe7e1d3
+    hilited_candidate_text_color: 0xffb8862b
+    hilited_comment_text_color: 0xff8a6a22
+    hilited_key_back_color: 0xffe7e1d3
+    hilited_key_symbol_color: 0xffb8862b
+    hilited_key_text_color: 0xff17203a
+    hilited_off_key_back_color: 0xffd6cfbe
+    hilited_off_key_text_color: 0xff17203a
+    hilited_on_key_back_color: 0xffb8862b
+    hilited_on_key_text_color: 0xffffffff
+    hilited_text_color: 0xffb8862b
+    key_back_color: 0xffffffff
+    key_symbol_color: 0xff8a6a22
+    key_text_color: 0xff17203a
+    keyboard_back_color: 0xfff3f0e8
+    label_color: 0xff8a6a22
+    name: "三生·日"
+    off_key_back_color: 0xffe7e1d3
+    off_key_text_color: 0xff17203a
+    on_key_back_color: 0xffb8862b
+    on_key_text_color: 0xffffffff
+    preview_back_color: 0xffffffff
+    preview_text_color: 0xffb8862b
+    shadow_color: 0xffd6cfbe
+    text_back_color: 0xffe7e1d3
+    text_color: 0xffb8862b
+  starcraft:
+    author: "Contralisk <contralisk@gmail.com>, original artwork by Blizzard Entertainment"
+    back_color: 0x000000
+    border_color: 0xa01010
+    candidate_text_color: 0x55bb30
+    hilited_back_color: 0x000000
+    hilited_candidate_back_color: 0x000000
+    hilited_candidate_text_color: 0xa8ff60
+    hilited_text_color: 0x96cbfe
+    name: "星際我爭霸／StarCraft"
+    text_color: 0x88aacc
+  starcraft_ii:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0x0a1929
+    border_color: 0x464b53
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0x0a1017
+    hilited_candidate_back_color: 0x1eadef
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xffffff
+    label_color: 0xffffff
+    name: "星際爭霸Ⅱ／StarCraft Ⅱ"
+    text_color: 0xffffff
+  steam:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0x171614
+    border_color: 0x383635
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xa9a7a7
+    hilited_back_color: 0x171614
+    hilited_candidate_back_color: 0x314259
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xa9a7a7
+    hilited_text_color: 0xd1cfc9
+    label_color: 0xffffff
+    name: Steam
+    text_color: 0x528ccd
+  tantsing:
+    author: Mijiag
+    back_color: 0xe3e3e3
+    border_color: 0x000000
+    candidate_text_color: 0x000000
+    comment_text_color: 0x474747
+    hilited_back_color: 0x91071a
+    hilited_candidate_back_color: 0x730b6f
+    hilited_candidate_text_color: 0xe3e3e3
+    hilited_text_color: 0xe3e3e3
+    name: "丹青"
+    text_color: 0x000000
+  tintin:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0x0095d9
+    border_color: 0x0095d9
+    candidate_text_color: 0xffffff
+    comment_text_color: 0xffffff
+    hilited_back_color: 0x0095d9
+    hilited_candidate_back_color: 0xf16421
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0x91d8f7
+    label_color: 0xffffff
+    name: "丁丁／ Tintin"
+    text_color: 0xffffff
+  wii:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0xefefef
+    border_color: 0xefefef
+    candidate_text_color: 0x595757
+    comment_text_color: 0xc8c9ca
+    hilited_back_color: 0xefefef
+    hilited_candidate_back_color: 0x33ccff
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0x33ccff
+    label_color: 0xc8c9ca
+    name: Wii
+    text_color: 0x595757
+  xbox_silver:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0xeeeeef
+    border_color: 0xeeeeef
+    candidate_text_color: 0x8dc21f
+    comment_text_color: 0x8dc21f
+    hilited_back_color: 0xb5f05b
+    hilited_candidate_back_color: 0x288c44
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xffffff
+    label_color: 0xb5f05b
+    name: "銀色叉盒／Xbox Silver"
+    text_color: 0x8dc21f
+  youtube:
+    author: "Patricivs <ipatrickmac@me.com>"
+    back_color: 0xdedede
+    border_color: 0xdedede
+    candidate_text_color: 0x000000
+    comment_text_color: 0x000000
+    hilited_back_color: 0xffffff
+    hilited_candidate_back_color: 0xc30d23
+    hilited_candidate_text_color: 0xffffff
+    hilited_comment_text_color: 0xffffff
+    hilited_text_color: 0xc30d23
+    label_color: 0x000000
+    name: YouTube
+    text_color: 0x000000
+  yygc:
+    author: "小辛"
+    back_color: 0xffffff
+    border_color: 0xffffff
+    candidate_text_color: 0x7f7f7f
+    comment_text_color: 0x7f7f7f
+    hilited_back_color: 0xffffff
+    hilited_candidate_back_color: 0xffffff
+    hilited_candidate_text_color: 0x7f7f7f
+    hilited_comment_text_color: 0x7f7f7f
+    hilited_key_text_color: 0x7f7f7f
+    hilited_off_key_back_color: 0xffffff
+    hilited_off_key_text_color: 0x7f7f7f
+    hilited_on_key_back_color: 0xffffff
+    hilited_on_key_text_color: 0x7f7f7f
+    hilited_text_color: 0x7f7f7f
+    key_text_color: 0x7f7f7f
+    label_color: 0x7f7f7f
+    name: "一葉孤城"
+    off_key_text_color: 0x7f7f7f
+    text_color: 0x7f7f7f
+preset_keyboards:
+  array30:
+    ascii_mode: 1
+    author: "Terry Tsang <archerindigo@gmail.com>"
+    height: 44
+    keys: [{click: 1, long_click: "!", swipe_down: "¹", swipe_up: "¡"}, {click: 2, long_click: "@", swipe_up: "²"}, {click: 3, long_click: "#", swipe_up: "³"}, {click: 4, long_click: "$", swipe_down: "£", swipe_up: "¤"}, {click: 5, long_click: "%", swipe_up: "€"}, {click: 6, long_click: "^", swipe_up: "¼"}, {click: 7, long_click: "&", swipe_up: "½"}, {click: 8, long_click: "*", swipe_up: "¾"}, {click: 9, long_click: "(){Left}", swipe_left: "(", swipe_right: ")", swipe_up: "‘"}, {click: 0, long_click: "-", swipe_down: _, swipe_left: "¥", swipe_up: "’"}, {click: q, label: "1^", long_click: "~", swipe_up: "ä"}, {click: w, label: "2^", long_click: "+", swipe_up: "å"}, {click: e, label: "3^", long_click: "=", swipe_up: "é"}, {click: r, label: "4^", long_click: "×", swipe_up: "®"}, {click: t, label: "5^", long_click: "÷", swipe_up: "þ"}, {click: y, label: "6^", long_click: "«»{Left}", swipe_left: "«", swipe_right: "»", swipe_up: "ü"}, {click: u, label: "7^", long_click: "[]{Left}", swipe_left: "[", swipe_right: "]", swipe_up: "ú"}, {click: i, label: "8^", long_click: "{}{Left}", swipe_left: "{", swipe_right: "}", swipe_up: "í"}, {click: o, label: "9^", long_click: "\\", swipe_up: "ó"}, {click: p, label: "0^", long_click: "|", swipe_down: "¬", swipe_left: "¦", swipe_up: "ö"}, {click: a, label: "1-", long_click: "`", swipe_up: "á"}, {click: s, label: "2-", swipe_down: "§", swipe_up: "ß"}, {click: d, label: "3-", swipe_up: "ð"}, {click: f, label: "4-", long_click: Left, swipe_down: Page_Down, swipe_left: Home, swipe_right: End, swipe_up: Page_Up}, {click: g, label: "5-", long_click: Up, swipe_down: Page_Down, swipe_left: Home, swipe_right: End, swipe_up: Page_Up}, {click: h, label: "6-", long_click: Down, swipe_down: Page_Down, swipe_left: Home, swipe_right: End, swipe_up: Page_Up}, {click: j, label: "7-", long_click: Right, swipe_down: Page_Down, swipe_left: Home, swipe_right: End, swipe_up: Page_Up}, {click: k, label: "8-"}, {click: l, label: "9-", swipe_up: "ø"}, {click: ";", label: "0-", long_click: ":", swipe_down: "°", swipe_up: "¶"}, {click: z, label: 1v, long_click: select_all, swipe_up: "æ"}, {click: x, label: 2v, long_click: cut}, {click: c, label: 3v, long_click: copy, swipe_down: "¢", swipe_up: "©"}, {click: v, label: 4v, long_click: paste}, {click: b, label: 5v, long_click: Insert}, {click: n, label: 6v, long_click: undo, swipe_up: "ñ"}, {click: m, label: 7v, long_click: redo, swipe_up: "µ"}, {click: ",", label: 8v, long_click: "<", swipe_up: "ç"}, {click: ., label: 9v, long_click: ">"}, {click: "/", label: 0v, long_click: "?", swipe_up: "¿"}, {click: Shift_L}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: Mode_switch, long_click: Menu}, {click: space, long_click: VOICE_ASSIST, width: 30}, {click: "'", long_click: "\""}, {click: BackSpace, swipe_left: Escape, swipe_right: Delete, width: 15}, {click: Return, long_click: CommitComment, width: 15}]
+    lock: true
+    name: "行列30配美式國際"
+    width: 10
+  bopomofo:
+    ascii_keyboard: letter
+    ascii_mode: 0
+    author: "皛筱晓小笨鱼"
+    height: 44
+    keys: [{click: 1, label: "ㄅ", long_click: "!"}, {click: 2, label: "ㄉ", long_click: "@"}, {click: 3, label: "ˇ", long_click: "#"}, {click: 4, label: "ˋ", long_click: "$"}, {click: 5, label: "ㄓ", long_click: "%"}, {click: 6, label: "ˊ", long_click: "^"}, {click: 7, label: "˙", long_click: "&"}, {click: 8, label: "ㄚ", long_click: "*"}, {click: 9, label: "ㄞ", long_click: "("}, {click: 0, label: "ㄢ", long_click: ")"}, {click: q, label: "ㄆ", long_click: _}, {click: w, label: "ㄊ", long_click: "-"}, {click: e, label: "ㄍ", long_click: "+"}, {click: r, label: "ㄐ", long_click: "="}, {click: t, label: "ㄔ", long_click: "|"}, {click: y, label: "ㄗ", long_click: "\\"}, {click: u, label: "ㄧ", long_click: "["}, {click: i, label: "ㄛ", long_click: "]"}, {click: o, label: "ㄟ", long_click: "{"}, {click: p, label: "ㄣ", long_click: "}"}, {click: a, label: "ㄇ", long_click: "`"}, {click: s, label: "ㄋ", long_click: Up}, {click: d, label: "ㄎ", long_click: "~"}, {click: f, label: "ㄑ", long_click: "!"}, {click: g, label: "ㄕ", long_click: select_all}, {click: h, label: "ㄘ", long_click: Home}, {click: j, label: "ㄨ", long_click: End}, {click: k, label: "ㄜ", long_click: Page_Up}, {click: l, label: "ㄠ", long_click: Page_Down}, {click: ";", label: "ㄤ", long_click: ":"}, {click: z, label: "ㄈ", long_click: Left}, {click: x, label: "ㄌ", long_click: Down}, {click: c, label: "ㄏ", long_click: Right}, {click: v, label: "ㄒ", long_click: cut}, {click: b, label: "ㄖ", long_click: copy}, {click: n, label: "ㄙ", long_click: paste}, {click: m, label: "ㄩ", long_click: Insert}, {click: ",", label: "ㄝ", long_click: "<"}, {click: ., label: "ㄡ", long_click: ">"}, {click: "/", label: "ㄥ", long_click: "?"}, {click: Shift_L, label: "換檔", send_bindings: false}, {click: Mode_switch, long_click: Menu}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: space, width: 30}, {click: "-", label: "ㄦ", long_click: "\""}, {click: "，", long_click: "。"}, {click: BackSpace, long_click: Escape, width: 10}, {click: Return, composing: Return1, long_click: CommitComment, width: 10}]
+    name: "註音鍵盤"
+    width: 10
+  cangjie5:
+    ascii_mode: 0
+    author: "皛筱晓小笨鱼"
+    height: 55
+    keys: [{click: q, label: "手", long_click: _}, {click: w, label: "田", long_click: "-"}, {click: e, label: "水", long_click: "+"}, {click: r, label: "口", long_click: "="}, {click: t, label: "廿", long_click: "|"}, {click: y, label: "卜", long_click: "\\"}, {click: u, label: "山", long_click: "["}, {click: i, label: "戈", long_click: "]"}, {click: o, label: "人", long_click: "{"}, {click: p, label: "心", long_click: "}"}, {click: ";", long_click: ":"}, {click: a, label: "日", long_click: "`"}, {click: s, label: "尸", long_click: Up}, {click: d, label: "木", long_click: "~"}, {click: f, label: "火", long_click: "!"}, {click: g, label: "土", long_click: "@"}, {click: h, label: "竹", long_click: "#"}, {click: j, label: "十", long_click: "$"}, {click: k, label: "大", long_click: "%"}, {click: l, label: "中", long_click: "^"}, {click: "/", long_click: "?"}, {click: z, label: "符", long_click: Left}, {click: x, label: "難", long_click: Down}, {click: c, label: "金", long_click: Right}, {click: v, label: "女", long_click: "&"}, {click: b, label: "月", long_click: "*"}, {click: n, label: "弓", long_click: "("}, {click: m, label: "一", long_click: ")"}, {click: ",", long_click: "<"}, {click: BackSpace, long_click: Escape, width: 10}, {click: Hide}, {click: Shift_L, send_bindings: false}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: space, width: 40}, {click: Mode_switch, long_click: Menu}, {click: ., long_click: ">"}, {click: Return, composing: Return1, long_click: CommitComment, width: 10}]
+    name: "倉頡五代鍵盤"
+    width: 10
+  cangjie6:
+    ascii_mode: 0
+    author: "吴琛11"
+    height: 44
+    keys: [{width: 3}, {click: 1, long_click: "!"}, {click: 2, long_click: "@"}, {click: 3, long_click: "#"}, {click: 4, long_click: "$"}, {click: 5, long_click: "%"}, {click: 6, long_click: "^"}, {click: 7, long_click: "&"}, {click: 8, long_click: "*"}, {click: 9, long_click: "("}, {click: 0, long_click: ")"}, {width: 3}, {click: q, label: "手", long_click: _}, {click: w, label: "田", long_click: "-"}, {click: e, label: "水", long_click: "+"}, {click: r, label: "口", long_click: "="}, {click: t, label: "廿", long_click: "|"}, {click: y, label: "卜", long_click: "\\"}, {click: u, label: "山", long_click: "["}, {click: i, label: "戈", long_click: "]"}, {click: o, label: "人", long_click: "{"}, {click: p, label: "心", long_click: "}"}, {width: 7}, {click: a, label: "日", long_click: select_all}, {click: s, label: "尸", long_click: Home}, {click: d, label: "木", long_click: End}, {click: f, label: "火", long_click: Page_Up}, {click: g, label: "土", long_click: Page_Down}, {click: h, label: "的", long_click: Left}, {click: j, label: "十", long_click: Down}, {click: k, label: "大", long_click: Up}, {click: l, label: "中", long_click: Right}, {width: 6}, {width: 3}, {click: Shift_L, width: 13.8}, {click: z, label: "片", long_click: "`"}, {click: x, label: "止", long_click: cut}, {click: c, label: "金", long_click: copy}, {click: v, label: "女", long_click: paste}, {click: b, label: "月", long_click: "~"}, {click: n, label: "弓", long_click: "\""}, {click: m, label: "一", long_click: Delete}, {click: BackSpace, width: 13.8}, {width: 2}, {width: 3}, {click: Menu, long_click: Color_switch, width: 14}, {click: Keyboard_symbols, long_click: Keyboard_number, width: 11.5}, {click: ",", long_click: .}, {click: space, width: 25}, {click: "'", long_click: "?"}, {click: Return, composing: Return1, long_click: CommitComment, width: 25.5}]
+    name: "倉頡六代"
+    width: 9.7
+  default:
+    ascii_mode: 0
+    author: "osfans / Sansheng"
+    columns: 10
+    height: 55
+    key_hint_offset_x: 0
+    key_hint_offset_y: 0
+    key_press_offset_x: 2
+    key_press_offset_y: 2
+    key_symbol_offset_x: 0
+    key_symbol_offset_y: 0
+    key_text_offset_x: 0
+    key_text_offset_y: 0
+    keys: [{click: q, label_symbol: 1, long_click: "!", swipe_down: {commit: Q}, swipe_up: {commit: 1}}, {click: w, label_symbol: 2, long_click: "@", swipe_down: {commit: W}, swipe_up: {commit: 2}}, {click: e, label_symbol: 3, long_click: "#", swipe_down: {commit: E}, swipe_up: {commit: 3}}, {click: r, label_symbol: 4, long_click: "$", swipe_down: {commit: R}, swipe_up: {commit: 4}}, {click: t, label_symbol: 5, long_click: "%", swipe_down: {commit: T}, swipe_up: {commit: 5}}, {click: y, label_symbol: 6, long_click: "^", swipe_down: {commit: Y}, swipe_up: {commit: 6}}, {click: u, label_symbol: 7, long_click: "&", swipe_down: {commit: U}, swipe_up: {commit: 7}}, {click: i, label_symbol: 8, long_click: "*", swipe_down: {commit: I}, swipe_up: {commit: 8}}, {click: o, label_symbol: 9, long_click: "(){Left}", swipe_down: {commit: O}, swipe_up: {commit: 9}}, {click: p, label_symbol: 0, long_click: Hide, swipe_down: {commit: P}, swipe_up: {commit: 0}}, {width: 5}, {click: a, label_symbol: "@", long_click: select_all, swipe_down: {commit: A}, swipe_left: Left, swipe_right: Right, swipe_up: {commit: "@"}}, {click: s, label_symbol: "*", long_click: "~", swipe_down: {commit: S}, swipe_left: Home, swipe_right: End, swipe_up: {commit: "*"}}, {click: d, label_symbol: "+", long_click: "-", swipe_down: {commit: D}, swipe_up: {commit: "+"}}, {click: f, label_symbol: "-", long_click: "+", swipe_down: {commit: F}, swipe_up: {commit: "-"}}, {click: g, label_symbol: "=", long_click: "\\", swipe_down: {commit: G}, swipe_up: {commit: "="}}, {click: h, label_symbol: "/", long_click: "[]{Left}", swipe_down: {commit: H}, swipe_left: "[", swipe_right: "]", swipe_up: {commit: "/"}}, {click: j, label_symbol: "#", long_click: "{}{Left}", swipe_down: {commit: J}, swipe_left: "{", swipe_right: "}", swipe_up: {commit: "#"}}, {click: k, label_symbol: "(", long_click: ":", swipe_down: {commit: K}, swipe_up: {commit: "("}}, {click: l, label_symbol: ")", long_click: ";", swipe_down: {commit: L}, swipe_up: {commit: ")"}}, {width: 5}, {click: Shift_L, send_bindings: false, width: 15}, {click: z, label_symbol: ., long_click: "`", swipe_down: {commit: Z}, swipe_up: {commit: .}}, {click: x, label_symbol: ":", long_click: cut, swipe_down: {commit: X}, swipe_up: {commit: ":"}}, {click: c, label_symbol: "\"", long_click: copy, swipe_down: {commit: C}, swipe_up: {commit: "\""}}, {click: v, label_symbol: "?", long_click: paste, swipe_down: {commit: V}, swipe_up: {commit: "?"}}, {click: b, label_symbol: "!", long_click: Time, swipe_down: {commit: B}, swipe_up: {commit: "!"}}, {click: n, label_symbol: "~", long_click: "\"", swipe_down: {commit: N}, swipe_up: {commit: "~"}}, {click: m, label_symbol: "\\", long_click: "'", swipe_down: {commit: M}, swipe_up: {commit: "\\"}}, {click: BackSpace, long_click: Clear, swipe_down: undo, swipe_left: Escape, swipe_up: Clear, width: 15}, {click: Mode_switch, long_click: Menu, width: 15}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: ",", long_click: "<"}, {click: space, width: 30}, {click: ., long_click: ">"}, {click: "/", long_click: "?"}, {click: Return, composing: Return1, long_click: CommitComment, width: 15}]
+    lock: true
+    name: "三生26鍵"
+    width: 10
+  letter:
+    ascii_mode: 1
+    author: "osfans / Sansheng"
+    columns: 10
+    height: 55
+    key_hint_offset_x: 0
+    key_hint_offset_y: 0
+    key_press_offset_x: 2
+    key_press_offset_y: 2
+    key_symbol_offset_x: 0
+    key_symbol_offset_y: 0
+    key_text_offset_x: 0
+    key_text_offset_y: 0
+    keys: [{click: q, label_symbol: 1, long_click: "!", swipe_down: {commit: Q}, swipe_up: {commit: 1}}, {click: w, label_symbol: 2, long_click: "@", swipe_down: {commit: W}, swipe_up: {commit: 2}}, {click: e, label_symbol: 3, long_click: "#", swipe_down: {commit: E}, swipe_up: {commit: 3}}, {click: r, label_symbol: 4, long_click: "$", swipe_down: {commit: R}, swipe_up: {commit: 4}}, {click: t, label_symbol: 5, long_click: "%", swipe_down: {commit: T}, swipe_up: {commit: 5}}, {click: y, label_symbol: 6, long_click: "^", swipe_down: {commit: Y}, swipe_up: {commit: 6}}, {click: u, label_symbol: 7, long_click: "&", swipe_down: {commit: U}, swipe_up: {commit: 7}}, {click: i, label_symbol: 8, long_click: "*", swipe_down: {commit: I}, swipe_up: {commit: 8}}, {click: o, label_symbol: 9, long_click: "(){Left}", swipe_down: {commit: O}, swipe_up: {commit: 9}}, {click: p, label_symbol: 0, long_click: Hide, swipe_down: {commit: P}, swipe_up: {commit: 0}}, {width: 5}, {click: a, label_symbol: "@", long_click: select_all, swipe_down: {commit: A}, swipe_left: Left, swipe_right: Right, swipe_up: {commit: "@"}}, {click: s, label_symbol: "*", long_click: "~", swipe_down: {commit: S}, swipe_left: Home, swipe_right: End, swipe_up: {commit: "*"}}, {click: d, label_symbol: "+", long_click: "-", swipe_down: {commit: D}, swipe_up: {commit: "+"}}, {click: f, label_symbol: "-", long_click: "+", swipe_down: {commit: F}, swipe_up: {commit: "-"}}, {click: g, label_symbol: "=", long_click: "\\", swipe_down: {commit: G}, swipe_up: {commit: "="}}, {click: h, label_symbol: "/", long_click: "[]{Left}", swipe_down: {commit: H}, swipe_left: "[", swipe_right: "]", swipe_up: {commit: "/"}}, {click: j, label_symbol: "#", long_click: "{}{Left}", swipe_down: {commit: J}, swipe_left: "{", swipe_right: "}", swipe_up: {commit: "#"}}, {click: k, label_symbol: "(", long_click: ":", swipe_down: {commit: K}, swipe_up: {commit: "("}}, {click: l, label_symbol: ")", long_click: ";", swipe_down: {commit: L}, swipe_up: {commit: ")"}}, {width: 5}, {click: Shift_L, send_bindings: false, width: 15}, {click: z, label_symbol: ., long_click: "`", swipe_down: {commit: Z}, swipe_up: {commit: .}}, {click: x, label_symbol: ":", long_click: cut, swipe_down: {commit: X}, swipe_up: {commit: ":"}}, {click: c, label_symbol: "\"", long_click: copy, swipe_down: {commit: C}, swipe_up: {commit: "\""}}, {click: v, label_symbol: "?", long_click: paste, swipe_down: {commit: V}, swipe_up: {commit: "?"}}, {click: b, label_symbol: "!", long_click: Time, swipe_down: {commit: B}, swipe_up: {commit: "!"}}, {click: n, label_symbol: "~", long_click: "\"", swipe_down: {commit: N}, swipe_up: {commit: "~"}}, {click: m, label_symbol: "\\", long_click: "'", swipe_down: {commit: M}, swipe_up: {commit: "\\"}}, {click: BackSpace, long_click: Clear, swipe_down: undo, swipe_left: Escape, swipe_up: Clear, width: 15}, {click: Mode_switch, long_click: Menu, width: 15}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: ",", long_click: "<"}, {click: space, width: 30}, {click: ., long_click: ">"}, {click: "/", long_click: "?"}, {click: Return, composing: Return1, long_click: CommitComment, width: 15}]
+    lock: false
+    name: "三生26鍵"
+    reset_ascii_mode: true
+    width: 10
+  mini:
+    ascii_mode: 0
+    author: tumuyan
+    height: 44
+    keyboard_height: 120
+    keys: [{click: 1, long_click: "!"}, {click: 2, long_click: "@"}, {click: 3, long_click: "#"}, {click: 4, long_click: "$"}, {click: 5, long_click: "%"}, {click: 6, long_click: "^"}, {click: 7, long_click: "&"}, {click: 8, long_click: "*"}, {click: 9, long_click: "("}, {click: 0, long_click: ")"}, {click: Shift_L}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: "'", long_click: "\""}, {click: "-", long_click: _}, {click: "=", long_click: "+"}, {click: ",", long_click: "<"}, {click: ., long_click: ">"}, {click: "/", long_click: "?"}, {click: Mode_switch, long_click: Menu}, {click: Return, composing: Return1, long_click: CommitComment}]
+    lock: true
+    name: "精简键盘"
+    width: 10
+  number:
+    author: "osfans <waxaca@163.com>"
+    height: 44
+    keys: [{click: "+"}, {click: KP_1}, {click: KP_2}, {click: KP_3}, {click: "#"}, {click: "-"}, {click: KP_4}, {click: KP_5}, {click: KP_6}, {click: "%"}, {click: "*"}, {click: KP_7}, {click: KP_8}, {click: KP_9}, {click: ":"}, {click: "/"}, {click: "±"}, {click: KP_0}, {click: .}, {click: ","}, {click: "="}, {click: Keyboard_default, long_click: Keyboard_symbols}, {click: space}, {click: BackSpace}, {click: Return}]
+    name: "預設數字"
+    width: 20
+  quick5:
+    ascii_mode: 0
+    height: 44
+    keys: [{width: 3}, {click: 1, long_click: "!"}, {click: 2, long_click: "@"}, {click: 3, long_click: "#"}, {click: 4, long_click: "$"}, {click: 5, long_click: "%"}, {click: 6, long_click: "^"}, {click: 7, long_click: "&"}, {click: 8, long_click: "*"}, {click: 9, long_click: "("}, {click: 0, long_click: ")"}, {width: 3}, {click: q, label: "手", long_click: _}, {click: w, label: "田", long_click: "-"}, {click: e, label: "水", long_click: "+"}, {click: r, label: "口", long_click: "="}, {click: t, label: "廿", long_click: "|"}, {click: y, label: "卜", long_click: "\\"}, {click: u, label: "山", long_click: "["}, {click: i, label: "戈", long_click: "]"}, {click: o, label: "人", long_click: "{"}, {click: p, label: "心", long_click: "}"}, {width: 7}, {click: a, label: "日", long_click: select_all}, {click: s, label: "尸", long_click: Home}, {click: d, label: "木", long_click: End}, {click: f, label: "火", long_click: Page_Up}, {click: g, label: "土", long_click: Page_Down}, {click: h, label: "竹", long_click: Left}, {click: j, label: "十", long_click: Down}, {click: k, label: "大", long_click: Up}, {click: l, label: "中", long_click: Right}, {width: 6}, {width: 3}, {click: Shift_L, width: 13.8}, {click: z, label: "重", long_click: "`"}, {click: x, label: "難", long_click: cut}, {click: c, label: "金", long_click: copy}, {click: v, label: "女", long_click: paste}, {click: b, label: "月", long_click: "~"}, {click: n, label: "弓", long_click: "\""}, {click: m, label: "一", long_click: Delete}, {click: BackSpace, width: 13.8}, {width: 2}, {width: 3}, {click: Menu, long_click: Color_switch, width: 14}, {click: Keyboard_symbols, long_click: Keyboard_number, width: 11.5}, {click: ",", long_click: .}, {click: space, width: 25}, {click: "'", long_click: "?"}, {click: Return, long_click: CommitComment, width: 25.5}]
+    name: "速成"
+    width: 9.7
+  qwerty:
+    ascii_mode: 0
+    author: "osfans <waxaca@163.com>"
+    height: 44
+    keys: [{click: 1, long_click: "!"}, {click: 2, long_click: "@"}, {click: 3, long_click: "#"}, {click: 4, long_click: "$"}, {click: 5, long_click: "%"}, {click: 6, long_click: "^"}, {click: 7, long_click: "&"}, {click: 8, long_click: "*"}, {click: 9, long_click: "("}, {click: 0, long_click: ")"}, {click: q, long_click: _}, {click: w, long_click: "-"}, {click: e, long_click: "+"}, {click: r, long_click: "="}, {click: t, long_click: "|"}, {click: y, long_click: "\\"}, {click: u, long_click: "["}, {click: i, long_click: "]"}, {click: o, long_click: "{"}, {click: p, long_click: "}"}, {click: a, long_click: select_all}, {click: s, long_click: Home}, {click: d, long_click: End}, {click: f, long_click: Page_Up}, {click: g, long_click: Page_Down}, {click: h, long_click: Left}, {click: j, long_click: Down}, {click: k, long_click: Up}, {click: l, long_click: Right}, {click: ";", long_click: ":"}, {click: z, long_click: "`"}, {click: x, long_click: cut}, {click: c, long_click: copy}, {click: v, long_click: paste}, {click: b, long_click: "~"}, {click: n, long_click: Insert}, {click: m, long_click: Delete}, {click: ",", long_click: "<"}, {click: ., long_click: ">"}, {click: "/", long_click: "?"}, {click: Shift_L}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: Mode_switch, long_click: Menu}, {click: space, width: 30}, {click: "'", long_click: "\""}, {click: BackSpace, width: 15}, {click: Return, composing: Return1, long_click: CommitComment, width: 15}]
+    lock: true
+    name: "預設40鍵"
+    width: 10
+  qwerty0:
+    ascii_mode: 0
+    author: "osfans <waxaca@163.com>"
+    height: 44
+    keys: [{click: 1, long_click: "!"}, {click: 2, long_click: "@"}, {click: 3, long_click: "#"}, {click: 4, long_click: "$"}, {click: 5, long_click: "%"}, {click: 6, long_click: "^"}, {click: 7, long_click: "&"}, {click: 8, long_click: "*"}, {click: 9, long_click: "("}, {click: 0, long_click: ")"}, {click: q, long_click: _}, {click: w, long_click: "-"}, {click: e, long_click: "+"}, {click: r, long_click: "="}, {click: t, long_click: "|"}, {click: y, long_click: "\\"}, {click: u, long_click: "["}, {click: i, long_click: "]"}, {click: o, long_click: "{"}, {click: p, long_click: "}"}, {width: 5}, {click: a, long_click: select_all}, {click: s, long_click: Home}, {click: d, long_click: End}, {click: f, long_click: Page_Up}, {click: g, long_click: Page_Down}, {click: h, long_click: Left}, {click: j, long_click: Down}, {click: k, long_click: ":"}, {click: l, long_click: ";"}, {width: 5}, {click: Shift_L, has_menu: "'", width: 15}, {click: z, long_click: "`"}, {click: x, long_click: cut}, {click: c, long_click: copy}, {click: v, long_click: paste}, {click: b, long_click: "~"}, {click: n, long_click: "\""}, {click: m, long_click: MoeDict}, {click: BackSpace, width: 15}, {click: Mode_switch, long_click: Menu, width: 15}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: ",", long_click: "<"}, {click: space, width: 30}, {click: ., long_click: ">"}, {click: "/", long_click: "?"}, {click: Return, composing: Return1, long_click: CommitComment, width: 15}]
+    label_transform: uppercase
+    lock: true
+    name: "預設36鍵"
+    width: 10
+  qwerty_:
+    ascii_mode: 0
+    author: "osfans <waxaca@163.com>"
+    height: 55
+    keys: [{click: q, long_click: "!", swipe_up: 1}, {click: w, long_click: "@", swipe_up: 2}, {click: e, long_click: "#", swipe_up: 3}, {click: r, long_click: "$", swipe_up: 4}, {click: t, long_click: "%", swipe_up: 5}, {click: y, long_click: "^", swipe_up: 6}, {click: u, long_click: "&", swipe_up: 7}, {click: i, long_click: "*", swipe_up: 8}, {click: o, long_click: "(", swipe_up: 9}, {click: p, long_click: ")", swipe_up: 0}, {click: a, long_click: select_all, swipe_down: Down, swipe_left: Left, swipe_right: Right, swipe_up: Up}, {click: s, long_click: "~", swipe_down: Page_Down, swipe_left: Home, swipe_right: End, swipe_up: Page_Up}, {click: d, long_click: "-", swipe_down: _}, {click: f, long_click: "+", swipe_down: "="}, {click: g, long_click: "\\", swipe_down: "|"}, {click: h, long_click: "[]{Left}", swipe_left: "[", swipe_right: "]"}, {click: j, long_click: "{}{Left}", swipe_left: "{", swipe_right: "}"}, {click: k, long_click: "\""}, {click: l, long_click: "'"}, {click: ";", long_click: ":"}, {click: z, long_click: "`"}, {click: x, long_click: cut}, {click: c, long_click: copy}, {click: v, long_click: paste}, {click: b, long_click: Time, swipe_up: Date}, {click: n, long_click: Insert}, {click: m, long_click: Delete}, {click: ",", long_click: "<"}, {click: ., long_click: ">"}, {click: "/", long_click: "?"}, {click: Shift_L}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: Mode_switch, long_click: Menu}, {click: space, width: 40}, {click: BackSpace, width: 15}, {click: Return, composing: Return1, long_click: CommitComment, width: 15}]
+    lock: true
+    name: "預設30鍵"
+    width: 10
+  scj6:
+    ascii_mode: 0
+    author: "皛筱晓小笨鱼"
+    height: 55
+    keys: [{click: q, label: "手", long_click: _}, {click: w, label: "田", long_click: "-"}, {click: e, label: "水", long_click: "+"}, {click: r, label: "口", long_click: "="}, {click: t, label: "廿", long_click: "|"}, {click: y, label: "卜", long_click: "\\"}, {click: u, label: "山", long_click: "["}, {click: i, label: "戈", long_click: "]"}, {click: o, label: "人", long_click: "{"}, {click: p, label: "心", long_click: "}"}, {click: ";", long_click: ":"}, {click: a, label: "日", long_click: "`"}, {click: s, label: "尸", long_click: Up}, {click: d, label: "木", long_click: "~"}, {click: f, label: "火", long_click: "!"}, {click: g, label: "土", long_click: "@"}, {click: h, label: "竹", long_click: "#"}, {click: j, label: "十", long_click: "$"}, {click: k, label: "大", long_click: "%"}, {click: l, label: "中", long_click: "^"}, {click: "/", long_click: "?"}, {click: z, label: "符", long_click: Left}, {click: x, label: "難", long_click: Down}, {click: c, label: "金", long_click: Right}, {click: v, label: "女", long_click: "&"}, {click: b, label: "月", long_click: "*"}, {click: n, label: "弓", long_click: "("}, {click: m, label: "一", long_click: ")"}, {click: ",", long_click: "<"}, {click: BackSpace, long_click: Escape, width: 10}, {click: Hide}, {click: Shift_L, send_bindings: false}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: space, width: 40}, {click: Mode_switch, long_click: Menu}, {click: ., long_click: ">"}, {click: Return, composing: Return1, long_click: CommitComment, width: 10}]
+    name: "倉頡五代鍵盤"
+    width: 10
+  stroke:
+    ascii_mode: 0
+    author: "皛筱晓小笨鱼"
+    height: 75
+    keys: [{click: "?", long_click: "!"}, {click: h, label: "一"}, {click: s, label: "丨"}, {click: p, label: "丿"}, {click: BackSpace, long_click: Escape}, {click: ";", long_click: ":"}, {click: n, label: "丶"}, {click: z, label: "乙"}, {click: "'", label: "詞組"}, {click: ",", long_click: .}, {click: Hide, width: 10}, {click: "/", long_click: "^", width: 10}, {click: Keyboard_symbols, long_click: Keyboard_number, width: 10}, {click: space, width: 40}, {click: Keyboard_letter, long_click: Menu, width: 10}, {click: Return, composing: Return1, long_click: CommitComment, width: 20}]
+    name: "五筆畫鍵盤"
+    width: 20
+  symbols:
+    ascii_mode: 1
+    author: "天真可愛的滿滿"
+    height: 44
+    keys: [{click: 1}, {click: 2}, {click: 3}, {click: 4}, {click: 5}, {click: 6}, {click: 7}, {click: 8}, {click: 9}, {click: 0}, {click: "~", long_click: "`"}, {click: "!"}, {click: "@"}, {click: "#"}, {click: "$"}, {click: "￥"}, {click: "%"}, {click: "^"}, {click: "&"}, {click: "*"}, {click: "(", long_click: "{"}, {click: ")", long_click: "}"}, {click: "[", long_click: "【"}, {click: "]", long_click: "】"}, {click: "「", long_click: "『"}, {click: "」", long_click: "』"}, {ascii: "\\", click: "、", long_click: "|"}, {click: "/", long_click: "√"}, {click: ":"}, {click: ";"}, {click: "+"}, {click: "-", long_click: _}, {click: "="}, {ascii: "<", click: "〈", long_click: "《"}, {ascii: ">", click: "〉", long_click: "》"}, {ascii: "\"", click: "“", long_click: "‘"}, {ascii: "'", click: "”", long_click: "’"}, {ascii: ",", click: "，", long_click: one_hand_switch_1}, {ascii: "?", click: "？", long_click: one_hand_switch_3}, {click: BackSpace, long_click: Escape}, {click: Keyboard_default, long_click: Menu, width: 15}, {click: Keyboard_number, long_click: Color_switch}, {click: Keyboard_mini, long_click: Theme_settings}, {click: space, width: 30}, {ascii: ., click: "。"}, {click: liquid_keyboard_switch, long_click: Delete}, {click: Return, long_click: select_all, width: 15}]
+    name: "符號"
+    width: 10
+  telegraph:
+    ascii_mode: 0
+    author: "熊貓阿Bo"
+    keys: [{click: "@"}, {click: 7}, {click: 8}, {click: 9}, {click: "、"}, {click: "!", label: "！"}, {click: 4}, {click: 5}, {click: 6}, {click: ";", label: "；"}, {click: "?", label: "？"}, {click: 1}, {click: 2}, {click: 3}, {click: ",", label: "，"}, {click: "\"", label: "“”{Left}"}, {click: ":", label: "："}, {click: 0}, {click: ., label: "。"}, {click: BackSpace}, {click: Keyboard_letter, long_click: Menu}, {click: space, width: 60}, {click: Return, composing: Return1}]
+    name: "電碼"
+    width: 20
+  terra_pinyin:
+    ascii_mode: 0
+    author: "默默ㄇㄛˋ"
+    height: 55
+    keys: [{click: q, long_click: _}, {click: w, long_click: "-"}, {click: e, long_click: "+"}, {click: r, long_click: "="}, {click: t, long_click: "|"}, {click: y, long_click: "^"}, {click: u, long_click: "["}, {click: i, long_click: "]"}, {click: o, long_click: "{"}, {click: p, long_click: "}"}, {click: a, long_click: "`"}, {click: s, long_click: Time, swipe_up: Date}, {click: d, long_click: "~"}, {click: f, long_click: "!"}, {click: g, long_click: "@"}, {click: h, long_click: "#"}, {click: j, long_click: "$"}, {click: k, long_click: "%"}, {click: l, long_click: ">"}, {click: ";", composing: "ˉ", long_click: ":", send_bindings: false}, {click: z, long_click: cut}, {click: x, long_click: copy}, {click: c, long_click: paste}, {click: v, long_click: "&"}, {click: b, long_click: "*"}, {click: n, long_click: "("}, {click: m, long_click: ")"}, {click: "/", composing: "ˊ", long_click: "?", send_bindings: false}, {click: ",", composing: "ˇ", long_click: "<", send_bindings: false}, {click: BackSpace, long_click: Escape}, {click: Mode_switch, long_click: Menu}, {click: Shift_L}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: space, width: 40}, {click: ., long_click: "\""}, {click: "\\", composing: "ˋ", long_click: ., send_bindings: false}, {click: Return, composing: Return1, long_click: CommitComment}]
+    name: "地球拼音鍵盤"
+    width: 10
+  us_intl:
+    ascii_mode: 1
+    author: "Terry Tsang <archerindigo@gmail.com>"
+    height: 44
+    keys: [{click: 1, long_click: "!", swipe_down: "¹", swipe_up: "¡"}, {click: 2, long_click: "@", swipe_up: "²"}, {click: 3, long_click: "#", swipe_up: "³"}, {click: 4, long_click: "$", swipe_down: "£", swipe_up: "¤"}, {click: 5, long_click: "%", swipe_up: "€"}, {click: 6, long_click: "^", swipe_up: "¼"}, {click: 7, long_click: "&", swipe_up: "½"}, {click: 8, long_click: "*", swipe_up: "¾"}, {click: 9, long_click: "(){Left}", swipe_left: "(", swipe_right: ")", swipe_up: "‘"}, {click: 0, long_click: "-", swipe_down: _, swipe_left: "¥", swipe_up: "’"}, {click: q, long_click: "~", swipe_up: "ä"}, {click: w, long_click: "+", swipe_up: "å"}, {click: e, long_click: "=", swipe_up: "é"}, {click: r, long_click: "×", swipe_up: "®"}, {click: t, long_click: "÷", swipe_up: "þ"}, {click: y, long_click: "«»{Left}", swipe_left: "«", swipe_right: "»", swipe_up: "ü"}, {click: u, long_click: "[]{Left}", swipe_left: "[", swipe_right: "]", swipe_up: "ú"}, {click: i, long_click: "{}{Left}", swipe_left: "{", swipe_right: "}", swipe_up: "í"}, {click: o, long_click: "\\", swipe_up: "ó"}, {click: p, long_click: "|", swipe_down: "¬", swipe_left: "¦", swipe_up: "ö"}, {click: a, long_click: "`", swipe_up: "á"}, {click: s, swipe_down: "§", swipe_up: "ß"}, {click: d, swipe_up: "ð"}, {click: f, long_click: Left, swipe_down: Page_Down, swipe_left: Home, swipe_right: End, swipe_up: Page_Up}, {click: g, long_click: Up, swipe_down: Page_Down, swipe_left: Home, swipe_right: End, swipe_up: Page_Up}, {click: h, long_click: Down, swipe_down: Page_Down, swipe_left: Home, swipe_right: End, swipe_up: Page_Up}, {click: j, long_click: Right, swipe_down: Page_Down, swipe_left: Home, swipe_right: End, swipe_up: Page_Up}, {click: k}, {click: l, swipe_up: "ø"}, {click: ";", long_click: ":", swipe_down: "°", swipe_up: "¶"}, {click: z, long_click: select_all, swipe_up: "æ"}, {click: x, long_click: cut}, {click: c, long_click: copy, swipe_down: "¢", swipe_up: "©"}, {click: v, long_click: paste}, {click: b, long_click: Insert}, {click: n, long_click: undo, swipe_up: "ñ"}, {click: m, long_click: redo, swipe_up: "µ"}, {click: ",", long_click: "<", swipe_up: "ç"}, {click: ., long_click: ">"}, {click: "/", long_click: "?", swipe_up: "¿"}, {click: Shift_L}, {click: Keyboard_symbols, long_click: Keyboard_number}, {click: Mode_switch, long_click: Menu}, {click: space, long_click: VOICE_ASSIST, width: 30}, {click: "'", long_click: "\""}, {click: BackSpace, swipe_left: Escape, swipe_right: Delete, width: 15}, {click: Return, long_click: CommitComment, width: 15}]
+    lock: true
+    name: "美式國際"
+    width: 10
+preset_keys:
+  BRIGHTNESS_DOWN:
+    label: "亮度-"
+    send: BRIGHTNESS_DOWN
+  BRIGHTNESS_UP:
+    label: "亮度+"
+    send: BRIGHTNESS_UP
+  BackSpace:
+    label: "退格"
+    repeatable: true
+    send: BackSpace
+  BackToPreviousSyllable:
+    label: "刪音節"
+    send: "Control+BackSpace"
+  Baidu:
+    command: run
+    label: "百度搜索"
+    option: "https://www.baidu.com/s?wd=%4$s"
+  CALCULATOR:
+    label: "計算機"
+    send: CALCULATOR
+  CALENDAR:
+    label: "日曆"
+    send: CALENDAR
+  CONTACTS:
+    label: "電話簿"
+    send: CONTACTS
+  Candidate_switch:
+    send: SWITCH_CHARSET
+    states: ["有候選", "無候選"]
+    toggle: _hide_candidate
+  Charset_switch:
+    send: SWITCH_CHARSET
+    states: ["常用", "增廣"]
+    toggle: extended_charset
+  ChineseDate:
+    command: date
+    label: "農曆"
+    option: "zh_CN@calendar=chinese"
+  Clear:
+    label: "清除"
+    text: "{Control+a}{BackSpace}"
+  Color_settings:
+    label: "配色"
+    option: color
+    send: SETTINGS
+  Color_switch:
+    label: "配色"
+    send: PROG_RED
+  Comment_switch:
+    send: SWITCH_CHARSET
+    states: ["有註釋", "無註釋"]
+    toggle: _hide_comment
+  CommitComment:
+    label: "編碼"
+    send: "Control+Shift+Return"
+  CommitHomepage:
+    commit: "https://github.com/osfans/trime"
+    label: "同文網址"
+  CommitRawInput:
+    label: "編碼"
+    send: "Control+Return"
+  CommitScriptText:
+    label: "編碼"
+    send: "Shift+Return"
+  Date:
+    command: date
+    label: "日期"
+    option: "yyyy-MM-dd"
+  Delete:
+    label: "刪除"
+    send: Delete
+  DeleteCandidate:
+    label: "刪詞"
+    send: "Control+Delete"
+  Deploy:
+    command: apply
+    label: "部署"
+    option: DEPLOY
+    send: FUNCTION
+  Down:
+    label: "↓"
+    send: Down
+  ENVELOPE:
+    label: "信箱"
+    send: ENVELOPE
+  EXPLORER:
+    label: "瀏覽器"
+    send: EXPLORER
+  End:
+    label: "行尾"
+    send: End
+  Escape:
+    label: Esc
+    send: Escape
+  F4:
+    label: "方案選單"
+    send: F4
+  Google:
+    command: run
+    label: "谷歌"
+    option: "https://www.google.com/search?q=%s"
+  Help:
+    label: "說明"
+    send: HELP
+  Henkan:
+    send: SWITCH_CHARSET
+    states: ["漢字", "汉字"]
+    toggle: simplification
+  Hide:
+    label: "隱藏"
+    send: BACK
+  Hint_switch:
+    send: SWITCH_CHARSET
+    states: ["有助記", "無助記"]
+    toggle: _hide_key_hint
+  Home:
+    label: "行首"
+    send: Home
+  Homepage:
+    command: run
+    label: "同文主頁"
+    option: "https://github.com/osfans/trime"
+  IME_last:
+    label: "上一輸入法"
+    select: .last
+    send: LANGUAGE_SWITCH
+  IME_next:
+    label: "下一輸入法"
+    select: .next
+    send: LANGUAGE_SWITCH
+  IME_switch:
+    label: "🌐"
+    send: LANGUAGE_SWITCH
+  Info:
+    label: "關於"
+    send: INFO
+  Insert:
+    label: "插入"
+    send: Insert
+  Keyboard_default:
+    label: "返回"
+    select: .default
+    send: Eisu_toggle
+  Keyboard_letter:
+    label: "字母"
+    select: default
+    send: Eisu_toggle
+  Keyboard_mini:
+    label: "迷你"
+    select: mini
+    send: Eisu_toggle
+  Keyboard_number:
+    label: "數字"
+    select: number
+    send: Eisu_toggle
+  Keyboard_switch:
+    label: "鍵盤"
+    select: .next
+    send: Eisu_toggle
+  Keyboard_symbols:
+    label: "符號"
+    select: symbols
+    send: Eisu_toggle
+  Left:
+    label: "←"
+    send: Left
+  MUSIC:
+    label: "音樂"
+    send: MUSIC
+  Menu:
+    label: "方案"
+    send: MENU
+  Mode_switch:
+    send: SWITCH_CHARSET
+    states: ["中文", "西文"]
+    toggle: ascii_mode
+  MoeDict:
+    command: run
+    label: "萌典"
+    option: "https://www.moedict.tw/%3$s"
+  POWER:
+    label: "電源"
+    send: POWER
+  Page_Down:
+    label: "下頁"
+    send: Page_Down
+  Page_Up:
+    label: "上頁"
+    send: Page_Up
+  Punct_switch:
+    send: SWITCH_CHARSET
+    states: ["。，", "．，"]
+    toggle: ascii_punct
+  RepeatCommit:
+    command: commit
+    label: "重复"
+    option: "%1$s"
+  Return:
+    label: enter_labels
+    send: Return
+  Return1:
+    label: Enter
+    send: Return
+  Return2:
+    label: "回车"
+    send: Return
+  Right:
+    label: "→"
+    send: Right
+  SEARCH:
+    label: "搜尋"
+    send: SEARCH
+  SLEEP:
+    label: "休眠"
+    send: SLEEP
+  Schema_settings:
+    label: "方案"
+    option: schema
+    send: SETTINGS
+  Schema_switch:
+    label: "下一方案"
+    send: "Control+Shift+1"
+  Search:
+    command: search
+    label: "搜索"
+    option: "%1$s"
+  Settings:
+    label: "設定"
+    send: SETTINGS
+  Share:
+    command: send
+    label: "分享"
+    option: "%s"
+  Shift_L:
+    label: Shift
+    send: Shift_L
+    shift_lock: ascii_long
+  Sync:
+    command: apply
+    label: "同步"
+    option: SYNC_USER_DATA
+    send: FUNCTION
+  Theme_settings:
+    label: "主題"
+    option: theme
+    send: SETTINGS
+  Time:
+    command: date
+    label: "時間"
+    option: "HH:mm:ss"
+  TrimeApp:
+    command: run
+    label: "同文"
+    option: com.osfans.trime
+  TrimeCmp:
+    command: run
+    label: "同文組件"
+    option: "com.osfans.trime/.ui.main.MainActivity"
+  Up:
+    label: "↑"
+    send: Up
+  VOICE_ASSIST:
+    label: "語音"
+    send: VOICE_ASSIST
+  VOLUME_DOWN:
+    label: "音量-"
+    send: VOLUME_DOWN
+  VOLUME_MUTE:
+    label: "靜音"
+    send: VOLUME_MUTE
+  VOLUME_UP:
+    label: "音量+"
+    send: VOLUME_UP
+  WebSearch:
+    command: web_search
+    label: "搜索網頁"
+    option: "%4$s"
+  Wiki:
+    command: run
+    label: "維基"
+    option: "https://zh.wikipedia.org/wiki/%s"
+  Zdic:
+    command: run
+    label: "漢典"
+    option: "http://www.zdic.net/sousuo/?q=%1$s"
+  Zdic2:
+    command: run
+    label: "漢典"
+    option: "http://www.zdic.net/sousuo/?q=%2$s"
+  Zenkaku_Hankaku:
+    send: SWITCH_CHARSET
+    states: ["半角", "全角"]
+    toggle: full_shape
+  clipboard_window:
+    command: clipboard_window
+    label: "剪贴"
+    option: 0
+    send: FUNCTION
+  copy:
+    label: "複製"
+    send: "Control+c"
+  copy_all:
+    label: "全謄"
+    text: "{Control+a}{Control+c}"
+  cut:
+    label: "剪下"
+    send: "Control+x"
+  cut_all:
+    label: "全挪"
+    text: "{Control+a}{Control+x}"
+  liquid_keyboard_emoji:
+    command: liquid_keyboard
+    label: "🙂"
+    option: emoji
+    send: FUNCTION
+  liquid_keyboard_exit:
+    command: liquid_keyboard
+    label: "返回"
+    option: "-1"
+    send: FUNCTION
+  liquid_keyboard_switch:
+    command: liquid_keyboard
+    label: "更多"
+    option: "更多"
+    send: FUNCTION
+  one_hand_switch_1:
+    send: SWITCH_CHARSET
+    states: ["左手", "普通"]
+    toggle: _one_hand_mode_1
+  one_hand_switch_2:
+    send: SWITCH_CHARSET
+    states: ["右手", "普通"]
+    toggle: _one_hand_mode_2
+  one_hand_switch_3:
+    send: SWITCH_CHARSET
+    states: ["左手", "右手"]
+    toggle: _one_hand_mode_3
+  paste:
+    label: "貼上"
+    send: "Control+v"
+  paste_text:
+    label: "貼上文本"
+    send: "Control+Shift+Alt+v"
+  redo:
+    label: "重做"
+    send: "Control+Shift+z"
+  select_all:
+    label: "全選"
+    send: "Control+a"
+  set_color_ink:
+    command: set_color_scheme
+    label: "切换到ink配色"
+    option: ink
+    send: FUNCTION
+  set_theme_ink:
+    command: set_theme
+    label: "切换到ink主题"
+    option: ink
+    send: FUNCTION
+  share_text:
+    label: "分享文本"
+    send: "Control+Alt+s"
+  space:
+    functional: false
+    repeatable: false
+    send: space
+  space1:
+    functional: false
+    label: "空格"
+    repeatable: false
+    send: space
+  undo:
+    label: "撤銷"
+    send: "Control+z"
+  updateConfig:
+    command: apply
+    label: "更新配置"
+    option: UPDATE_CONFIG
+    send: FUNCTION
+style:
+  auto_caps: false
+  candidate_font: han.ttf
+  candidate_padding: 5
+  candidate_spacing: 0.0
+  candidate_text_size: 22
+  candidate_text_vertical_bias: 1.0
+  candidate_view_height: 28
+  comment_font: comment.ttf
+  comment_height: 12
+  comment_position: right
+  comment_text_size: 10
+  comment_vertical_bias: 0.0
+  enter_label_mode: 0
+  enter_labels:
+    default: Enter
+    done: "完成"
+    go: "前往"
+    next: "下个"
+    pre: "上个"
+    search: "搜索"
+    send: "发送"
+  hanb_font: hanb.ttf
+  horizontal_gap: 1
+  key_font: symbol.ttf
+  key_height: 44
+  key_long_text_size: 14
+  key_text_size: 22
+  key_width: 10.0
+  keyboard_height: 250
+  keyboard_height_land: 200
+  keyboard_padding: 0
+  keyboard_padding_bottom: 0
+  keyboard_padding_land: 40
+  keyboard_padding_land_bottom: 0
+  keyboard_padding_left: 0
+  keyboard_padding_right: 40
+  label_font: label.ttf
+  label_text_size: 22
+  latin_font: latin.ttf
+  preview_font: latin.ttf
+  preview_height: 60
+  preview_offset: "-12"
+  preview_text_size: 40
+  reset_ascii_mode_on_focus_change: false
+  round_corner: 8
+  shadow_radius: 0.0
+  symbol_font: symbol.ttf
+  symbol_text_size: 10
+  text_font: latin.ttf
+  vertical_gap: 1
+window:
+  foreground:
+    comment_font_size: 16
+    label_font_size: 20
+    text_font_size: 20
+  insets:
+    horizontal: 4
+    vertical: 4
+  item_padding:
+    horizontal: 4

@@ -1,0 +1,112 @@
+-- enWord_translator.lua
+-- v34 实验：只在输入长度 >= 5 时才执行（五笔编码最长4字母，>=5一定是英文）
+-- 目的：确认轻微卡顿是否由 enWord_translator 在 1-4 字母输入时的执行导致
+
+local BUCKET_FILE = "en_word_bucket.txt"
+
+local function luaDirFromSelf()
+  local ok, info = pcall(function() return debug.getinfo(1, "S") end)
+  if not ok or not info or not info.source then return nil end
+  local src = tostring(info.source)
+  if src:sub(1, 1) ~= "@" then return nil end
+  src = src:gsub("\\", "/"):sub(2)
+  return src:match("^(.-/lua/)[^/]+$")
+end
+
+local function dirCandidates()
+  local out = {}
+  local function add(d)
+    if type(d) == "string" and d ~= "" then out[#out + 1] = d end
+  end
+  add(luaDirFromSelf())
+  local okApi, api = pcall(function() return rime.get_api() end)
+  if okApi and api then
+    local okDd, dd = pcall(api.get_user_data_dir, api)
+    if okDd and dd and tostring(dd) ~= "" then
+      add(tostring(dd):gsub("\\", "/") .. "/")
+    end
+  end
+  add("./")
+  return out
+end
+
+local buckets = {}
+local loaded = false
+
+local function loadBuckets()
+  if loaded then return end
+  loaded = true
+  local dirs = dirCandidates()
+  local fn = nil
+  for i = 1, #dirs do
+    local d = dirs[i]
+    fn = io.open(d .. BUCKET_FILE, "r")
+    if fn then break end
+    fn = io.open(d .. "lua/" .. BUCKET_FILE, "r")
+    if fn then break end
+  end
+  if not fn then return end
+  for line in fn:lines() do
+    local letter, word, weight, gloss = line:match("^([a-z])\t(%S+)\t(%d+)\t(.*)$")
+    if letter and word then
+      if not buckets[letter] then buckets[letter] = {} end
+      buckets[letter][word] = {gloss = gloss or "", weight = tonumber(weight) or 2}
+    end
+  end
+  fn:close()
+end
+
+local function enWordTranslate(input, seg)
+  -- 只在输入长度 >= 5 时才执行（五笔编码最长4字母，>=5一定是英文）
+  if type(input) ~= "string" or #input < 5 then return end
+  if not input:match("^[a-zA-Z]+$") then return end
+
+  if not loaded then
+    local okLoad = pcall(loadBuckets)
+    if not okLoad then return end
+  end
+
+  local raw = input:lower()
+  local first = raw:sub(1, 1)
+  local bucket = buckets[first]
+  if not bucket then return end
+
+  -- ascii_mode 检查
+  local okApi, api = pcall(function() return rime.get_api() end)
+  if okApi and api then
+    local okCtx, ctx = pcall(function() return api.get_context and api:get_context() end)
+    if okCtx and ctx then
+      local okOpt, val = pcall(function() return ctx:get_option("ascii_mode") end)
+      if okOpt and val then return end
+    end
+  end
+
+  -- 精确匹配
+  local hit = bucket[raw]
+  if hit then
+    local c = hit.gloss
+    if c and c ~= "" then
+      yield(Candidate("word", seg.start, seg._end, raw, c))
+    else
+      yield(Candidate("word", seg.start, seg._end, raw, ""))
+    end
+  end
+
+  -- 前缀联想（只在长度 >= 5 时才做，不会干扰五笔打字）
+  if hit then return end  -- 精确匹配已 yield，不再做前缀
+  -- 输入 >= 5 字母，做前缀联想
+  for word, data in pairs(bucket) do
+    if word:sub(1, #raw) == raw and word ~= raw then
+      local c = data.gloss
+      if c and c ~= "" then
+        yield(Candidate("word", seg.start, seg._end, word, c))
+      else
+        yield(Candidate("word", seg.start, seg._end, word, ""))
+      end
+      -- 限量 5 个前缀候选
+      break  -- v34 先只出精确匹配，前缀联想后续再加
+    end
+  end
+end
+
+return enWordTranslate
