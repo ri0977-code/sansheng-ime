@@ -3,11 +3,14 @@
 !include "FileFunc.nsh"
 
 Name "三生输入法"
-OutFile "三生输入法-v1.10.5-setup.exe"
+OutFile "三生输入法-v1.10.6-setup.exe"
 InstallDir "$PROGRAMFILES64\Rime"
 RequestExecutionLevel admin
 
-!define MUI_ICON "config\icon-sansheng-tray.ico"
+; 安装包/桌面图标 = 主人点名的「黑方底金环汉字三」（README 图标二·方圆象）。
+; 2026-11-02 之前这里挂的是 icon-sansheng-tray.ico（黑圆底变形三），和托盘同一张，
+; 主人这次明确把桌面岗位分给金环三、托盘留给圆底变形三。想换回去改这一行即可。
+!define MUI_ICON "config\icon-sansheng-ring.ico"
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_DIRECTORY
@@ -283,21 +286,72 @@ custom_phrase_ready:
   DetailPrint "配置文件已释放到 $R9"
 
   ; ===== 3. 把图标文件复制到安装根目录（注册表 IconFile 指向这里） =====
+  ; 【Qoder 2026-11-02 · 主人按「画法」定的岗位】原话：
+  ;   「黑方底金汉字三，黑方底金环汉字三（桌面图标用）+（选择输入法时，输入法本身图标
+  ;     （现在是和托盘的一样，需要改过来），黑方底变形汉字三，黑圆底圆形变形汉字三（托盘用）」
+  ; 画法 → 文件是逐张渲染核对的，别按文件名猜（F:\sansheng_probe_log\icon_roles_20261102\artwork_map.png）：
+  ;   ① icon-sansheng-ring.ico      黑方底金环三（README 图标二·方圆象）→ 安装包/桌面/快捷方式/控制面板
+  ;   ② icon-sansheng-formal.ico    黑方底变形三（README 图标三·鱼眼象）→ 注册表 TIP IconFile（10 处）=「选择输入法」列表里那张
+  ;   ③ icon-sansheng-tray.ico      黑圆底变形三                        → 随包留档 + 「中英切换/托盘」那张的
+  ;                                                       历史款。注意：小狼毫的托盘图标和中英切换图标
+  ;                                                       是同一对键（weasel.custom.yaml 打开
+  ;                                                       style/display_tray_icon 后，托盘画的就是
+  ;                                                       wubi_pinyin.custom.yaml 的 zhung_icon/ascii_icon），
+  ;                                                       主人 2026-11-02 明确不许动中英切换 ⇒
+  ;                                                       那两行是 bubble / bubble-en，托盘现在跟着 bubble。
+  ;   ④ icon-sansheng-bubble-en.ico 黑圆底 A                            → schema/ascii_icon（英文模式托盘）
+  ;   ⑤ icon-sansheng-cn.ico        黑方底金三（README 图标一·乾卦象）  → 随包留档，暂无挂载岗位
+  ;   ⑥ icon-sansheng-bubble.ico    黑圆底三                            → ③ 顶掉后暂无引用，留档可一句话回退
+  ;   ⑦ wubi86_jidian.ico           白底红「极」                        → wubi86_jidian.schema.yaml → schema/icon
+  ; ②③ 为什么必须分家：以前 display_tray_icon=false，Windows 托盘直接画 TIP IconFile，
+  ; 两处共用同一个注册表值 ⇒ 托盘和列表永远一个样（主人投诉的就是这个）。
+  ; 现在 IconFile 只喂列表，托盘由 zhung_icon 承担，两张才可能不同。
+  ; 2026-11-01 H-312 教训：程序目录里少一张图没人拦得住（托盘退化成「简体」两个字）。
+  ; 现在每张复制后当场校验，缺一张就中止安装。
   SetOutPath "$INSTDIR"
   ; ===== 许可证与第三方说明（CC BY-SA 4.0 要求随分发物一起给）=====
   File "..\..\LICENSE"
   File "..\..\THIRD_PARTY_NOTICES.md"
   File /r "..\..\LICENSES\*"
-  ExecWait 'cmd /c copy /y "$R9\icon-sansheng-tray.ico" "$INSTDIR\icon-sansheng-tray.ico"'
-  ; v1.9.9：不再复制 icon-sansheng-cn/-en.ico（10-16 之后停更的老图，配置里已无引用）；
-  ;          卸载段仍保留对这两个文件的 Delete，用来清掉老版本安装留下的残留文件。
-
-  ; 验证图标
-  IfFileExists "$INSTDIR\icon-sansheng-tray.ico" 0 +4
-    DetailPrint "icon OK"
-    Goto icon_ok
-    MessageBox MB_ICONSTOP "错误：图标文件复制失败！"
+  ; v1.9.9 曾停复制 icon-sansheng-cn/-en.ico（当时配置里无引用）；
+  ; 2026-11-02 主人把「黑方底金汉字三」重新算进要保存的 4 张里，cn.ico 恢复随包，
+  ; 卸载段仍保留对 cn/-en 的 Delete，用来清掉老版本安装留下的残留文件。
+  CopyFiles /SILENT "$R9\icon-sansheng-ring.ico" "$INSTDIR\icon-sansheng-ring.ico"
+  CopyFiles /SILENT "$R9\icon-sansheng-formal.ico" "$INSTDIR\icon-sansheng-formal.ico"
+  CopyFiles /SILENT "$R9\icon-sansheng-tray.ico" "$INSTDIR\icon-sansheng-tray.ico"
+  CopyFiles /SILENT "$R9\icon-sansheng-bubble-en.ico" "$INSTDIR\icon-sansheng-bubble-en.ico"
+  CopyFiles /SILENT "$R9\icon-sansheng-bubble.ico" "$INSTDIR\icon-sansheng-bubble.ico"
+  CopyFiles /SILENT "$R9\icon-sansheng-cn.ico" "$INSTDIR\icon-sansheng-cn.ico"
+  CopyFiles /SILENT "$R9\wubi86_jidian.ico" "$INSTDIR\wubi86_jidian.ico"
+  ${IfNot} ${FileExists} "$INSTDIR\icon-sansheng-ring.ico"
+    MessageBox MB_ICONSTOP "错误：桌面图标 icon-sansheng-ring.ico 没能放进程序目录！$\n安装已中止，未做任何后续注册。"
     Abort
+  ${EndIf}
+  ${IfNot} ${FileExists} "$INSTDIR\icon-sansheng-formal.ico"
+    MessageBox MB_ICONSTOP "错误：输入法列表图标 icon-sansheng-formal.ico 没能放进程序目录！$\n安装已中止。"
+    Abort
+  ${EndIf}
+  ${IfNot} ${FileExists} "$INSTDIR\icon-sansheng-tray.ico"
+    MessageBox MB_ICONSTOP "错误：托盘图标 icon-sansheng-tray.ico 没能放进程序目录！$\n安装已中止。"
+    Abort
+  ${EndIf}
+  ${IfNot} ${FileExists} "$INSTDIR\icon-sansheng-bubble-en.ico"
+    MessageBox MB_ICONSTOP "错误：英文模式托盘图标 icon-sansheng-bubble-en.ico 没能放进程序目录！$\n安装已中止。"
+    Abort
+  ${EndIf}
+  ${IfNot} ${FileExists} "$INSTDIR\icon-sansheng-bubble.ico"
+    MessageBox MB_ICONSTOP "错误：留档气泡图标 icon-sansheng-bubble.ico 没能放进程序目录！$\n安装已中止。"
+    Abort
+  ${EndIf}
+  ${IfNot} ${FileExists} "$INSTDIR\icon-sansheng-cn.ico"
+    MessageBox MB_ICONSTOP "错误：乾卦象图标 icon-sansheng-cn.ico 没能放进程序目录！$\n安装已中止。"
+    Abort
+  ${EndIf}
+  ${IfNot} ${FileExists} "$INSTDIR\wubi86_jidian.ico"
+    MessageBox MB_ICONSTOP "错误：极点五笔方案图标 wubi86_jidian.ico 没能放进程序目录！$\n安装已中止。"
+    Abort
+  ${EndIf}
+  DetailPrint "7 张图标已进入程序目录：ring(桌面) / formal(列表) / tray(托盘) / bubble-en(英文托盘) / bubble / cn / wubi86_jidian"
 
 icon_ok:
   ; ===== 4. 释放注册表文件到临时目录 =====
@@ -411,19 +465,19 @@ reg_ok:
     SetRegView 32
   ${EndIf}
 
-  WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000804\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-tray.ico"
-  WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000404\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-tray.ico"
-  WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000c04\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-tray.ico"
-  WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00001004\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-tray.ico"
-  WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00001404\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-tray.ico"
+  WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000804\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-formal.ico"
+  WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000404\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-formal.ico"
+  WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000c04\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-formal.ico"
+  WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00001004\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-formal.ico"
+  WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00001404\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-formal.ico"
 
   ${If} ${RunningX64}
     SetRegView 32
-    WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000804\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-tray.ico"
-    WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000404\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-tray.ico"
-    WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000c04\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-tray.ico"
-    WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00001004\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-tray.ico"
-    WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00001404\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-tray.ico"
+    WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000804\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-formal.ico"
+    WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000404\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-formal.ico"
+    WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00000c04\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-formal.ico"
+    WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00001004\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-formal.ico"
+    WriteRegStr HKLM "SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}\LanguageProfile\0x00001404\{3D02CAB6-2B8E-4781-BA20-1C9267529467}" "IconFile" "$INSTDIR\icon-sansheng-formal.ico"
   ${EndIf}
 
   ; ===== 8. 部署词典（编译配置） =====
@@ -505,20 +559,26 @@ tip_warn_done:
 
   ; ===== 12. 开始菜单 + 控制面板卸载入口 =====
   CreateDirectory "$SMPrograms\三生输入法"
-  ; 图标必须用 icon-sansheng-tray.ico（金圈三，md5 6939d30208ec）。
-  ; 原先这里挂的是 icon-sansheng-cn.ico —— 一张 10-16 之后就没再更新的老图，
-  ; 配置与引擎里都没有任何引用（只有安装器在复制/删除它），所以开始菜单那个
-  ; 「三生输入法」一直显示旧图标，跟托盘/气泡对不上。仅改图标项，目标与参数不动。
-  CreateShortcut "$SMPrograms\三生输入法\三生输入法.lnk" "$INSTDIR\weasel-0.17.4\WeaselServer.exe" "" "$INSTDIR\icon-sansheng-tray.ico"
+  ; 快捷方式/控制面板图标 = icon-sansheng-ring.ico（黑方底金环三，README 图标二·方圆象）。
+  ; 这是主人 2026-11-02 按「画法」点的岗位：「黑方底金环汉字三（桌面图标用）」，
+  ; 不靠我这边的品牌推断；换主意只改这一处 + 第 13 行 MUI_ICON + 第 3 步那条 CopyFiles。
+  ; 托盘那张（黑圆底变形三 icon-sansheng-tray.ico，49,495 B / md5 fbb6a5741b7b，
+  ; 主人 2026-11-02 看过说「正常」）由 weasel.custom.yaml 的 display_tray_icon +
+  ; wubi_pinyin.custom.yaml 的 zhung_icon 承担，不再走快捷方式这条路。
+  ; 上一版托盘图 28,386 B / md5 6939d30208ec 留档在
+  ;   assets\icon-sansheng-tray.ico.bak-icon-20261030，想回一句话的事，别删。
+  ; icon-sansheng-cn.ico（黑方底金三）曾被 v1.9.9 当"无引用老图"停发，
+  ; 2026-11-02 主人把它重新算进要保存的 4 张，已恢复随包，但它还没有挂载岗位。
+  CreateShortcut "$SMPrograms\三生输入法\三生输入法.lnk" "$INSTDIR\weasel-0.17.4\WeaselServer.exe" "" "$INSTDIR\icon-sansheng-ring.ico"
   CreateShortcut "$SMPrograms\三生输入法\卸载三生输入法.lnk" "$INSTDIR\uninstall-sansheng.exe"
-  CreateShortcut "$SMPrograms\三生输入法\检查更新.lnk" "$INSTDIR\tools\检查更新.cmd" "" "$INSTDIR\icon-sansheng-tray.ico"
-  CreateShortcut "$SMPrograms\三生输入法\反查诊断.lnk" "$INSTDIR\tools\反查诊断.cmd" "" "$INSTDIR\icon-sansheng-tray.ico"
+  CreateShortcut "$SMPrograms\三生输入法\检查更新.lnk" "$INSTDIR\tools\检查更新.cmd" "" "$INSTDIR\icon-sansheng-ring.ico"
+  CreateShortcut "$SMPrograms\三生输入法\反查诊断.lnk" "$INSTDIR\tools\反查诊断.cmd" "" "$INSTDIR\icon-sansheng-ring.ico"
 
   WriteUninstaller "$INSTDIR\uninstall-sansheng.exe"
   SetRegView 64
-  WriteRegStr HKLM "${UN_KEY}" "DisplayIcon" "$INSTDIR\icon-sansheng-tray.ico"
+  WriteRegStr HKLM "${UN_KEY}" "DisplayIcon" "$INSTDIR\icon-sansheng-ring.ico"
   WriteRegStr HKLM "${UN_KEY}" "DisplayName" "三生输入法"
-  WriteRegStr HKLM "${UN_KEY}" "DisplayVersion" "1.10.5"
+  WriteRegStr HKLM "${UN_KEY}" "DisplayVersion" "1.10.6"
   WriteRegStr HKLM "${UN_KEY}" "Publisher" "WorkBuddy"
   WriteRegStr HKLM "${UN_KEY}" "InstallLocation" "$INSTDIR"
   WriteRegStr HKLM "${UN_KEY}" "UninstallString" '"$INSTDIR\uninstall-sansheng.exe"'
@@ -651,7 +711,15 @@ Section "Uninstall"
   ;   随自动更新提醒一起取消：安装器不建任务，卸载也就没任务要撤。）
   RMDir /r "$INSTDIR\weasel-0.17.4"
   RMDir /r "$INSTDIR\tools"
+  ; 【Qoder 2026-11-02】第 3 步现在放 7 张图标进程序目录（ring/formal/tray/bubble/bubble-en/cn/wubi86_jidian），
+  ; 卸载要一起清掉
+  ;（精确文件名，不用通配；用户配置目录 $R9 里那份属于用户数据，卸载从来不动）
+  Delete "$INSTDIR\icon-sansheng-ring.ico"
+  Delete "$INSTDIR\icon-sansheng-formal.ico"
   Delete "$INSTDIR\icon-sansheng-tray.ico"
+  Delete "$INSTDIR\icon-sansheng-bubble.ico"
+  Delete "$INSTDIR\icon-sansheng-bubble-en.ico"
+  Delete "$INSTDIR\wubi86_jidian.ico"
   Delete "$INSTDIR\icon-sansheng-cn.ico"
   Delete "$INSTDIR\icon-sansheng-en.ico"
   Delete "$INSTDIR\LICENSE"
@@ -707,7 +775,9 @@ uninstall_sansheng_only:
     ; 只在值确实等于三生图标时才删，绝不覆盖用户自己改过的图标。
     SetRegView 64
     ReadRegStr $R5 HKLM "SOFTWARE\Microsoft\CTF\TIP\${TIP_CLSID}\LanguageProfile\0x00000804\${TIP_GUID}" "IconFile"
-    ${If} $R5 == "$INSTDIR\icon-sansheng-tray.ico"
+    ${If} $R5 == "$INSTDIR\icon-sansheng-formal.ico"
+    ${OrIf} $R5 == "$INSTDIR\icon-sansheng-tray.ico"
+    ${OrIf} $R5 == "$INSTDIR\icon-sansheng-ring.ico"
     ${OrIf} $R5 == "$INSTDIR\icon-sansheng-cn.ico"
       DeleteRegValue HKLM "SOFTWARE\Microsoft\CTF\TIP\${TIP_CLSID}\LanguageProfile\0x00000804\${TIP_GUID}" "IconFile"
       DeleteRegValue HKLM "SOFTWARE\Microsoft\CTF\TIP\${TIP_CLSID}\LanguageProfile\0x00000404\${TIP_GUID}" "IconFile"
@@ -718,7 +788,9 @@ uninstall_sansheng_only:
     ${If} ${RunningX64}
       SetRegView 32
       ReadRegStr $R5 HKLM "SOFTWARE\Microsoft\CTF\TIP\${TIP_CLSID}\LanguageProfile\0x00000804\${TIP_GUID}" "IconFile"
-      ${If} $R5 == "$INSTDIR\icon-sansheng-tray.ico"
+      ${If} $R5 == "$INSTDIR\icon-sansheng-formal.ico"
+      ${OrIf} $R5 == "$INSTDIR\icon-sansheng-tray.ico"
+      ${OrIf} $R5 == "$INSTDIR\icon-sansheng-ring.ico"
       ${OrIf} $R5 == "$INSTDIR\icon-sansheng-cn.ico"
         DeleteRegValue HKLM "SOFTWARE\Microsoft\CTF\TIP\${TIP_CLSID}\LanguageProfile\0x00000804\${TIP_GUID}" "IconFile"
         DeleteRegValue HKLM "SOFTWARE\Microsoft\CTF\TIP\${TIP_CLSID}\LanguageProfile\0x00000404\${TIP_GUID}" "IconFile"
@@ -728,7 +800,12 @@ uninstall_sansheng_only:
       ${EndIf}
       SetRegView 64
     ${EndIf}
+    Delete "$INSTDIR\icon-sansheng-ring.ico"
+    Delete "$INSTDIR\icon-sansheng-formal.ico"
     Delete "$INSTDIR\icon-sansheng-tray.ico"
+    Delete "$INSTDIR\icon-sansheng-bubble.ico"
+    Delete "$INSTDIR\icon-sansheng-bubble-en.ico"
+    Delete "$INSTDIR\wubi86_jidian.ico"
     Delete "$INSTDIR\icon-sansheng-cn.ico"
     Delete "$INSTDIR\icon-sansheng-en.ico"
   ${Else}

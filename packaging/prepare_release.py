@@ -27,12 +27,51 @@ import sys
 ROOT = r"F:\workbuddywork\三生输入法"
 STAGE = os.path.join(ROOT, "packaging", "stage")
 REL = os.path.join(ROOT, "packaging", "release")
-LIVE = r"D:\Program Files\Rime"
+LIVE = r"D:\Program Files\Rime"          # 兜底口径（老机器：安装目录 == 用户目录）
+
+# 【Qoder 2026-11-02】这台机器的「生效用户配置目录」已经不是安装目录了：
+#   HKCU\Software\Rime\Weasel\RimeUserDir = G:\RimeUser（主人 2026-10 迁的）。
+#   脚本原来把 LIVE 当「本机配置」比 md5，2026-11-02 跑 --check 直接
+#   FileNotFoundError: D:\Program Files\Rime\zh2en_pinyin_wp.dict.yaml —— 文件在 G:\RimeUser，
+#   不在 D:。这不是配置坏了，是脚本口径过期。现在按注册表解析，解析不到才退回 LIVE。
+#   用 reg.exe 而不是 winreg：本机 winreg 的 KEY_READ 已含 KEY_WOW64_64KEY，
+#   再 OR 上 KEY_WOW64_32KEY 会枚举出 0 个值，看起来像「值不存在」（2026-10-30 踩过）。
+TIP_KEY = (r"HKLM\SOFTWARE\Microsoft\CTF\TIP\{A3F4CDED-B1E9-41EE-9CA6-7B4D0DE6CB0A}"
+           r"\LanguageProfile\0x00000804\{3D02CAB6-2B8E-4781-BA20-1C9267529467}")
+
+
+def reg_value(key, name):
+    """读一个字符串注册表值；读不到返回 None（不抛，发布脚本要能在别的机器上跑）。"""
+    try:
+        r = subprocess.run(["reg.exe", "query", key, "/v", name],
+                           capture_output=True, text=True, encoding="gbk", errors="replace")
+    except Exception:
+        return None
+    for line in (r.stdout or "").splitlines():
+        parts = line.strip().split()
+        if len(parts) >= 3 and parts[0].lower() == name.lower() and parts[1].upper() == "REG_SZ":
+            val = line.strip()[len(parts[0]):].strip()
+            val = val[val.find("REG_SZ") + len("REG_SZ"):].strip()
+            return val or None
+    return None
+
+
+def _resolve_dirs():
+    user = reg_value(r"HKCU\Software\Rime\Weasel", "RimeUserDir") or LIVE
+    icon = reg_value(TIP_KEY, "IconFile")
+    prog = os.path.dirname(icon) if icon else LIVE
+    return os.path.normpath(user), os.path.normpath(prog or LIVE)
+
+
+USER_CFG, PROG_DIR = _resolve_dirs()
 
 # 个人数据 / 不该对外的文件（按文件名匹配，小写）
 PERSONAL = {
     "user.txt", "user.yaml", "installation.yaml", "custom_phrase.txt",
-    "runlog.txt", "phraseext personal.txt",
+    "runlog.txt", "phraseext personal.txt", "phrasecomment personal.txt",
+    # 【Qoder 2026-11-02】phraseComment personal.txt 和 phraseExt personal.txt 同一类：
+    #   stage（=真机镜像）里是主人自己的注释内容，发布树由第 2.5 步换成空模板。
+    #   所以 5.6 拿真机和 stage 比 md5 时它必然不等 —— 那是设计如此，不是漂移。
     # Qoder 2026-10-26：wubi86.txt 是 **wubi86 词典的用户学习词 TextDb 导出**
     #   （文件头 `#@/db_name wubi86` + `#@/db_type tabledb` + `#@/tick 83`，
     #     正文是「工<Tab>aaaa<Tab>2」这类学习计数，本机那份 mtime 10-25 14:54，
@@ -60,9 +99,35 @@ _LIC_DIR = os.path.join(ROOT, "LICENSES")
 LICENSE_DOCS = {n.lower() for n in os.listdir(_LIC_DIR)} if os.path.isdir(_LIC_DIR) else set()
 LICENSE_DOCS |= {"license", "license.txt", "copying", "notice.txt", "third_party_notices.md"}
 
+# 真机目录里存在、但**逐条核对过决定不进包**的运行时文件（相对生效用户目录的路径）。
+# 5.6 闸门会跳过这里列出的项；每一项必须写清理由，防止下一个人当漂移"修"回去。
+# 【Qoder 2026-11-02】
+NOT_SHIPPED = {
+    "仓键盘布局/wubi86_jidian_ios_keyboard.yaml":
+        "真机 *.yaml 里 grep 不到任何引用（未接线）；主人 2026-11-02 没点名，不动",
+}
+
 INSTDIR_PLACEHOLDER = r"$INSTDIR"
 
 CHECK_TABLES = ["zh2en_pinyin_wp.dict.yaml", "zh2en_wubi_wp.dict.yaml"]
+
+# 【Qoder 2026-11-02 · 主人「图标保存好，打包的时候都打进去」】
+# 主人这次是按「画法」数的 4 张，不是按文件名，原话：
+#   「黑方底金汉字三，黑方底金环汉字三（桌面图标用）+（选择输入法时，输入法本身图标
+#     （现在是和托盘的一样，需要改过来），黑方底变形汉字三，黑圆底圆形变形汉字三（托盘用）」
+# 画法 → 文件是逐张渲染核对出来的（F:\sansheng_probe_log\icon_roles_20261102\artwork_map.png），
+# 别凭文件名猜：bubble.ico 看着像「金环」，实际是黑圆底三；ring.ico 才是 README 的「图标二 方圆象」。
+PROGRAM_ICONS = [
+    ("icon-sansheng-ring.ico",   "主人点名的「黑方底金环汉字三」= README 图标二·方圆象 → 安装包 MUI_ICON / 桌面快捷方式 / 控制面板 DisplayIcon（本轮新建：此前只有 PNG，无 .ico）"),
+    ("icon-sansheng-formal.ico", "主人点名的「黑方底变形汉字三」= README 图标三·鱼眼象 → 注册表 TIP IconFile×10 =「选择输入法」列表里那张（本轮新建：此前只有 PNG，无 .ico）"),
+    ("icon-sansheng-tray.ico",   "主人点名的「黑圆底圆形变形汉字三」→ 托盘常驻图标（weasel.custom.yaml style/display_tray_icon=true + wubi_pinyin.custom.yaml schema/icon、schema/zhung_icon）"),
+    ("icon-sansheng-cn.ico",     "主人点名的「黑方底金汉字三」= README 图标一·乾卦象 → 随包留档，暂无挂载岗位（等主人点名）"),
+    ("icon-sansheng-bubble-en.ico", "wubi_pinyin.custom.yaml → schema/ascii_icon（英文模式托盘，黑圆底 A）"),
+    ("icon-sansheng-bubble.ico", "黑圆底三：当前无配置引用（2026-11-02 岗位改给 tray.ico 后空出），随包留档，一句话可把 zhung_icon 回退成气泡图"),
+    ("wubi86_jidian.ico",        "wubi86_jidian.schema.yaml → schema/icon（极点五笔方案）"),
+]
+# 品牌留档目录（assets 里既有设计源图 PNG/SVG，也必须有上面这些运行时 ICO）
+ASSETS = os.path.join(ROOT, "assets")
 
 
 def md5(path):
@@ -195,7 +260,7 @@ def main():
 
     # 5) 硬校验：两张英文表必须与本机一致
     for t in CHECK_TABLES:
-        a = os.path.join(LIVE, t)
+        a = os.path.join(USER_CFG, t)
         b = os.path.join(REL, "config", t)
         ma = md5(a)
         mb = md5(b) if os.path.exists(b) else "缺失"
@@ -241,27 +306,88 @@ def main():
             report.append("校验通过 rime.lua 定义 %d 个入口；启用方案 %s 引用 %d 个全部命中" % (
                 len(defined), "/".join(sorted(active)) or "?", len(used)))
 
-    # 5.6) 硬校验：发布树的运行时配置必须覆盖本机生效的那一套（漏文件=干净机器必坏）
-    #      本机是「安装目录 == 用户目录」，任何只躺在本机根目录的运行时文件都可能没进 stage
-    live_root, rel_cfg = LIVE, os.path.join(REL, "config")
-    only_live = []
-    for fn in sorted(os.listdir(live_root)) if os.path.isdir(live_root) else []:
-        p = os.path.join(live_root, fn)
-        if not os.path.isfile(p):
-            continue
-        n = fn.lower()
-        if not n.endswith((".lua", ".yaml", ".txt")):
-            continue          # 只看运行时配置（文档/构建脚本不在此列）
-        if ".bak" in n or ".sw-" in n or ".orig" in n or "moved-" in n or "-bak" in n:
-            continue          # 各种备份残留（后缀五花八门，按子串判）
-        if n in PERSONAL or n.endswith(SKIP_SUFFIX) or n in ENGINE_SKIP or n in LICENSE_DOCS:
-            continue          # 有意不带的个人数据/杂物/许可证正文
-        if not os.path.exists(os.path.join(rel_cfg, fn)):
-            only_live.append(fn)
+    # 5.6) 硬校验：**打包种子 stage/config** 必须覆盖本机生效用户目录的那一套运行时文件
+    #      【Qoder 2026-11-02 改版】原来这条有两个盲区，把最要命的漂移放过去了：
+    #        ① 比的是 release/config —— 那是上一次出包留下的完整树，而每次出包都会
+    #          rmtree(release/config) 再从 **stage/config** 重铺，真正决定包里有什么的是 stage；
+    #        ② 只 listdir 顶层，不看 lua/ 等子目录 —— 于是
+    #          lua/enWord_Filter.lua（H-313 崩溃修复本体）不在 stage 里也照样绿灯。
+    #      2026-11-02 实测：stage 缺 enWord_Filter.lua / slash_filter_qoder.lua / en_word.* 三件套，
+    #      rime.lua 与 wubi_pinyin.{schema,custom}.yaml 停在旧版；当天重建一次就会把崩溃修复发丢。
+    #      现在：递归走真机目录 + 比 md5（不只比存在）+ 比 stage。
+    live_root, seed_cfg = USER_CFG, os.path.join(STAGE, "config")
+    only_live, stale = [], []
+    SKIP_DIRS_LIVE = SKIP_DIRS | {"build", "installation.dat"}
+    for dirpath, dirnames, filenames in os.walk(live_root):
+        dirnames[:] = sorted(d for d in dirnames
+                             if d not in SKIP_DIRS_LIVE and not d.startswith("_"))
+        for fn in sorted(filenames):
+            p = os.path.join(dirpath, fn)
+            rel = os.path.relpath(p, live_root).replace(os.sep, "/")
+            n = fn.lower()
+            if not n.endswith((".lua", ".yaml", ".txt", ".ico")):
+                continue          # 只看运行时配置和运行时图标（文档/构建脚本不在此列）
+            if ".bak" in n or ".sw-" in n or ".orig" in n or "moved-" in n or "-bak" in n:
+                continue          # 各种备份残留（后缀五花八门，按子串判）
+            if n in PERSONAL or n.endswith(SKIP_SUFFIX) or n in ENGINE_SKIP \
+                    or n in LICENSE_DOCS or os.path.basename(p).lower() in LICENSE_DOCS:
+                continue          # 有意不带的个人数据/杂物/许可证正文
+            if rel in NOT_SHIPPED:
+                continue          # 逐条核对过、写明理由的不进包项（见文件头 NOT_SHIPPED）
+            tp = os.path.join(seed_cfg, rel.replace("/", os.sep))
+            if not os.path.isfile(tp):
+                only_live.append(rel)
+            elif md5(p) != md5(tp):
+                stale.append("%s（真机 %s / stage %s）" % (rel, md5(p)[:12], md5(tp)[:12]))
     if only_live:
-        problems.append("本机有、发布树没有的运行时配置文件（干净机器会缺）: " + ", ".join(only_live[:10]))
-    else:
-        report.append("校验通过 本机根目录运行时配置在发布树中无一遗漏")
+        problems.append("生效用户目录有、打包种子 stage 没有的运行时文件（重建安装包就会从包里消失）: "
+                        + ", ".join(only_live[:12]))
+    if stale:
+        problems.append("打包种子 stage 的内容比真机旧（重建会把真机改动退回旧版）: "
+                        + "; ".join(stale[:12]))
+    if not only_live and not stale:
+        report.append("校验通过 生效用户目录 %s 的运行时配置（含 lua/ 子目录）在打包种子 stage 中"
+                      "无一遗漏且字节一致" % USER_CFG)
+
+    # 5.7) 硬校验：运行时图标「四处齐全 + 字节一致」
+    #      背景（H-312 / H-314，2026-11-01）：清 D: 根目录时把注册表指向的
+    #      icon-sansheng-tray.ico 当杂物搬进了归档，托盘当场退化成「简体」两个字。
+    #      当时没有任何检查会发现——上面的 5.6 只看 .lua/.yaml/.txt，图标根本不在射程里。
+    #      所以这一条守的是四处：品牌留档 assets / 包内 release-config /
+    #      打包输入 stage-config / 本机程序目录，任一缺失或内容不一致 ⇒ 禁止发布。
+    icon_rows = []
+    for name, where in PROGRAM_ICONS:
+        places = {"assets": os.path.join(ASSETS, name),
+                  "release": os.path.join(REL, "config", name),
+                  "stage": os.path.join(STAGE, "config", name),
+                  "程序目录": os.path.join(PROG_DIR, name),
+                  "生效用户目录": os.path.join(USER_CFG, name)}
+        # 老机器上「安装目录 == 用户目录」，两处是同一个文件，去重后只查一次
+        uniq, seen = {}, set()
+        for tag, p in places.items():
+            k = os.path.normcase(os.path.abspath(p))
+            if k in seen:
+                continue
+            seen.add(k)
+            uniq[tag] = p
+        places = uniq
+        digests, absent = {}, []
+        for tag, p in places.items():
+            if os.path.isfile(p):
+                digests[tag] = md5(p)
+            else:
+                absent.append(tag)
+        if absent:
+            problems.append("图标 %s 缺失：%s（引用处：%s）" % (name, "/".join(absent), where))
+        elif len(set(digests.values())) > 1:
+            problems.append("图标 %s 各处内容不一致：%s" % (
+                name, ", ".join("%s=%s" % (t, d[:12]) for t, d in sorted(digests.items()))))
+        else:
+            icon_rows.append("%s=%s(%d B)" % (name, list(digests.values())[0][:12],
+                                              os.path.getsize(places["release"])))
+    if icon_rows:
+        report.append("校验通过 运行时图标 %d 张在 assets/包内/stage/程序目录/生效用户目录字节一致：%s"
+                      % (len(icon_rows), ", ".join(icon_rows)))
 
     # 6) 个人数据扫描（发布前铁律）
     leak = []
