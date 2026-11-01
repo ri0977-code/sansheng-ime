@@ -55,29 +55,6 @@ Rime「**五笔 · 拼音 · 英文 · 简繁 · 混输**」全能输入法的�
 **五笔 · 拼音 · 英文互译混输 + 三向反查 + 简繁切换 + 自动造词 + 自动调频。**
 Windows、安卓、鸿蒙（上架中）三端同源。
 
-### 功能截图
-
-八张图看懂三生的核心能力（输入框是打的码，框下是候选条）：
-
-<table>
-  <tr>
-    <td align="center"><img src="assets/features/feature-01.png" width="430" alt="五笔·拼音·英文 同框混输：打 good 出「好[hao vb]」"></td>
-    <td align="center"><img src="assets/features/feature-02.png" width="430" alt="三向真·反查：打 hao 出「好[vb]」"></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="assets/features/feature-03.png" width="430" alt="中英对照：打 cpu 出 CPU「中央处理器」"></td>
-    <td align="center"><img src="assets/features/feature-04.png" width="430" alt="简繁切换：打 hao 出「號[kgnm]」"></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="assets/features/feature-05.png" width="430" alt="自动造词"></td>
-    <td align="center"><img src="assets/features/feature-06.png" width="430" alt="自动调频"></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="assets/features/feature-07.png" width="430" alt="斜杠符号速输：/szq 出 ①②③"></td>
-    <td align="center"><img src="assets/features/feature-08.png" width="430" alt="英文缩写注释：chatgpt 出 ChatGPT"></td>
-  </tr>
-</table>
-
 ### 键盘交互
 
 **手机版**
