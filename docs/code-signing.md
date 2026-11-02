@@ -53,7 +53,7 @@ Get-AuthenticodeSignature .\sansheng-ime-vX.Y.Z-setup.exe
 
 签名者为 **SignPath Foundation**。也可右键安装包 → 属性 → 数字签名查看。若签名无效或签名者不符，请不要安装，并通过 GitHub Issues 告知我们。
 
-> 截至 2026-10-20，SignPath Foundation 申请仍在进行中，当前发布的 v1.9.10 尚未签名；获批后的版本会按上述流程签名。
+> 截至 2026-11-02，SignPath Foundation 申请仍在进行中，当前发布的 v1.10.6（桌面）与 v1.10.5（安卓）尚未签名——SmartScreen 提示时点「更多信息 → 仍要运行」；获批后的版本会按上述流程签名。
 
 ## 归属 / Attribution
 
