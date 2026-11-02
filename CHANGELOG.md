@@ -121,3 +121,15 @@
   4. **出包链路的洞（H-316）**：审计发现打包种子 `packaging/stage/config` 落后真机 9 个运行时文件（含崩溃修复那处 lua、英文词库三件、两处 `lua_filter` 登记），而 5.6 号闸门只比顶层文件名、且比的是过期的 `release/` 树 ⇒ **闸门全绿也会漏发**。现改成递归比 md5、比的是种子，并把「运行时 7 张图标五处（assets / 包内 / stage / 程序目录 / 生效用户目录）字节一致」做成硬校验。
   5. **端到端复验（装的是这个正式包，不是工作树）**：静默覆盖安装退出码 0、46 秒；控制面板 `DisplayVersion` 1.10.5 → **1.10.6**、`DisplayIcon` 指向 `icon-sansheng-ring.ico`；配置层 **134 个文件与包内逐字节一致**、引擎层 **108/108 一致**、机上缺失 **0**；唯一一处"不同"是 `Custom_phrase.txt`（包内是 170 B 中性模板，安装器**有意保留**本机 1,636 B / 48 行自造词不覆盖）；`user.txt` 117,714 行、`phraseExt / phraseComment personal.txt` md5 与装前逐字节相同；注册表 `IconFile` 10/10 指向 `formal.ico` 且文件在位；重新部署后编译产物里 13 条 `lua_filter` + 2 条 `lua_processor` 全部挂在，服务端 01:08 起正常写日志、无新 dump。
   6. **未做**：`icon-sansheng-cn.ico`（图标一·乾卦象）本轮仍随包留档、无岗位；安卓与鸿蒙两端没重打包（这条只动桌面配置层与安装器）。
+
+- **v1.10.9（2026-11-02 已发布，安卓端）**：安卓 [v1.10.9-android](https://github.com/ri0977-code/sansheng-ime/releases/tag/v1.10.9-android)（`make_latest=false`，Latest 仍是桌面 v1.10.6），附件 `sansheng-ime-1.10.9-android.apk` 63,485,472 B / sha256 `539f18d19abd45d2039f7d7475401ed4e21101276bb90e09bb720fad802a7c40`，另附 `anzhuang-shuoming.txt`、`THIRD_PARTY_NOTICES.md`、`third-party-licenses.zip`、`SHA256SUMS.txt`，服务端 digest 五个逐条核对与本地一致。
+  1. **这个包不是新打的**：就是 2026-11-01 已经在 QQ 群和两个网盘发出去的那一份（逐字节同一份，SHA-256 相同）。GitHub 这次补的是「网盘上已经在用、发布页却没有这一版」的缺口——此前发布页手机还停在 v1.10.5。
+  2. **句号键上滑 = 半角英文点「.」**：中文状态、没有未上屏编码时直接上屏半角点；短按和下滑仍是「。」；正在打字时上滑会先把选中的词上屏再补一个点。
+  3. **斜杠速查提速**：`/help`、`/5g` 这类斜杠通道换实现，桌面同机 A/B 实测每键少等约 10~14 毫秒。
+  4. **调频修正**：回车直接上屏的「野码」不再变成固定候选顶到第一位；单个字母（如 `c`）也正常参与调频。
+  5. **英文缩写不被挤掉 / 清掉字面候选**：打 `chatgpt`、`5g` 时缩写本体不再被中文候选挤出去；打 `jb` 不再出字面候选「jb」。
+  6. **仍是单包**：官方 fcitx5-android Rime 插件 0.1.3 的 `librime.so` 与全部方案、词库未改动并入主 apk；`versionCode 1968 / versionName 1.10.9`（解包比对：本包 `AndroidManifest.xml` 与 11-01 拆分版主程序**逐字节相同**，故号段一致）。
+  7. **随包数据层 77 → 90 条**（新增 13、移除 0，另 8 个同名文件内容变大）：英文单词层 7 件（`en_word.*`，ECDICT / MIT）、`cn_pinyin_jidian_wp.dict.yaml`（极点词表 + pypinyin 生成）、`wubi86_jidian.dict.yaml`（v4.6，Apache-2.0）、自有 lua 4 件（`enWord_Filter` / `slash_filter` / `enDot_processor` / `backspaceClear_processor`）。归属与许可证口径见 `THIRD_PARTY_NOTICES.md` 第九节。
+  8. **安卓号段跳号**：1.10.6 / 1.10.7 / 1.10.8 没对外发过安卓包，手机从 v1.10.5 直接到 v1.10.9；桌面 v1.10.6 是电脑端号，两端号不对齐是常态，以各端发布页为准。
+  9. **已知边界（发布页与装机说明都写了）**：这一版打 `ssbz` 看不到版本牌——新版拼音组词把 `ssbz` 拆成 `s|s|b|z`，版本探针那一条跟着被拆开；词库有没有铺好改用 `/help` 判断，牌子留到下一版恢复。
+  10. **本轮没做到的核验**：① 蓝奏 / 夸克的**字节级下载复核**在本机完不成（直链那一步是 WAF 的 JS 挑战，curl/Python 解不开；本机拉 CDN 大文件又被限速），只做到口令校验返回 `zt:1`、文件名与字节数逐个对上（apk 63,485,472 / zip 62,548,107 / exe 33,416,165）；② 这个合并版 apk 没在本机重跑整套模拟器装机回归（v1.10.5 单包跑过：干净机铺 244 个文件、librime 加载成功），本轮只复核包体结构（zip 可解、871 条目、`librime.so` 在位、`META-INF/SANSHENG.RSA` 签名在位、seed 与拆分版同大小）。以 11-01 起群里的实装反馈为准。

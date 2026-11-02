@@ -206,3 +206,29 @@ LICENSES/README.md
 [dyyRime Issue #9](https://github.com/happyDom/dyyRime/issues/9)（仍待重开，0 回复），
 且按 2026-10-20 主人的决定，**不作为发布闸门**，照发并持续标注。
 
+## 九、v1.10.9 安卓单包增补（2026-11-02 · Qoder 实测）
+
+> 本节只记录安卓随包数据层从 1.10.5 到 1.10.9 的变化；第一~八节的统计口径与结论**不变**。
+> 方法：分别解出两个 apk 里的 `assets/sansheng_seed.zip`，逐条比文件名与字节数，
+> 新增文件的归属按各自表头的署名注释判定。
+
+实测结果：随包数据条目 77 → **90**（新增 13、移除 0），另有 **8** 个同名文件大小变了
+（`wubi_pinyin.custom.yaml`、`wubi86.dict.yaml`、`rime.lua`、`wubi_pinyin.schema.yaml`、
+`lua/codeLookup_Filter.lua`、`zh2en_pinyin.dict.yaml`、`lua/inputShow_Filter.lua`、`_seed清单.txt`）。
+
+| 新增内容 | 文件 | 归属与许可证 |
+|---|---|---|
+| 英文单词层（打英文出中文释义） | `en_word.dict.yaml` / `en_word.schema.yaml` / `en_word_codes.txt` / `en_word_gloss.tsv` / `en_word_ltr_idx.tsv` / `en_word_rev.tsv` / `en_word_trans.tsv` | 由 `gen_en_word.py` 从 [skywind3000/ECDICT](https://github.com/skywind3000/ECDICT)（**MIT**）生成，表头已写明来源；MIT 全文见 `LICENSES/MIT-ECDICT.txt` |
+| 极点拼音词层 | `cn_pinyin_jidian_wp.dict.yaml` | 由 `packaging/tools/build_pinyin_word_dict.py` 用极点五笔词表（[KyleBing/rime-wubi86-jidian](https://github.com/KyleBing/rime-wubi86-jidian)，**Apache-2.0**，见第二节）配 [pypinyin](https://github.com/mozillazg/python-pinyin)（**MIT**）生成的拼音码 |
+| 极点五笔主表 | `wubi86_jidian.dict.yaml`（version 4.6） | 上游 **Apache-2.0**，同第二节；随包 `LICENSES/Apache-2.0.txt` |
+| 新滤镜 / 处理器 | `lua/enWord_Filter.lua`、`lua/slash_filter.lua`、`lua/enDot_processor.lua`、`lua/backspaceClear_processor.lua` | 我们自己写（MIT，属第三节范围） |
+| 引擎层 | `lib/arm64-v8a/librime.so` 及其方案、词库 | 官方 fcitx5-android Rime 插件 0.1.3 的原件**未改动**并入主 apk（自 1.10.5 起的单包做法），LGPL-2.1 义务不变：保留许可证、给出上游源码地址，见第二节与 `LICENSES/LGPL-2.1.txt` |
+
+一处待补，已如实标注、不影响发布判定：**pypinyin 的 MIT 条款原文未单列**在
+`LICENSES/` 里（那里的 `MIT.txt` 是我们自己那份，`MIT-ECDICT.txt` 是 ECDICT 那份）。
+生成表在表头已写明「pypinyin(MIT)」与上游地址，属署名到位、原文缺一件；
+下一次整理许可证包时补 `LICENSES/MIT-pypinyin.txt`。
+
+第一节、第二节、第七节、第八节的结论在 v1.10.9 全部沿用：`happyDom/dyyRime` 仍无 LICENSE
+（默认保留所有权利，授权请求仍挂在 Issue #9，按 2026-10-20 主人的决定不作为发布闸门）、
+CC-CEDICT 派生表仍按 CC-BY-SA-4.0 署名发布、MIT 只覆盖第三节列出的文件。
