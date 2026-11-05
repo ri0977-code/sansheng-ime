@@ -105,8 +105,8 @@
 
 | 平台 | 下载 | 说明 |
 |------|------|------|
-| **Windows** | [GitHub Releases](https://github.com/ri0977-code/sansheng-ime/releases) / [蓝奏云](#) / [夸克网盘](#) → `setup.exe` | 双击覆盖安装，自动接管已有小狼毫，词库不丢 |
-| **Android** | [GitHub Releases](https://github.com/ri0977-code/sansheng-ime/releases) / [蓝奏云](#) / [夸克网盘](#) → `.apk` | 单包安装，引擎已并入，装完启用键盘即可 |
+| **Windows** | [GitHub Releases](https://github.com/ri0977-code/sansheng-ime/releases) / [蓝奏云](https://mersol.lanzout.com/b01i5z3f9i)（密码`2qrq`） / [夸克网盘](https://pan.quark.cn/s/77ee111f24ca) → `setup.exe` | 双击覆盖安装，自动接管已有小狼毫，词库不丢 |
+| **Android** | [GitHub Releases](https://github.com/ri0977-code/sansheng-ime/releases) / [蓝奏云](https://mersol.lanzout.com/b01i5z3f9i)（密码`2qrq`） / [夸克网盘](https://pan.quark.cn/s/77ee111f24ca) → `.apk` | 单包安装，引擎已并入，装完启用键盘即可 |
 | **HarmonyOS** | 华为应用市场搜「三生输入法」 | 原生版 |
 
 ---
